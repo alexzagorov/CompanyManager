@@ -17,7 +17,7 @@
         [Required]
         public string Url { get; set; }
 
-        public int CompanyId { get; set; }
+        public string CompanyId { get; set; }
 
         public Company Company { get; set; }
 

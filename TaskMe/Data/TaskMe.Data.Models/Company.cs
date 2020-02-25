@@ -20,7 +20,7 @@
         public string Name { get; set; }
 
         [Required]
-        public int CompanyPictureId { get; set; }
+        public string CompanyPictureId { get; set; }
 
         [Required]
         public Picture CompanyPicture { get; set; }

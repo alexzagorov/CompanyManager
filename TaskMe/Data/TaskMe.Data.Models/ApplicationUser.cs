@@ -44,8 +44,7 @@ namespace TaskMe.Data.Models
         [Required]
         public bool IsCreator { get; set; } = false;
 
-        [Required]
-        public int CompanyId { get; set; }
+        public string CompanyId { get; set; }
 
         public Company Company { get; set; }
     }

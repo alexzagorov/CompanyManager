@@ -11,6 +11,7 @@
 
     using TaskMe.Data.Common.Models;
     using TaskMe.Data.Models;
+    //To Do Some Fixes
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser, ApplicationRole, string>
     {
@@ -25,6 +26,14 @@
         }
 
         public DbSet<Setting> Settings { get; set; }
+
+        public DbSet<Company> Companies { get; set; }
+
+        public DbSet<Picture> Pictures { get; set; }
+
+        public DbSet<TaskModel> Tasks { get; set; }
+
+        public DbSet<UserTask> UserTasks { get; set; }
 
         public override int SaveChanges() => this.SaveChanges(true);
 
@@ -47,6 +56,9 @@
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
+            ConfigureAllEntitiesRelations(builder);
+
+
             // Needed for Identity models configuration
             base.OnModelCreating(builder);
 
@@ -96,6 +108,13 @@
                 .HasForeignKey(e => e.UserId)
                 .IsRequired()
                 .OnDelete(DeleteBehavior.Restrict);
+
+           /* builder.Entity<ApplicationUser>()
+               .HasOne(e => e.Company)
+               .WithMany(c => c.Employees)
+               .HasForeignKey(e => e.CompanyId)
+               .IsRequired()
+               .OnDelete(DeleteBehavior.Restrict);*/
         }
 
         private static void ConfigureAllEntitiesRelations(ModelBuilder builder)
@@ -108,9 +127,14 @@
                     .HasForeignKey<Company>(c => c.CompanyPictureId);
 
                 company
-                    .HasMany(c => c.Employees)
-                    .WithOne(e => e.Company)
-                    .HasForeignKey(e => e.CompanyId);
+                    .HasMany<ApplicationUser>(c => c.Employees)
+                    .WithOne(u => u.Company)
+                    .HasForeignKey(u => u.CompanyId);
+            });
+
+            builder.Entity<UserTask>(userTask =>
+            {
+                userTask.HasKey(ut => new { ut.TaskId, ut.UserId });
             });
         }
 

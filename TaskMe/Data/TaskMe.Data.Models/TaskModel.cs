@@ -29,7 +29,7 @@
         public DateTime? EndDate { get; set; }
 
         [Required]
-        public int OwnerId { get; set; }
+        public string OwnerId { get; set; }
 
         [Required]
         public ApplicationUser Owner { get; set; }
@@ -37,7 +37,7 @@
         public ICollection<UserTask> Participants { get; set; }
 
         [Required]
-        public int CompanyId { get; set; }
+        public string CompanyId { get; set; }
 
         public Company Company { get; set; }
 

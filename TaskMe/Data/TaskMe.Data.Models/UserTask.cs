@@ -6,11 +6,11 @@
 
     public class UserTask
     {
-        public int TaskId { get; set; }
+        public string TaskId { get; set; }
 
         public TaskModel Task { get; set; }
 
-        public int UserId { get; set; }
+        public string UserId { get; set; }
 
         public ApplicationUser User { get; set; }
     }
