@@ -1,9 +1,31 @@
 ﻿@using TaskMe.Common
+@using TaskMe.Data.Models
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<ApplicationUser> SignInManager
 @{
     this.ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome to @GlobalConstants.SystemName!</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+
+@if (!this.SignInManager.IsSignedIn(this.User))
+{
+    <div class="text-center">
+        <h1 class="display-4">Welcome to @GlobalConstants.SystemName!</h1>
+        <a asp-area="Identity" asp-page="/Account/Login">
+            <button type="button" class="btn btn-primary" >Login for more...</button>
+        </a>
+    </div>
+}
+else
+{
+    <div class="bg-light border-right" id="sidebar-wrapper">
+        <div class="sidebar-heading">Navigation</div>
+        <div class="list-group list-group-flush">
+            <a href="#" class="list-group-item list-group-item-action bg-light">Promotions</a>
+            <a href="#" class="list-group-item list-group-item-action bg-light">Chat</a>
+            <a href="#" class="list-group-item list-group-item-action bg-light">Tasks</a>
+            <a href="#" class="list-group-item list-group-item-action bg-light">Events</a>
+        </div>
+    </div>
+}
+
