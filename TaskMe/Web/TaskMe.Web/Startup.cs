@@ -8,7 +8,6 @@
     using TaskMe.Data.Models;
     using TaskMe.Data.Repositories;
     using TaskMe.Data.Seeding;
-    using TaskMe.Services.Data;
     using TaskMe.Services.Mapping;
     using TaskMe.Services.Messaging;
     using TaskMe.Web.ViewModels;
@@ -58,7 +57,7 @@
 
             // Application services
             services.AddTransient<IEmailSender, NullMessageSender>();
-            services.AddTransient<ISettingsService, SettingsService>();
+            //REGISTER SERVICES!!!
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

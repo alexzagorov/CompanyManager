@@ -18,27 +18,32 @@
 }
 else
 {
-    <div class="text-center">
-        <div class="profile-header-container row text-center">
-            <div class="profile-header-img">
-                <img id="picture"  class="rounded-circle" src="https://images.askmen.com/1080x540/2016/01/25-021526-facebook_profile_picture_affects_chances_of_getting_hired.jpg" width="120" height="120" />
-                <!-- badge -->
-                <div class="rank-label-container">
-                    <span class="label label-default rank-label">@(this.User.Identity.Name)</span>
+    @if (this.User.IsInRole(GlobalConstants.AdministratorRoleName))
+    {
+    }
+    else
+    {
+        <div class="text-center">
+            <div class="profile-header-container row text-center">
+                <div class="profile-header-img">
+                    <img id="picture" class="rounded-circle" src="https://images.askmen.com/1080x540/2016/01/25-021526-facebook_profile_picture_affects_chances_of_getting_hired.jpg" width="120" height="120" />
+                    <!-- badge -->
+                    <div class="rank-label-container">
+                        <span class="label label-default rank-label">@(this.User.Identity.Name)</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-center" id="sidebar-wrapper">
+                <div class="sidebar-heading">Navigation</div>
+                <div class="list-group list-group-flush">
+                    <a href="#" class="list-group-item list-group-item-action">Promotions</a>
+                    <a href="#" class="list-group-item list-group-item-action">Chat</a>
+                    <a href="#" class="list-group-item list-group-item-action">Tasks</a>
+                    <a href="#" class="list-group-item list-group-item-action">Events</a>
                 </div>
             </div>
         </div>
-
-        <div class="text-center" id="sidebar-wrapper">
-            <div class="sidebar-heading">Navigation</div>
-            <div class="list-group list-group-flush">
-                <a href="#" class="list-group-item list-group-item-action">Promotions</a>
-                <a href="#" class="list-group-item list-group-item-action">Chat</a>
-                <a href="#" class="list-group-item list-group-item-action">Tasks</a>
-                <a href="#" class="list-group-item list-group-item-action">Events</a>
-            </div>
-        </div>
-    </div>
-
+    }
 }
 
