@@ -12,20 +12,33 @@
     <div class="text-center">
         <h1 class="display-4">Welcome to @GlobalConstants.SystemName!</h1>
         <a asp-area="Identity" asp-page="/Account/Login">
-            <button type="button" class="btn btn-primary" >Login for more...</button>
+            <button type="button" class="btn btn-primary">Login for more...</button>
         </a>
     </div>
 }
 else
 {
-    <div class="bg-light border-right" id="sidebar-wrapper">
-        <div class="sidebar-heading">Navigation</div>
-        <div class="list-group list-group-flush">
-            <a href="#" class="list-group-item list-group-item-action bg-light">Promotions</a>
-            <a href="#" class="list-group-item list-group-item-action bg-light">Chat</a>
-            <a href="#" class="list-group-item list-group-item-action bg-light">Tasks</a>
-            <a href="#" class="list-group-item list-group-item-action bg-light">Events</a>
+    <div class="text-center">
+        <div class="profile-header-container row text-center">
+            <div class="profile-header-img">
+                <img id="picture"  class="rounded-circle" src="https://images.askmen.com/1080x540/2016/01/25-021526-facebook_profile_picture_affects_chances_of_getting_hired.jpg" width="120" height="120" />
+                <!-- badge -->
+                <div class="rank-label-container">
+                    <span class="label label-default rank-label">@(this.User.Identity.Name)</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="text-center" id="sidebar-wrapper">
+            <div class="sidebar-heading">Navigation</div>
+            <div class="list-group list-group-flush">
+                <a href="#" class="list-group-item list-group-item-action">Promotions</a>
+                <a href="#" class="list-group-item list-group-item-action">Chat</a>
+                <a href="#" class="list-group-item list-group-item-action">Tasks</a>
+                <a href="#" class="list-group-item list-group-item-action">Events</a>
+            </div>
         </div>
     </div>
+
 }
 
