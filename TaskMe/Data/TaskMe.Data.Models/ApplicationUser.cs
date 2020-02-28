@@ -41,14 +41,11 @@ namespace TaskMe.Data.Models
         [Required]
         public string LastName { get; set; }
 
-        [Required]
-        public string PnoneNumber { get; set; }
-
         public ICollection<UserTask> Tasks { get; set; }
 
-        public int? ProfilePictureId { get; set; }
+        public int? PictureId { get; set; }
 
-        public Picture ProfilePicture { get; set; }
+        public Picture Picture { get; set; }
 
         public string CompanyId { get; set; }
 

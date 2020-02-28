@@ -110,9 +110,8 @@ namespace TaskMe.Data.Migrations
                     DeletedOn = table.Column<DateTime>(nullable: true),
                     FirstName = table.Column<string>(nullable: false),
                     LastName = table.Column<string>(nullable: false),
-                    PnoneNumber = table.Column<string>(nullable: false),
-                    ProfilePictureId = table.Column<int>(nullable: true),
-                    ProfilePictureId1 = table.Column<string>(nullable: true),
+                    PictureId = table.Column<int>(nullable: true),
+                    PictureId1 = table.Column<string>(nullable: true),
                     CompanyId = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
@@ -125,8 +124,8 @@ namespace TaskMe.Data.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_AspNetUsers_Pictures_ProfilePictureId1",
-                        column: x => x.ProfilePictureId1,
+                        name: "FK_AspNetUsers_Pictures_PictureId1",
+                        column: x => x.PictureId1,
                         principalTable: "Pictures",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
@@ -329,9 +328,9 @@ namespace TaskMe.Data.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
-                name: "IX_AspNetUsers_ProfilePictureId1",
+                name: "IX_AspNetUsers_PictureId1",
                 table: "AspNetUsers",
-                column: "ProfilePictureId1");
+                column: "PictureId1");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Companies_CompanyPictureId",

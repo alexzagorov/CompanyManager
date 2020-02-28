@@ -229,14 +229,10 @@ namespace TaskMe.Data.Migrations
                     b.Property<bool>("PhoneNumberConfirmed")
                         .HasColumnType("bit");
 
-                    b.Property<string>("PnoneNumber")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("ProfilePictureId")
+                    b.Property<int?>("PictureId")
                         .HasColumnType("int");
 
-                    b.Property<string>("ProfilePictureId1")
+                    b.Property<string>("PictureId1")
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("SecurityStamp")
@@ -263,7 +259,7 @@ namespace TaskMe.Data.Migrations
                         .HasName("UserNameIndex")
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
-                    b.HasIndex("ProfilePictureId1");
+                    b.HasIndex("PictureId1");
 
                     b.ToTable("AspNetUsers");
                 });
@@ -455,9 +451,9 @@ namespace TaskMe.Data.Migrations
                         .WithMany("Employees")
                         .HasForeignKey("CompanyId");
 
-                    b.HasOne("TaskMe.Data.Models.Picture", "ProfilePicture")
+                    b.HasOne("TaskMe.Data.Models.Picture", "Picture")
                         .WithMany()
-                        .HasForeignKey("ProfilePictureId1");
+                        .HasForeignKey("PictureId1");
                 });
 
             modelBuilder.Entity("TaskMe.Data.Models.Company", b =>
