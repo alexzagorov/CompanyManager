@@ -17,10 +17,6 @@
         [Required]
         public string Url { get; set; }
 
-        public string CompanyId { get; set; }
-
-        public Company Company { get; set; }
-
         public bool IsDeleted { get; set; }
 
         public DateTime? DeletedOn { get; set; }

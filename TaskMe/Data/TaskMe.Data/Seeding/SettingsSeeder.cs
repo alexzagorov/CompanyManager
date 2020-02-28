@@ -6,16 +6,16 @@
 
     using TaskMe.Data.Models;
 
-    internal class SettingsSeeder : ISeeder
+    internal class SettingsSeeder //: ISeeder
     {
-        public async Task SeedAsync(ApplicationDbContext dbContext, IServiceProvider serviceProvider)
+       /* public async Task SeedAsync(ApplicationDbContext dbContext, IServiceProvider serviceProvider)
         {
-            if (dbContext.Settings.Any())
+            if (dbContext.Companies.Any())
             {
                 return;
             }
 
-            await dbContext.Settings.AddAsync(new Setting { Name = "Setting1", Value = "value1" });
-        }
+            await dbContext.Companies.AddAsync(new Company());
+        }*/
     }
 }

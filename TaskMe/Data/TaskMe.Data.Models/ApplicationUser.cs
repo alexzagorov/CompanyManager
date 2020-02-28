@@ -35,14 +35,20 @@ namespace TaskMe.Data.Models
         public virtual ICollection<IdentityUserLogin<string>> Logins { get; set; }
 
         // Added
+        [Required]
+        public string FirstName { get; set; }
+
+        [Required]
+        public string LastName { get; set; }
+
+        [Required]
+        public string PnoneNumber { get; set; }
+
         public ICollection<UserTask> Tasks { get; set; }
 
         public int? ProfilePictureId { get; set; }
 
         public Picture ProfilePicture { get; set; }
-
-        [Required]
-        public bool IsCreator { get; set; } = false;
 
         public string CompanyId { get; set; }
 

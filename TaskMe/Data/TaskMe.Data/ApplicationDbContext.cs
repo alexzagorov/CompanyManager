@@ -25,8 +25,6 @@
         {
         }
 
-        public DbSet<Setting> Settings { get; set; }
-
         public DbSet<Company> Companies { get; set; }
 
         public DbSet<Picture> Pictures { get; set; }
@@ -57,7 +55,6 @@
         protected override void OnModelCreating(ModelBuilder builder)
         {
             ConfigureAllEntitiesRelations(builder);
-
 
             // Needed for Identity models configuration
             base.OnModelCreating(builder);
@@ -122,9 +119,7 @@
             builder.Entity<Company>(company =>
             {
                 company
-                    .HasOne(c => c.CompanyPicture)
-                    .WithOne(p => p.Company)
-                    .HasForeignKey<Company>(c => c.CompanyPictureId);
+                    .HasOne(c => c.CompanyPicture);
 
                 company
                     .HasMany<ApplicationUser>(c => c.Employees)
