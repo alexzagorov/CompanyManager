@@ -14,6 +14,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
 using TaskMe.Data.Models;
+using TaskMe.Common;
 
 namespace TaskMe.Web.Areas.Identity.Pages.Account
 {
@@ -90,9 +91,15 @@ namespace TaskMe.Web.Areas.Identity.Pages.Account
             if (ModelState.IsValid)
             {
                 var user = new ApplicationUser { UserName = Input.Email, Email = Input.Email, FirstName = Input.FirstName, LastName = Input.LastName, PhoneNumber = Input.PhoneNumber };
+                var isRoot = !this._userManager.Users.Any();
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)
                 {
+                    if (isRoot)
+                    {
+                        await this._userManager.AddToRoleAsync(user, GlobalConstants.AdministratorRoleName);
+                    }
+
                     _logger.LogInformation("User created a new account with password.");
 
                     var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);

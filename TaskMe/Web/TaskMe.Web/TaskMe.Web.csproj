@@ -45,6 +45,7 @@
     <ProjectReference Include="..\..\Services\TaskMe.Services.Messaging\TaskMe.Services.Messaging.csproj" />
     <ProjectReference Include="..\..\Services\TaskMe.Services\TaskMe.Services.csproj" />
     <ProjectReference Include="..\TaskMe.Web.Infrastructure\TaskMe.Web.Infrastructure.csproj" />
+    <ProjectReference Include="..\TaskMe.Web.InputModels\TaskMe.Web.InputModels.csproj" />
     <ProjectReference Include="..\TaskMe.Web.ViewModels\TaskMe.Web.ViewModels.csproj" />
   </ItemGroup>
 </Project>

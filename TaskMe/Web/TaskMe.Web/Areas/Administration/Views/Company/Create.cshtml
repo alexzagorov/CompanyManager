@@ -1,6 +1,25 @@
-﻿@{
+﻿@model TaskMe.Web.InputModels.CreateCompanyInputModel
+@{
     ViewData["Title"] = "Create";
 }
 
-<h1>Create</h1>
+<form enctype="multipart/form-data" asp-controller="Company" asp-action="Create">
 
+    <div class="form-group">
+        <label asp-for="Name"></label>
+        <input asp-for="Name" class="form-control" />
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+    <div>
+        <dl>
+            <dt>
+                <label asp-for="Picture"></label>
+            </dt>
+            <dd>
+                <input asp-for="Picture" type="file" class="btn btn-primary">
+                <span asp-validation-for="Picture" class="text-danger"></span>
+            </dd>
+        </dl>
+    </div>
+    <button type="submit" class="btn btn-primary">Create</button>
+</form>
