@@ -58,7 +58,17 @@ body {
 .pb-3 {
     width: 100%;
 }
- /*Decorates the sidebar*/
+
+/*Decorates input forms*/
+#createForm {
+    text-align: center;
+}
+
+#createForm >form{
+    margin: 0 auto;
+}
+
+/*Decorates the sidebar*/
 #sidebar-wrapper {
     max-height: 100vh;
     max-width: 350px;

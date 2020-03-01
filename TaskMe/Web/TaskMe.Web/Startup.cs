@@ -19,6 +19,8 @@
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Hosting;
+    using TaskMe.Services.Data;
+    using TaskMe.Services.Data.Company;
 
     public class Startup
     {
@@ -57,7 +59,10 @@
 
             // Application services
             services.AddTransient<IEmailSender, NullMessageSender>();
-            //REGISTER SERVICES!!!
+
+            // REGISTER SERVICES!!!
+            services.AddTransient<ICompanyService, CompanyService>();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

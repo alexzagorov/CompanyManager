@@ -1,7 +1,7 @@
-﻿using TaskMe.Web.InputModels;
-
-namespace TaskMe.Services.Data
+﻿namespace TaskMe.Services.Data
 {
+    using TaskMe.Web.InputModels;
+
     public interface ICompanyService
     {
         string CreateCompany(CreateCompanyInputModel inputModel);
