@@ -2,16 +2,6 @@
 {
     using System.Reflection;
 
-    using TaskMe.Data;
-    using TaskMe.Data.Common;
-    using TaskMe.Data.Common.Repositories;
-    using TaskMe.Data.Models;
-    using TaskMe.Data.Repositories;
-    using TaskMe.Data.Seeding;
-    using TaskMe.Services.Mapping;
-    using TaskMe.Services.Messaging;
-    using TaskMe.Web.ViewModels;
-
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Http;
@@ -19,8 +9,21 @@
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Hosting;
+
+    using TaskMe.Data;
+    using TaskMe.Data.Common;
+    using TaskMe.Data.Common.Repositories;
+    using TaskMe.Data.Models;
+    using TaskMe.Data.Repositories;
+    using TaskMe.Data.Seeding;
     using TaskMe.Services.Data;
     using TaskMe.Services.Data.Company;
+    using TaskMe.Services.Mapping;
+    using TaskMe.Services.Messaging;
+    using TaskMe.Web.ViewModels;
+
+    using CloudinaryDotNet;
+    using TaskMe.Web.Extensions;
 
     public class Startup
     {
@@ -61,7 +64,8 @@
             services.AddTransient<IEmailSender, NullMessageSender>();
 
             // REGISTER SERVICES!!!
-            services.AddTransient<ICompanyService, CompanyService>();
+            services.AddCustomServices();
+            services.AddCloudinary(this.configuration);
 
         }
 

@@ -1,9 +1,10 @@
 ﻿namespace TaskMe.Services.Data
 {
+    using System.Threading.Tasks;
     using TaskMe.Web.InputModels;
 
     public interface ICompanyService
     {
-        string CreateCompany(CreateCompanyInputModel inputModel);
+        Task<string> CreateCompanyAsync(CreateCompanyInputModel inputModel);
     }
 }
