@@ -5,11 +5,14 @@
     using Microsoft.Extensions.DependencyInjection;
     using TaskMe.Services.Data;
     using TaskMe.Services.Data.Company;
+    using TaskMe.Services.Data.Picture;
 
     public static class ServiceCollectionExtensions
     {
         public static IServiceCollection AddCustomServices(this IServiceCollection services)
         {
+            services.AddTransient<ICloudinaryService, CloudinaryService>();
+            services.AddTransient<IPuctureService, PictureService>();
             services.AddTransient<ICompanyService, CompanyService>();
             return services;
         }
