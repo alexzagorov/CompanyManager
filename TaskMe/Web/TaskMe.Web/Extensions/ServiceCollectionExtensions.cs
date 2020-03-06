@@ -6,6 +6,7 @@
     using TaskMe.Services.Data;
     using TaskMe.Services.Data.Company;
     using TaskMe.Services.Data.Picture;
+    using TaskMe.Services.Data.User;
 
     public static class ServiceCollectionExtensions
     {
@@ -14,6 +15,7 @@
             services.AddTransient<ICloudinaryService, CloudinaryService>();
             services.AddTransient<IPuctureService, PictureService>();
             services.AddTransient<ICompanyService, CompanyService>();
+            services.AddTransient<IUserService, UserService>();
             return services;
         }
 

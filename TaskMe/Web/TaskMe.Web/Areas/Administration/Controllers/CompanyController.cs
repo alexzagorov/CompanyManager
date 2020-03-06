@@ -1,7 +1,8 @@
 ﻿namespace TaskMe.Web.Areas.Administration.Controllers
 {
-    using Microsoft.AspNetCore.Mvc;
     using System.Threading.Tasks;
+
+    using Microsoft.AspNetCore.Mvc;
     using TaskMe.Services.Data;
     using TaskMe.Web.InputModels;
 
@@ -23,7 +24,8 @@
         public async Task<IActionResult> Create(CreateCompanyInputModel inputModel)
         {
             var companyId = await this.companyService.CreateCompanyAsync(inputModel);
-            return this.Redirect("/");
+
+            return this.RedirectToAction("RegisterManager", "User", new { companyId });
         }
     }
 }

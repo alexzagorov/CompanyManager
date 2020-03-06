@@ -18,9 +18,6 @@
 
         public async Task<string> UploadPhotoAsync(IFormFile picture, string name)
         {
-            this.cloudinary.Api.UrlImgUp.Transform(new Transformation()
-            .Width(150).Height(150).Gravity("face").Radius(20).Crop("thumb"));
-
             byte[] destinationData;
 
             using (var ms = new MemoryStream())
