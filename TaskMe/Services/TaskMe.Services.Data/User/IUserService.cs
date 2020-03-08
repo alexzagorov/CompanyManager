@@ -6,6 +6,6 @@
 
     public interface IUserService
     {
-        Task CreateManagerForCompanyAsync(RegisterManagerInputModel inputModel, string companyId);
+        Task CreateManagerForCompanyAsync(RegisterManagerInputModel inputModel);
     }
 }

@@ -15,14 +15,17 @@
             this.userService = userService;
         }
 
-       //brakma
+        public async Task<IActionResult> RegisterManager([FromRoute] string companyId)
+        {
+            return this.View(new RegisterManagerInputModel() { CompanyId = companyId});
+        }
 
         [HttpPost]
-        public async Task<IActionResult> RegisterManager(RegisterManagerInputModel inputModel, [FromRoute] string companyId)
+        public async Task<IActionResult> RegisterManager(RegisterManagerInputModel inputModel)
         {
             if (this.ModelState.IsValid)
             {
-                await this.userService.CreateManagerForCompanyAsync(inputModel, companyId);
+                await this.userService.CreateManagerForCompanyAsync(inputModel);
             }
 
             return this.Redirect("/");

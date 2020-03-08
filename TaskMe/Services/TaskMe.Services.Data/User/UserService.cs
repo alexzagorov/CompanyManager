@@ -17,7 +17,7 @@
             this.userManager = userManager;
         }
 
-        public async Task CreateManagerForCompanyAsync(RegisterManagerInputModel inputModel, string companyId)
+        public async Task CreateManagerForCompanyAsync(RegisterManagerInputModel inputModel)
         {
             var user = new ApplicationUser
             {
@@ -26,16 +26,18 @@
                 FirstName = inputModel.FirstName,
                 LastName = inputModel.LastName,
                 PhoneNumber = inputModel.PhoneNumber,
-                CompanyId = companyId,
+                CompanyId = inputModel.CompanyId,
             };
-
-            await this.userManager.AddToRoleAsync(user, GlobalConstants.ManagerRoleName);
 
             var result = await this.userManager.CreateAsync(user, inputModel.Password);
 
             if (!result.Succeeded)
             {
                 throw new InvalidOperationException("Problem occured while creating user in UserSevice");
+            }
+            else
+            {
+                await this.userManager.AddToRoleAsync(user, GlobalConstants.ManagerRoleName);
             }
         }
     }
