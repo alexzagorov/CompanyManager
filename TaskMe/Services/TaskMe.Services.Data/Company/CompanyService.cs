@@ -1,19 +1,21 @@
 ﻿namespace TaskMe.Services.Data.Company
 {
+    using System;
     using System.Threading.Tasks;
-    using TaskMe.Data.Models;
+    using System.Linq;
+
     using TaskMe.Data.Common.Repositories;
+    using TaskMe.Data.Models;
     using TaskMe.Services.Data.Picture;
     using TaskMe.Web.InputModels;
-    using System;
 
     public class CompanyService : ICompanyService
     {
         private readonly IDeletableEntityRepository<Company> companies;
-        private readonly IPuctureService pictureService;
+        private readonly IPictureService pictureService;
         private readonly ICloudinaryService cloudinaryService;
 
-        public CompanyService(IDeletableEntityRepository<Company> companies, IPuctureService pictureService, ICloudinaryService cloudinaryService)
+        public CompanyService(IDeletableEntityRepository<Company> companies, IPictureService pictureService, ICloudinaryService cloudinaryService)
         {
             this.companies = companies;
             this.pictureService = pictureService;
@@ -37,6 +39,13 @@
             {
                 return company.Id;
             }
+        }
+
+        public string GetCompanyNameById(string companyId)
+        {
+            var name = this.companies.All().FirstOrDefault(x => x.Id == companyId)?.Name;
+
+            return name;
         }
     }
 }

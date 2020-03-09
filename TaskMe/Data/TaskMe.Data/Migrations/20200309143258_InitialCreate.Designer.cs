@@ -10,8 +10,8 @@ using TaskMe.Data;
 namespace TaskMe.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20200228143620_ExtendApplicationUser")]
-    partial class ExtendApplicationUser
+    [Migration("20200309143258_InitialCreate")]
+    partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -231,10 +231,7 @@ namespace TaskMe.Data.Migrations
                     b.Property<bool>("PhoneNumberConfirmed")
                         .HasColumnType("bit");
 
-                    b.Property<int?>("PictureId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("PictureId1")
+                    b.Property<string>("PictureId")
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("SecurityStamp")
@@ -261,7 +258,7 @@ namespace TaskMe.Data.Migrations
                         .HasName("UserNameIndex")
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
-                    b.HasIndex("PictureId1");
+                    b.HasIndex("PictureId");
 
                     b.ToTable("AspNetUsers");
                 });
@@ -455,7 +452,7 @@ namespace TaskMe.Data.Migrations
 
                     b.HasOne("TaskMe.Data.Models.Picture", "Picture")
                         .WithMany()
-                        .HasForeignKey("PictureId1");
+                        .HasForeignKey("PictureId");
                 });
 
             modelBuilder.Entity("TaskMe.Data.Models.Company", b =>

@@ -43,12 +43,12 @@ namespace TaskMe.Data.Models
 
         public ICollection<UserTask> Tasks { get; set; }
 
-        public int? PictureId { get; set; }
+        public string PictureId { get; set; }
 
-        public Picture Picture { get; set; }
+        public virtual Picture Picture { get; set; }
 
         public string CompanyId { get; set; }
 
-        public Company Company { get; set; }
+        public virtual Company Company { get; set; }
     }
 }

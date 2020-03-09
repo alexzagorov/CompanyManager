@@ -6,5 +6,7 @@
     public interface ICompanyService
     {
         Task<string> CreateCompanyAsync(CreateCompanyInputModel inputModel);
+
+        string GetCompanyNameById(string companyId);
     }
 }

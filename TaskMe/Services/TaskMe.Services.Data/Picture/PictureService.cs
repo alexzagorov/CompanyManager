@@ -5,7 +5,7 @@
     using TaskMe.Data.Models;
     using TaskMe.Data.Common.Repositories;
 
-    public class PictureService : IPuctureService
+    public class PictureService : IPictureService
     {
         private readonly IDeletableEntityRepository<Picture> pictures;
 

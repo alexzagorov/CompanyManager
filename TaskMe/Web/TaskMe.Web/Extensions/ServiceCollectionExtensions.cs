@@ -12,10 +12,10 @@
     {
         public static IServiceCollection AddCustomServices(this IServiceCollection services)
         {
-            services.AddTransient<ICloudinaryService, CloudinaryService>();
-            services.AddTransient<IPuctureService, PictureService>();
-            services.AddTransient<ICompanyService, CompanyService>();
             services.AddTransient<IUserService, UserService>();
+            services.AddTransient<ICloudinaryService, CloudinaryService>();
+            services.AddTransient<IPictureService, PictureService>();
+            services.AddTransient<ICompanyService, CompanyService>();
             return services;
         }
 

@@ -1,7 +1,9 @@
-﻿@using TaskMe.Common
+﻿@using Microsoft.AspNetCore.Identity
+@using TaskMe.Common
 @using TaskMe.Data.Models
-@using Microsoft.AspNetCore.Identity
+@using TaskMe.Web.ViewModels.Home
 @inject SignInManager<ApplicationUser> SignInManager
+@model IndexViewModel
 @{
     this.ViewData["Title"] = "Home Page";
 }
@@ -20,16 +22,35 @@ else
 {
     @if (this.User.IsInRole(GlobalConstants.AdministratorRoleName))
     {
+        <div class="text-center">
+            <div class="profile-header-container row text-center">
+                <div class="profile-header-img">
+                    <img id="picture" class="rounded-circle" src="@Model.ProfilePictureUrl" width="120" height="120" />
+                    <!-- badge -->
+                    <div class="rank-label-container">
+                        <span class="label label-default rank-label">@Model.UserNames (ADMINISTRATOR)</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-center" id="sidebar-wrapper">
+                <div class="sidebar-heading font-weight-bold">Administrator actions</div>
+                <div class="list-group list-group-flush">
+                    <a asp-area="Administration" asp-controller="Company" asp-action="Create" class="list-group-item list-group-item-action">Register new Company</a>
+                    <a href="#" class="list-group-item list-group-item-action">Companies</a>
+                </div>
+            </div>
+        </div>
     }
     else
     {
         <div class="text-center">
             <div class="profile-header-container row text-center">
                 <div class="profile-header-img">
-                    <img id="picture" class="rounded-circle" src="https://images.askmen.com/1080x540/2016/01/25-021526-facebook_profile_picture_affects_chances_of_getting_hired.jpg" width="120" height="120" />
+                    <img id="picture" class="rounded-circle" src="@Model.ProfilePictureUrl" width="120" height="120" />
                     <!-- badge -->
                     <div class="rank-label-container">
-                        <span class="label label-default rank-label">@(this.User.Identity.Name)</span>
+                        <span class="label label-default rank-label">@Model.UserNames</span>
                     </div>
                 </div>
             </div>

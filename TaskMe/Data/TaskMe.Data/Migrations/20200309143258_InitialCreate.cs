@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace TaskMe.Data.Migrations
 {
-    public partial class ExtendApplicationUser : Migration
+    public partial class InitialCreate : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -110,8 +110,7 @@ namespace TaskMe.Data.Migrations
                     DeletedOn = table.Column<DateTime>(nullable: true),
                     FirstName = table.Column<string>(nullable: false),
                     LastName = table.Column<string>(nullable: false),
-                    PictureId = table.Column<int>(nullable: true),
-                    PictureId1 = table.Column<string>(nullable: true),
+                    PictureId = table.Column<string>(nullable: true),
                     CompanyId = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
@@ -124,8 +123,8 @@ namespace TaskMe.Data.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_AspNetUsers_Pictures_PictureId1",
-                        column: x => x.PictureId1,
+                        name: "FK_AspNetUsers_Pictures_PictureId",
+                        column: x => x.PictureId,
                         principalTable: "Pictures",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
@@ -328,9 +327,9 @@ namespace TaskMe.Data.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
-                name: "IX_AspNetUsers_PictureId1",
+                name: "IX_AspNetUsers_PictureId",
                 table: "AspNetUsers",
-                column: "PictureId1");
+                column: "PictureId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Companies_CompanyPictureId",

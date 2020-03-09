@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
@@ -37,6 +38,11 @@ namespace TaskMe.Web.InputModels
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
 
+        [Required]
+        public IFormFile Picture { get; set; }
+
         public string CompanyId { get; set; }
+
+        public string CompanyName { get; set; }
     }
 }

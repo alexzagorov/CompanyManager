@@ -1,16 +1,24 @@
 ﻿namespace TaskMe.Web.Controllers
 {
     using System.Diagnostics;
-
-    using TaskMe.Web.ViewModels;
-
+    using System.Threading.Tasks;
     using Microsoft.AspNetCore.Mvc;
+    using TaskMe.Services.Data.User;
+    using TaskMe.Web.ViewModels;
 
     public class HomeController : BaseController
     {
-        public IActionResult Index()
+        private readonly IUserService userService;
+
+        public HomeController(IUserService userService)
         {
-            return this.View();
+            this.userService = userService;
+        }
+
+        public async Task<IActionResult> Index()
+        {
+            var viewModel = await this.userService.GetHomePageInfoAsync(this.User.Identity.Name);
+            return this.View(viewModel);
         }
 
         public IActionResult Privacy()
