@@ -2,9 +2,11 @@
 {
     using System;
     using System.Threading.Tasks;
+    using System.Linq;
 
     using Microsoft.AspNetCore.Identity;
     using TaskMe.Common;
+    using TaskMe.Data.Common.Repositories;
     using TaskMe.Data.Models;
     using TaskMe.Services.Data.Picture;
     using TaskMe.Web.InputModels;
@@ -15,17 +17,22 @@
         private readonly UserManager<ApplicationUser> userManager;
         private readonly ICloudinaryService cloudinaryService;
         private readonly IPictureService pictureService;
+        private readonly IDeletableEntityRepository<ApplicationUser> users;
 
-        public UserService(UserManager<ApplicationUser> userManager, ICloudinaryService cloudinaryService, IPictureService pictureService)
+        public UserService(UserManager<ApplicationUser> userManager, ICloudinaryService cloudinaryService, IPictureService pictureService, IDeletableEntityRepository<ApplicationUser> users)
         {
             this.userManager = userManager;
             this.cloudinaryService = cloudinaryService;
             this.pictureService = pictureService;
+            this.users = users;
         }
 
         public async Task CreateManagerForCompanyAsync(RegisterManagerInputModel inputModel)
         {
-            var url = await this.cloudinaryService.UploadPhotoAsync(inputModel.Picture, "test");
+            string cloudinaryPicName = $"{inputModel.FirstName.ToLower()}_{inputModel.LastName.ToLower()}";
+            string folderName = "profile_pictures";
+
+            var url = await this.cloudinaryService.UploadPhotoAsync(inputModel.Picture, cloudinaryPicName, folderName);
             var profilePictureId = await this.pictureService.AddPictureAsync(url);
             var user = new ApplicationUser
             {
@@ -54,9 +61,15 @@
         {
             if (name != null)
             {
-                var currentUser = await this.userManager.FindByNameAsync(name);
+                var currentUser = this.users.All().Where(x => x.UserName == name)
+                    .Select(x => new
+                    {
+                        UserNames = $"{x.FirstName} {x.LastName}",
+                        ProfilePictureUrl = x.Picture.Url,
+                    })
+                    .FirstOrDefault();
 
-                var profilePicUrl = currentUser.Picture?.Url;
+                var profilePicUrl = currentUser.ProfilePictureUrl;
                 if (profilePicUrl == null)
                 {
                     profilePicUrl = "https://i2.wp.com/molddrsusa.com/wp-content/uploads/2015/11/profile-empty.png.250x250_q85_crop.jpg?ssl=1";
@@ -64,7 +77,7 @@
 
                 return new IndexViewModel()
                 {
-                    UserNames = $"{currentUser?.FirstName} {currentUser?.LastName}",
+                    UserNames = currentUser.UserNames,
                     ProfilePictureUrl = profilePicUrl,
                 };
             }

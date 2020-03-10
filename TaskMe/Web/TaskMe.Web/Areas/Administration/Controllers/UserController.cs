@@ -18,7 +18,7 @@
             this.companyService = companyService;
         }
 
-        public IActionResult RegisterManager([FromRoute] string companyId)
+        public IActionResult RegisterManager([FromQuery]string companyId)
         {
             return this.View(new RegisterManagerInputModel() { CompanyId = companyId });
         }

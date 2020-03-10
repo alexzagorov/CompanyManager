@@ -1,8 +1,8 @@
 ﻿namespace TaskMe.Services.Data.Company
 {
     using System;
-    using System.Threading.Tasks;
     using System.Linq;
+    using System.Threading.Tasks;
 
     using TaskMe.Data.Common.Repositories;
     using TaskMe.Data.Models;
@@ -24,7 +24,10 @@
 
         public async Task<string> CreateCompanyAsync(CreateCompanyInputModel inputModel)
         {
-            var url = await this.cloudinaryService.UploadPhotoAsync(inputModel.Picture, "test");
+            string cloudinaryPicName = inputModel.Name.ToLower();
+            string folderName = "company_images";
+
+            var url = await this.cloudinaryService.UploadPhotoAsync(inputModel.Picture, cloudinaryPicName, folderName);
             var companyPictureId = await this.pictureService.AddPictureAsync(url);
             var company = new Company() { Name = inputModel.Name, CompanyPictureId = companyPictureId };
 

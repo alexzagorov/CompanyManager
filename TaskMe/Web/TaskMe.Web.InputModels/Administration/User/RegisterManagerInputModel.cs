@@ -41,6 +41,7 @@ namespace TaskMe.Web.InputModels
         [Required]
         public IFormFile Picture { get; set; }
 
+        [Required]
         public string CompanyId { get; set; }
 
         public string CompanyName { get; set; }
