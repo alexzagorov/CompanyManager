@@ -26,11 +26,12 @@
         [HttpPost]
         public async Task<IActionResult> RegisterManager(RegisterManagerInputModel inputModel)
         {
-            if (this.ModelState.IsValid)
+            if (!this.ModelState.IsValid)
             {
-                await this.userService.CreateManagerForCompanyAsync(inputModel);
+                return this.Redirect("/Home/Error");
             }
 
+            await this.userService.CreateManagerForCompanyAsync(inputModel);
             return this.Redirect("/");
         }
     }

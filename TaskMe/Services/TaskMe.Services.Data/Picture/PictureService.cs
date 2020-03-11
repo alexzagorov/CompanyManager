@@ -2,8 +2,9 @@
 {
     using System;
     using System.Threading.Tasks;
-    using TaskMe.Data.Models;
+
     using TaskMe.Data.Common.Repositories;
+    using TaskMe.Data.Models;
 
     public class PictureService : IPictureService
     {

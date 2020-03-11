@@ -10,12 +10,12 @@ namespace TaskMe.Web.InputModels
     {
         [Required]
         [Display(Name = "First name")]
-        [RegularExpression(@"[A-Z][a-z]+")]
+        [RegularExpression(@"[A-Z][a-z]+", ErrorMessage = "The name must contain only letters and starts with upper one.")]
         public string FirstName { get; set; }
 
         [Required]
         [Display(Name = "Last name")]
-        [RegularExpression(@"[A-Z][a-z]+")]
+        [RegularExpression(@"[A-Z][a-z]+", ErrorMessage = "The name must contain only letters and starts with upper one.")]
         public string LastName { get; set; }
 
         [Required]

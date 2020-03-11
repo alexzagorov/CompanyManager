@@ -5,6 +5,7 @@
     using Microsoft.AspNetCore.Mvc;
     using TaskMe.Services.Data;
     using TaskMe.Web.InputModels;
+    using TaskMe.Web.ViewModels.Administration.Company;
 
     public class CompanyController : AdministrationController
     {
@@ -23,9 +24,23 @@
         [HttpPost]
         public async Task<IActionResult> Create(CreateCompanyInputModel inputModel)
         {
-            var companyId = await this.companyService.CreateCompanyAsync(inputModel);
+            if (!this.ModelState.IsValid)
+            {
+                return this.Redirect("/Home/Error");
+            }
 
+            var companyId = await this.companyService.CreateCompanyAsync(inputModel);
             return this.RedirectToAction("RegisterManager", "User", new { companyId });
+        }
+
+        public IActionResult All()
+        {
+            var viewModel = new AllCompaniesViewModel();
+            var companies = this.companyService.GetAllCompanies();
+
+            viewModel.Companies = companies;
+
+            return this.View(viewModel);
         }
     }
 }

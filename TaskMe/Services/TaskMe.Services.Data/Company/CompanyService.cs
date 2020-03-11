@@ -1,13 +1,16 @@
 ﻿namespace TaskMe.Services.Data.Company
 {
     using System;
+    using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
 
     using TaskMe.Data.Common.Repositories;
     using TaskMe.Data.Models;
     using TaskMe.Services.Data.Picture;
+    using TaskMe.Services.Mapping;
     using TaskMe.Web.InputModels;
+    using TaskMe.Web.ViewModels.Administration.Company;
 
     public class CompanyService : ICompanyService
     {
@@ -42,6 +45,13 @@
             {
                 return company.Id;
             }
+        }
+
+        public IEnumerable<EachCompanyViewModel> GetAllCompanies()
+        {
+            return this.companies.All()
+                .To<EachCompanyViewModel>()
+                .ToList();
         }
 
         public string GetCompanyNameById(string companyId)

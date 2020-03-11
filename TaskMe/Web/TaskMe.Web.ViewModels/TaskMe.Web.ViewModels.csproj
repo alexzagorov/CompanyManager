@@ -23,8 +23,4 @@
     <ProjectReference Include="..\..\Services\TaskMe.Services.Mapping\TaskMe.Services.Mapping.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Administration\" />
-  </ItemGroup>
-
 </Project>
