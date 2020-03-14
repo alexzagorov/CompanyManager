@@ -42,5 +42,10 @@
 
             return this.View(viewModel);
         }
+
+        public IActionResult Details()
+        {
+            return this.Redirect("/");
+        }
     }
 }

@@ -14,10 +14,10 @@
                             <p class="card-text">@company.Name</p>
                             <div class="d-flex justify-content-between align-items-center">
                                 <div class="btn-group">
-                                    <button type="button" class="btn btn-sm btn-outline-secondary">Details</button>
+                                    <button asp-area="Administration" asp-controller="Company" asp-action="Details" type="button" class="btn btn-sm btn-outline-secondary">Details</button>
                                     <button type="button" class="btn btn-sm btn-outline-secondary bg-danger">Delete</button>
                                 </div>
-                                <small class="text-muted">Createt: @company.CreatedOn</small>
+                                <small class="text-muted float-right">Createt: @company.CreatedOn</small>
                             </div>
                         </div>
                     </div>
