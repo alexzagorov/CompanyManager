@@ -1,8 +1,8 @@
 ﻿namespace TaskMe.Services.Data.User
 {
     using System;
-    using System.Threading.Tasks;
     using System.Linq;
+    using System.Threading.Tasks;
 
     using Microsoft.AspNetCore.Identity;
     using TaskMe.Common;
@@ -57,7 +57,7 @@
             }
         }
 
-        public async Task<IndexViewModel> GetHomePageInfoAsync(string name)
+        public IndexViewModel GetHomePageInfo(string name)
         {
             if (name != null)
             {

@@ -15,12 +15,14 @@
     public class CompanyService : ICompanyService
     {
         private readonly IDeletableEntityRepository<Company> companies;
+        private readonly IDeletableEntityRepository<ApplicationUser> users;
         private readonly IPictureService pictureService;
         private readonly ICloudinaryService cloudinaryService;
 
-        public CompanyService(IDeletableEntityRepository<Company> companies, IPictureService pictureService, ICloudinaryService cloudinaryService)
+        public CompanyService(IDeletableEntityRepository<Company> companies, IDeletableEntityRepository<ApplicationUser> users, IPictureService pictureService, ICloudinaryService cloudinaryService)
         {
             this.companies = companies;
+            this.users = users;
             this.pictureService = pictureService;
             this.cloudinaryService = cloudinaryService;
         }
@@ -54,11 +56,23 @@
                 .ToList();
         }
 
+        public T GetCompanyInViewModel<T>(string companyId)
+        {
+            return this.companies.All().Where(x => x.Id == companyId)
+                .To<T>()
+                .FirstOrDefault();
+        }
+
         public string GetCompanyNameById(string companyId)
         {
             var name = this.companies.All().FirstOrDefault(x => x.Id == companyId)?.Name;
 
             return name;
+        }
+
+        public string GetIdByUserName(string username)
+        {
+            return this.users.All().Where(x => x.UserName == username).Select(x => x.Company).FirstOrDefault().Id;
         }
     }
 }

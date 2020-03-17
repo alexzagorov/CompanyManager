@@ -9,6 +9,6 @@
     {
         Task CreateManagerForCompanyAsync(RegisterManagerInputModel inputModel);
 
-        Task<IndexViewModel> GetHomePageInfoAsync(string name);
+        IndexViewModel GetHomePageInfo(string name);
     }
 }

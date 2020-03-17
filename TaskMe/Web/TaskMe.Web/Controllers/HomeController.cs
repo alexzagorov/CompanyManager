@@ -15,9 +15,9 @@
             this.userService = userService;
         }
 
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
-            var viewModel = await this.userService.GetHomePageInfoAsync(this.User.Identity.Name);
+            var viewModel = this.userService.GetHomePageInfo(this.User.Identity.Name);
             return this.View(viewModel);
         }
 

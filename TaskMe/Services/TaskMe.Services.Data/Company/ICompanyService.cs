@@ -13,5 +13,9 @@
         string GetCompanyNameById(string companyId);
 
         IEnumerable<EachCompanyViewModel> GetAllCompanies();
+
+        T GetCompanyInViewModel<T>(string companyId);
+
+        string GetIdByUserName(string username);
     }
 }
