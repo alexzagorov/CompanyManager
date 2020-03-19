@@ -124,3 +124,9 @@ body {
     padding: 5px 10px 5px 10px;
     border-radius: 27px;
 }
+
+/* for scrollbars */
+.scrollable {
+    height: 250px; 
+    overflow-y: auto;
+}

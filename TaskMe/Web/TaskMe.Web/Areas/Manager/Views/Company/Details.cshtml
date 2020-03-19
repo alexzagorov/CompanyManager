@@ -8,7 +8,7 @@
                     <a href="" data-target="#profile" data-toggle="tab" class="nav-link active">Company</a>
                 </li>
                 <li class="nav-item">
-                    <a href="" data-target="#messages" data-toggle="tab" class="nav-link">Employees</a>
+                    <a href="" data-target="#messages" data-toggle="tab" class="nav-link">Supervisors</a>
                 </li>
                 <li class="nav-item">
                     <a href="" data-target="#edit" data-toggle="tab" class="nav-link">Messages</a>
@@ -41,26 +41,26 @@
                             <h5 class="mt-2"><span class="fa fa-clock-o ion-clock float-right"></span>Recent Tasks</h5>
                             <table class="table table-sm table-hover table-striped">
                                 <tbody>
-                                   @foreach (var task in Model.Tasks)
+                                    @foreach (var task in Model.Tasks)
                                     {
                                         <tr>
                                             <td>
-                                                <strong>@task.Name</strong> Start Date: @task.StartDate.ToLongDateString()  End Date: @task.EndDate.ToLongDateString()<strong>From: @task.OwnerUserName</strong>
+                                                <strong>@task.Name</strong> Start Date: @task.StartDate.ToShortDateString()  End Date: @task.EndDate?.ToShortDateString()<strong>From: @task.OwnerUserName</strong>
                                             </td>
                                         </tr>
-                                    }
+                                    }                                   
                                 </tbody>
                             </table>
                         </div>
 
 
 
-                        <!--Employees-->
-                        <div class="col-md-12">
-                            <h5 class="mt-2"><span class="fa fa-clock-o ion-clock float-right"></span>Supervisors</h5>
+                        <!--Supervisors-->
+                        <div class="col-md-12 scrollable">
+                            <h5 class="mt-2"><span class="fa fa-clock-o ion-clock float-right"></span>Employees</h5>
                             <table class="table table-sm table-hover table-striped">
-                                <tbody>
-                                   @foreach (var employee in Model.Employees)
+                                <tbody id="employees">
+                                    @foreach (var employee in Model.Employees)
                                     {
                                         <tr>
                                             <td>
@@ -71,6 +71,15 @@
                                             </td>
                                             <td>
                                                 <strong>From: @employee.CreatedOn.ToShortDateString()</strong>
+                                            </td>
+                                        </tr>
+
+                                    }
+                                    @for (int i = 0; i < 100; i++)
+                                    {
+                                        <tr style="display:none">
+                                            <td>
+                                                <strong>Test</strong> Start Date: Test  End Date: Test<strong>From: Test</strong>
                                             </td>
                                         </tr>
                                     }
@@ -87,3 +96,7 @@
         </div>
     </div>
 </div>
+
+@section scripts {
+    <script src="~/js/infinitScroll.js"></script>
+}

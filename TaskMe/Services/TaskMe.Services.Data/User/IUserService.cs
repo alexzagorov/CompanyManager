@@ -1,5 +1,6 @@
 ﻿namespace TaskMe.Services.Data.User
 {
+    using System.Collections.Generic;
     using System.Threading.Tasks;
 
     using TaskMe.Web.InputModels;
@@ -10,5 +11,7 @@
         Task CreateManagerForCompanyAsync(RegisterManagerInputModel inputModel);
 
         IndexViewModel GetHomePageInfo(string name);
+
+        IEnumerable<T> GetUsersInCompanyInViewModel<T>(string companyId);
     }
 }

@@ -1,6 +1,7 @@
 ﻿namespace TaskMe.Services.Data.User
 {
     using System;
+    using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
 
@@ -9,6 +10,7 @@
     using TaskMe.Data.Common.Repositories;
     using TaskMe.Data.Models;
     using TaskMe.Services.Data.Picture;
+    using TaskMe.Services.Mapping;
     using TaskMe.Web.InputModels;
     using TaskMe.Web.ViewModels.Home;
 
@@ -18,13 +20,20 @@
         private readonly ICloudinaryService cloudinaryService;
         private readonly IPictureService pictureService;
         private readonly IDeletableEntityRepository<ApplicationUser> users;
+        private readonly IDeletableEntityRepository<Company> companies;
 
-        public UserService(UserManager<ApplicationUser> userManager, ICloudinaryService cloudinaryService, IPictureService pictureService, IDeletableEntityRepository<ApplicationUser> users)
+        public UserService(
+            UserManager<ApplicationUser> userManager,
+            ICloudinaryService cloudinaryService,
+            IPictureService pictureService,
+            IDeletableEntityRepository<ApplicationUser> users,
+            IDeletableEntityRepository<Company> companies)
         {
             this.userManager = userManager;
             this.cloudinaryService = cloudinaryService;
             this.pictureService = pictureService;
             this.users = users;
+            this.companies = companies;
         }
 
         public async Task CreateManagerForCompanyAsync(RegisterManagerInputModel inputModel)
@@ -85,6 +94,13 @@
             {
                 return new IndexViewModel();
             }
+        }
+
+        public IEnumerable<T> GetUsersInCompanyInViewModel<T>(string companyId)
+        {
+            return this.users.All().Where(x => x.CompanyId == companyId)
+                .To<T>()
+                .ToList();
         }
     }
 }

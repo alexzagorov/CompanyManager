@@ -1,5 +1,6 @@
 ﻿namespace TaskMe.Services.Data.Company
 {
+    using Microsoft.AspNetCore.Identity;
     using System;
     using System.Collections.Generic;
     using System.Linq;
@@ -11,18 +12,26 @@
     using TaskMe.Services.Mapping;
     using TaskMe.Web.InputModels;
     using TaskMe.Web.ViewModels.Administration.Company;
+    using TaskMe.Web.ViewModels.Manager.Company;
 
     public class CompanyService : ICompanyService
     {
         private readonly IDeletableEntityRepository<Company> companies;
         private readonly IDeletableEntityRepository<ApplicationUser> users;
+        private readonly IDeletableEntityRepository<ApplicationRole> roles;
         private readonly IPictureService pictureService;
         private readonly ICloudinaryService cloudinaryService;
 
-        public CompanyService(IDeletableEntityRepository<Company> companies, IDeletableEntityRepository<ApplicationUser> users, IPictureService pictureService, ICloudinaryService cloudinaryService)
+        public CompanyService(
+            IDeletableEntityRepository<Company> companies,
+            IDeletableEntityRepository<ApplicationUser> users,
+            IDeletableEntityRepository<ApplicationRole> roles,
+            IPictureService pictureService,
+            ICloudinaryService cloudinaryService)
         {
             this.companies = companies;
             this.users = users;
+            this.roles = roles;
             this.pictureService = pictureService;
             this.cloudinaryService = cloudinaryService;
         }
