@@ -20,7 +20,7 @@
             success: function (data) {
                 if (data != null) {
                     for (var i = 0; i < data.length; i++) {
-                        $("#employees").html(` 
+                        $("#employees").append(` 
 <tr> 
 <td>
 <img class=\"rounded-circle border-dark\" src=\"${data[i].pictureUrl}" width=\"20\" height=\"20\" /> <strong>${data[i].firstName} ${data[i].lastName}</strong>
@@ -29,7 +29,7 @@
 <strong>Email: ${data[i].email} </strong>
 </td>
 <td>
-<strong>Form: ${data[i].createdOn} </strong>
+<strong>Form: ${data[i].createdOnShort} </strong>
 </td>
 </tr>`);
                     }

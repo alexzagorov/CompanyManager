@@ -60,29 +60,7 @@
                             <h5 class="mt-2"><span class="fa fa-clock-o ion-clock float-right"></span>Employees</h5>
                             <table class="table table-sm table-hover table-striped">
                                 <tbody id="employees">
-                                    @foreach (var employee in Model.Employees)
-                                    {
-                                        <tr>
-                                            <td>
-                                                <img class="rounded-circle border-dark" src="@employee.PictureUrl" width="20" height="20" /> <strong>@($"{employee.FirstName} {employee.LastName}")</strong>
-                                            </td>
-                                            <td>
-                                                <strong>Email:  @employee.Email</strong>
-                                            </td>
-                                            <td>
-                                                <strong>From: @employee.CreatedOn.ToShortDateString()</strong>
-                                            </td>
-                                        </tr>
-
-                                    }
-                                    @for (int i = 0; i < 100; i++)
-                                    {
-                                        <tr style="display:none">
-                                            <td>
-                                                <strong>Test</strong> Start Date: Test  End Date: Test<strong>From: Test</strong>
-                                            </td>
-                                        </tr>
-                                    }
+                                   
                                 </tbody>
                             </table>
                         </div>

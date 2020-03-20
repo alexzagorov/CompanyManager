@@ -31,7 +31,10 @@
         public IActionResult LoadEmployees(int pageIndex, int pageSize)
         {
             string companyId = this.companyService.GetIdByUserName(this.User.Identity.Name);
-            var employees = this.userService.GetUsersInCompanyInViewModel<EmployeeInnerViewModel>(companyId).Take(10);
+            var employees = this.userService.GetUsersInCompanyInViewModel<EmployeeInnerViewModel>(companyId)
+                .Skip(pageIndex * pageSize)
+                .Take(pageSize);
+
             return this.Json(employees);
         }
     }
