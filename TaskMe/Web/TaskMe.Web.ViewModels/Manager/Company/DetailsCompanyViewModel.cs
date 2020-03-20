@@ -11,7 +11,6 @@
         public DetailsCompanyViewModel()
         {
             this.Tasks = new HashSet<TaskInnerViewModel>();
-            this.Employees = new HashSet<EmployeeInnerViewModel>();
         }
 
         public string Name { get; set; }
@@ -25,8 +24,5 @@
         public DateTime CreatedOn { get; set; }
 
         public IEnumerable<TaskInnerViewModel> Tasks { get; set; }
-
-        public IEnumerable<EmployeeInnerViewModel> Employees { get; set; }
-
     }
 }

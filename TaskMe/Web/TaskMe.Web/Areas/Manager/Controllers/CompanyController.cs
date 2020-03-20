@@ -27,7 +27,6 @@
             return this.View(viewModel);
         }
 
-        [AllowAnonymous]
         public IActionResult LoadEmployees(int pageIndex, int pageSize)
         {
             string companyId = this.companyService.GetIdByUserName(this.User.Identity.Name);
