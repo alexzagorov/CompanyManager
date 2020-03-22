@@ -1,6 +1,7 @@
 ﻿namespace TaskMe.Web.Areas.Manager.Controllers
 {
     using System.Linq;
+    using System.Threading.Tasks;
     using System.Web.Mvc;
 
     using Microsoft.AspNetCore.Mvc;
@@ -20,10 +21,13 @@
             this.userService = userService;
         }
 
-        public IActionResult Details()
+        public async Task<IActionResult> Details()
         {
             string companyId = this.companyService.GetIdByUserName(this.User.Identity.Name);
+            var supervisors = await this.userService.GetSupervisorsInCompanyInViewModelAsync<SupervisorInnerViewModel>(companyId);
             var viewModel = this.companyService.GetCompanyInViewModel<DetailsCompanyViewModel>(companyId);
+            viewModel.Supervisors = supervisors;
+
             return this.View(viewModel);
         }
 

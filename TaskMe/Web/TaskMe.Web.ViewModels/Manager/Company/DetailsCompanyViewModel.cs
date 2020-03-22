@@ -24,5 +24,7 @@
         public DateTime CreatedOn { get; set; }
 
         public IEnumerable<TaskInnerViewModel> Tasks { get; set; }
+
+        public IEnumerable<SupervisorInnerViewModel> Supervisors { get; set; }
     }
 }

@@ -13,5 +13,7 @@
         IndexViewModel GetHomePageInfo(string name);
 
         IEnumerable<T> GetUsersInCompanyInViewModel<T>(string companyId);
+
+        Task<IEnumerable<T>> GetSupervisorsInCompanyInViewModelAsync<T>(string companyId);
     }
 }

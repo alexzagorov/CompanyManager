@@ -5,12 +5,16 @@
     using System.Linq;
     using System.Threading.Tasks;
 
+    using Microsoft.AspNetCore.Identity;
+    using Microsoft.Extensions.DependencyInjection;
+    using TaskMe.Common;
     using TaskMe.Data.Models;
 
     public class EmployeesSeeder : ISeeder
     {
         public async Task SeedAsync(ApplicationDbContext dbContext, IServiceProvider serviceProvider)
         {
+            var roleManager = serviceProvider.GetRequiredService<RoleManager<ApplicationRole>>();
             var companiesWithoutEmployeesIds = dbContext.Companies.Where(x => x.Employees.Count() <= 10).Select(x => x.Id).ToList();
 
             if (!companiesWithoutEmployeesIds.Any())
@@ -38,7 +42,21 @@
                     new ApplicationUser() { FirstName = "Marian", LastName = "Kuchukov", Id = Guid.NewGuid().ToString(), CompanyId = companyId, Email = "marian_aleksiev@abv.bg", Picture = new Picture() { Url = "https://wwwimage-secure.cbsstatic.com/thumbnails/photos/w425-q80/cast/cast_manwithaplan_mattleblanc.jpg"}, UserName = "marian_aleksiev@abv.bg", PasswordHash = "1234ovidfgjdoig"},
                 };
 
+                var supervisorRoleId = await roleManager.FindByNameAsync(GlobalConstants.SupervisorRoleName);
+
+                var userRoles = new List<IdentityUserRole<string>>();
+
+                foreach (var employee in employees.Take(3))
+                {
+                    userRoles.Add(new IdentityUserRole<string>
+                    {
+                        UserId = employee.Id,
+                        RoleId = supervisorRoleId.Id,
+                    });
+                }
+
                 await dbContext.Users.AddRangeAsync(employees);
+                await dbContext.UserRoles.AddRangeAsync(userRoles);
                 await dbContext.SaveChangesAsync();
             }
         }

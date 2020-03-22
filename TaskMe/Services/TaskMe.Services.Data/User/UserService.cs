@@ -13,10 +13,12 @@
     using TaskMe.Services.Mapping;
     using TaskMe.Web.InputModels;
     using TaskMe.Web.ViewModels.Home;
+    using TaskMe.Web.ViewModels.Manager.Company;
 
     public class UserService : IUserService
     {
         private readonly UserManager<ApplicationUser> userManager;
+        private readonly RoleManager<ApplicationRole> roleManager;
         private readonly ICloudinaryService cloudinaryService;
         private readonly IPictureService pictureService;
         private readonly IDeletableEntityRepository<ApplicationUser> users;
@@ -24,12 +26,14 @@
 
         public UserService(
             UserManager<ApplicationUser> userManager,
+            RoleManager<ApplicationRole> roleManager,
             ICloudinaryService cloudinaryService,
             IPictureService pictureService,
             IDeletableEntityRepository<ApplicationUser> users,
             IDeletableEntityRepository<Company> companies)
         {
             this.userManager = userManager;
+            this.roleManager = roleManager;
             this.cloudinaryService = cloudinaryService;
             this.pictureService = pictureService;
             this.users = users;
@@ -101,6 +105,16 @@
             return this.users.All().Where(x => x.CompanyId == companyId)
                 .To<T>()
                 .ToList();
+        }
+
+        public async Task<IEnumerable<T>> GetSupervisorsInCompanyInViewModelAsync<T>(string companyId)
+        {
+            var supervisorRole = await this.roleManager.FindByNameAsync(GlobalConstants.SupervisorRoleName);
+            var companySupervisors = this.users.All().Where(x => x.CompanyId == companyId && x.Roles.Any(ur => ur.RoleId == supervisorRole.Id))
+                .To<T>()
+                .ToList();
+
+            return companySupervisors;
         }
     }
 }
