@@ -76,7 +76,7 @@
             }
             else if (roleName != null)
             {
-                await this.userManager.AddToRoleAsync(user, GlobalConstants.ManagerRoleName);
+                await this.userManager.AddToRoleAsync(user, roleName);
             }
         }
 
