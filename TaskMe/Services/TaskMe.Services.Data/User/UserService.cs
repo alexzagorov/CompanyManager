@@ -13,7 +13,6 @@
     using TaskMe.Services.Mapping;
     using TaskMe.Web.InputModels;
     using TaskMe.Web.ViewModels.Home;
-    using TaskMe.Web.ViewModels.Manager.Company;
 
     public class UserService : IUserService
     {
@@ -40,13 +39,24 @@
             this.companies = companies;
         }
 
-        public async Task CreateManagerForCompanyAsync(RegisterManagerInputModel inputModel)
+        public async Task RegisterUserForCompanyAsync(RegisterUserInputModel inputModel, string roleName)
         {
-            string cloudinaryPicName = $"{inputModel.FirstName.ToLower()}_{inputModel.LastName.ToLower()}";
-            string folderName = "profile_pictures";
+            string profilePictureId = string.Empty;
 
-            var url = await this.cloudinaryService.UploadPhotoAsync(inputModel.Picture, cloudinaryPicName, folderName);
-            var profilePictureId = await this.pictureService.AddPictureAsync(url);
+            if (inputModel.Picture == null)
+            {
+                string pictureUrl = "https://i2.wp.com/molddrsusa.com/wp-content/uploads/2015/11/profile-empty.png.250x250_q85_crop.jpg?ssl=1";
+                profilePictureId = await this.pictureService.AddPictureAsync(pictureUrl);
+            }
+            else
+            {
+                string cloudinaryPicName = $"{inputModel.FirstName.ToLower()}_{inputModel.LastName.ToLower()}";
+                string folderName = "profile_pictures";
+
+                var url = await this.cloudinaryService.UploadPhotoAsync(inputModel.Picture, cloudinaryPicName, folderName);
+                profilePictureId = await this.pictureService.AddPictureAsync(url);
+            }
+
             var user = new ApplicationUser
             {
                 UserName = inputModel.Email,
@@ -64,7 +74,7 @@
             {
                 throw new InvalidOperationException("Problem occured while creating user in UserSevice");
             }
-            else
+            else if (roleName != null)
             {
                 await this.userManager.AddToRoleAsync(user, GlobalConstants.ManagerRoleName);
             }
@@ -82,16 +92,10 @@
                     })
                     .FirstOrDefault();
 
-                var profilePicUrl = currentUser.ProfilePictureUrl;
-                if (profilePicUrl == null)
-                {
-                    profilePicUrl = "https://i2.wp.com/molddrsusa.com/wp-content/uploads/2015/11/profile-empty.png.250x250_q85_crop.jpg?ssl=1";
-                }
-
                 return new IndexViewModel()
                 {
                     UserNames = currentUser.UserNames,
-                    ProfilePictureUrl = profilePicUrl,
+                    ProfilePictureUrl = currentUser.ProfilePictureUrl,
                 };
             }
             else

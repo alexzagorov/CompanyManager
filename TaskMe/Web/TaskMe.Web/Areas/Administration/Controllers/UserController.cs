@@ -3,6 +3,7 @@
     using System.Threading.Tasks;
 
     using Microsoft.AspNetCore.Mvc;
+    using TaskMe.Common;
     using TaskMe.Services.Data;
     using TaskMe.Services.Data.User;
     using TaskMe.Web.InputModels;
@@ -20,18 +21,18 @@
 
         public IActionResult RegisterManager([FromQuery]string companyId)
         {
-            return this.View(new RegisterManagerInputModel() { CompanyId = companyId });
+            return this.View(new RegisterUserInputModel() { CompanyId = companyId, CompanyName = this.companyService.GetCompanyNameById(companyId) });
         }
 
         [HttpPost]
-        public async Task<IActionResult> RegisterManager(RegisterManagerInputModel inputModel)
+        public async Task<IActionResult> RegisterManager(RegisterUserInputModel inputModel)
         {
             if (!this.ModelState.IsValid)
             {
                 return this.Redirect("/Home/Error");
             }
 
-            await this.userService.CreateManagerForCompanyAsync(inputModel);
+            await this.userService.RegisterUserForCompanyAsync(inputModel, GlobalConstants.ManagerRoleName);
             return this.Redirect("/");
         }
     }

@@ -8,7 +8,7 @@
 
     public interface IUserService
     {
-        Task CreateManagerForCompanyAsync(RegisterManagerInputModel inputModel);
+        Task RegisterUserForCompanyAsync(RegisterUserInputModel inputModel, string roleName);
 
         IndexViewModel GetHomePageInfo(string name);
 
