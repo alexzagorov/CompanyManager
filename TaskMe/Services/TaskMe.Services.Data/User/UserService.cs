@@ -120,5 +120,18 @@
 
             return companySupervisors;
         }
+
+        public async Task<bool> DeleteUserAsync(string userId)
+        {
+            var user = this.users.All().FirstOrDefault(x => x.Id == userId);
+            this.users.Delete(user);
+            int result = await this.users.SaveChangesAsync();
+            if (result < 0)
+            {
+                return false;
+            }
+
+            return true;
+        }
     }
 }

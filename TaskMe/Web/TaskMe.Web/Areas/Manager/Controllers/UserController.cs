@@ -37,5 +37,17 @@
             await this.userService.RegisterUserForCompanyAsync(inputModel, GlobalConstants.SupervisorRoleName);
             return this.RedirectToAction("Details", "Company");
         }
+
+        public async Task<IActionResult> Delete(string id)
+        {
+            bool isSuceed = await this.userService.DeleteUserAsync(id);
+
+            if (!isSuceed)
+            {
+                return this.Redirect("/Home/Error");
+            }
+
+            return this.RedirectToAction("Details", "Company");
+        }
     }
 }
