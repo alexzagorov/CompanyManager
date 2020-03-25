@@ -74,7 +74,7 @@ body {
     max-width: 350px;
     margin: 0 auto;
     transition: margin .25s ease-out;
-    border: solid 2px #51D2B7;
+    border: solid 2px Highlight;
 }
 
     #sidebar-wrapper .sidebar-heading {
@@ -86,7 +86,7 @@ body {
     #sidebar-wrapper .list-group {
         width: 15rem;
         margin: 0 auto;
-        background-color: lightgreen;
+        background-color: Highlight;
     }
 /*Decorates ProfilePicture*/
 
@@ -103,7 +103,7 @@ body {
     .profile-header-img > img.img-circle {
         width: 120px;
         height: 120px;
-        border: 2px solid #51D2B7;
+        border: 2px solid Highlight;
     }
 
 .profile-header {

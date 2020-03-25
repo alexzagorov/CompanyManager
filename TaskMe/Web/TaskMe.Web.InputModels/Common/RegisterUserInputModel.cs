@@ -21,7 +21,8 @@
         public string Email { get; set; }
 
         [Required]
-        [Display(Name = "Pnone")]
+        [Phone]
+        [Display(Name = "Phone")]
         public string PhoneNumber { get; set; }
 
         [Required]

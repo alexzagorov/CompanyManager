@@ -1,7 +1,8 @@
 ﻿namespace TaskMe.Web.Areas.Manager.Controllers
 {
-    using Microsoft.AspNetCore.Mvc;
     using System.Threading.Tasks;
+
+    using Microsoft.AspNetCore.Mvc;
     using TaskMe.Common;
     using TaskMe.Services.Data;
     using TaskMe.Services.Data.User;
