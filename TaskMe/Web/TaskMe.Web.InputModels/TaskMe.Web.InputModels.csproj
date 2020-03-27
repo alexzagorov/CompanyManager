@@ -13,6 +13,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Manager\" />
+    <ProjectReference Include="..\..\TaskMe.Common\TaskMe.Common.csproj" />
   </ItemGroup>
 </Project>

@@ -1,11 +1,9 @@
 ﻿@model TaskMe.Web.InputModels.CreateCompanyInputModel
-@{
-    ViewData["Title"] = "Create";
-}  
-<h1>Company Manipulation</h1>
+ 
+<h1 class="text-center">Company Manipulation</h1>
 
-    <div class="row">
-        <div class="col-md-4">
+    <div class="row justify-content-center">
+        <div class="col-md-6 text-center border border-primary">
             <form enctype="multipart/form-data" asp-controller="Company" asp-action="Create">
                 <h4>Create a new company.</h4>
                 <hr />
@@ -25,7 +23,8 @@
                         </dd>
                     </dl>
                 </div>
-                <button type="submit" class="btn btn-primary">Create</button>
+                <hr />
+                <button class="btn btn-primary">Create</button>
             </form>
         </div>
     </div>

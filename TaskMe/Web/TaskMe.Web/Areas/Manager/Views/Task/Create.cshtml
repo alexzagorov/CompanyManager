@@ -1,4 +1,5 @@
-﻿<!-- Material form contact -->
+﻿@model TaskMe.Web.InputModels.Manager.Task.CreateTaskInputModel
+
 <div class="card border-dark">
 
     <h5 class="card-header bg-primary text-center py-4">
@@ -9,49 +10,50 @@
     <div class="card-body px-lg-5 pt-0">
 
         <!-- Form -->
-        <form class="text-center" style="color: #757575;" action="#!">
+        <form asp-area="Manager" asp-controller="Task" asp-action="Create" class="text-center">
 
             <!-- Name -->
             <div class="md-form mt-md-4">
-                <input type="text" id="materialContactFormName" class="form-control">
-                <label for="materialContactFormName">Name</label>
+                <input asp-for="Name" type="text" class="form-control">
+                <label asp-for="Name">Name</label>
+                <span asp-validation-for="Name" class="text-danger"></span>
             </div>
 
-            <!-- E-mail -->
+            <!-- Start date -->
             <div class="md-form mt-md-3">
-                <input type="email" id="materialContactFormEmail" class="form-control">
-                <label for="materialContactFormEmail">E-mail</label>
+                <input asp-for="StartDate" class="form-control">
+                <label asp-for="StartDate"></label>
+                <span asp-validation-for="StartDate" class="text-danger"></span>
             </div>
 
-            <!-- Subject -->
-            <span>Subject</span>
-            <select class="custom-select mt-md-3">
-                <option value="" disabled>Choose option</option>
-                <option value="1" selected>Feedback</option>
-                <option value="2">Report a bug</option>
-                <option value="3">Feature request</option>
-                <option value="4">Feature request</option>
-            </select>
-
-            <!--Message-->
+            <!-- End date -->
             <div class="md-form mt-md-3">
-                <textarea id="materialContactFormMessage" class="form-control md-textarea" rows="3"></textarea>
-                <label class="text-black">Message</label>
+                <input asp-for="EndDate" class="form-control">
+                <label asp-for="EndDate"></label>
+                <span asp-validation-for="EndDate" class="text-danger"></span>
             </div>
 
-            <!-- Copy -->
-            <div class="form-check">
-                <input type="checkbox" class="form-check-input" id="materialContactFormCopy">
-                <label class="form-check-label" for="materialContactFormCopy">Send me a copy of this message</label>
+            <!-- Partisipants -->
+            <div class="md-form mt-md-3">
+                <select asp-for="Participants" data-width="100%" class="selectpicker" data-live-search="true">
+                    <option value="1" data-tokens="ketchup mustard">Hot Dog, Fries and a Soda</option>
+                    <option value="2" data-tokens="mustard">Burger, Shake and a Smile</option>
+                    <option value="3" data-tokens="frosting">Sugar, Spice and all things nice</option>
+                </select>
+                <label asp-for="Participants"></label>
+                <span asp-validation-for="Participants" class="text-danger"></span>
+            </div>
+
+            <!--Description-->
+            <div class="md-form mt-md-3">
+                <textarea asp-for="Description" class="form-control md-textarea"></textarea>
+                <label asp-for="Description"></label>
+                <span asp-validation-for="Description" class="text-danger"></span>
             </div>
 
             <!-- Send button -->
-            <button class="btn btn-outline-info btn-rounded btn-block z-depth-0 my-4 waves-effect" type="submit">Send</button>
-
+            <button class="btn btn-outline-primary btn-rounded btn-block z-depth-0 my-4 waves-effect" type="submit">Create</button>
         </form>
         <!-- Form -->
-
     </div>
-
 </div>
-<!-- Material form contact -->
