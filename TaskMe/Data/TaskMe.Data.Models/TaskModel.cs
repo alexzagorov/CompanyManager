@@ -41,6 +41,8 @@
 
         public Company Company { get; set; }
 
+        public bool IsReady { get; set; }
+
         public bool IsDeleted { get; set; }
 
         public DateTime? DeletedOn { get; set; }

@@ -31,6 +31,8 @@
 
         public DbSet<TaskModel> Tasks { get; set; }
 
+        public DbSet<Subtask> Subtasks { get; set; }
+
         public DbSet<UserTask> UserTasks { get; set; }
 
         public override int SaveChanges() => this.SaveChanges(true);

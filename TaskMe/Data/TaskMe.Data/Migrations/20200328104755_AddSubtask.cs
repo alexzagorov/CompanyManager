@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace TaskMe.Data.Migrations
 {
-    public partial class InitialCreate : Migration
+    public partial class AddSubtask : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -216,6 +216,31 @@ namespace TaskMe.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Subtasks",
+                columns: table => new
+                {
+                    Id = table.Column<string>(nullable: false),
+                    CreatedOn = table.Column<DateTime>(nullable: false),
+                    ModifiedOn = table.Column<DateTime>(nullable: true),
+                    ShortDescription = table.Column<string>(maxLength: 100, nullable: false),
+                    IsTaken = table.Column<bool>(nullable: false),
+                    IsReady = table.Column<bool>(nullable: false),
+                    OwnerId = table.Column<string>(nullable: false),
+                    IsDeleted = table.Column<bool>(nullable: false),
+                    DeletedOn = table.Column<DateTime>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Subtasks", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Subtasks_AspNetUsers_OwnerId",
+                        column: x => x.OwnerId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Tasks",
                 columns: table => new
                 {
@@ -228,6 +253,7 @@ namespace TaskMe.Data.Migrations
                     EndDate = table.Column<DateTime>(nullable: true),
                     OwnerId = table.Column<string>(nullable: false),
                     CompanyId = table.Column<string>(nullable: false),
+                    IsReady = table.Column<bool>(nullable: false),
                     IsDeleted = table.Column<bool>(nullable: false),
                     DeletedOn = table.Column<DateTime>(nullable: true)
                 },
@@ -347,6 +373,16 @@ namespace TaskMe.Data.Migrations
                 column: "IsDeleted");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Subtasks_IsDeleted",
+                table: "Subtasks",
+                column: "IsDeleted");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Subtasks_OwnerId",
+                table: "Subtasks",
+                column: "OwnerId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Tasks_CompanyId",
                 table: "Tasks",
                 column: "CompanyId");
@@ -383,6 +419,9 @@ namespace TaskMe.Data.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetUserTokens");
+
+            migrationBuilder.DropTable(
+                name: "Subtasks");
 
             migrationBuilder.DropTable(
                 name: "UserTasks");

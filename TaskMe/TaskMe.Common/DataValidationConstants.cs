@@ -13,5 +13,8 @@
         public const int TaskNameLength = 40;
 
         public const int TaskDescriptionLength = 10000;
+
+        // Subtask
+        public const int SubTaskShortDescLengt = 100;
     }
 }

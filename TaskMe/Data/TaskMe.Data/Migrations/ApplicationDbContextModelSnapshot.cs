@@ -324,6 +324,47 @@ namespace TaskMe.Data.Migrations
                     b.ToTable("Pictures");
                 });
 
+            modelBuilder.Entity("TaskMe.Data.Models.Subtask", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsReady")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsTaken")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("ModifiedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("OwnerId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("ShortDescription")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(100)")
+                        .HasMaxLength(100);
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("IsDeleted");
+
+                    b.HasIndex("OwnerId");
+
+                    b.ToTable("Subtasks");
+                });
+
             modelBuilder.Entity("TaskMe.Data.Models.TaskModel", b =>
                 {
                     b.Property<string>("Id")
@@ -348,6 +389,9 @@ namespace TaskMe.Data.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsReady")
                         .HasColumnType("bit");
 
                     b.Property<DateTime?>("ModifiedOn")
@@ -458,6 +502,15 @@ namespace TaskMe.Data.Migrations
                     b.HasOne("TaskMe.Data.Models.Picture", "CompanyPicture")
                         .WithMany()
                         .HasForeignKey("CompanyPictureId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("TaskMe.Data.Models.Subtask", b =>
+                {
+                    b.HasOne("TaskMe.Data.Models.ApplicationUser", "Owner")
+                        .WithMany()
+                        .HasForeignKey("OwnerId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
                 });
