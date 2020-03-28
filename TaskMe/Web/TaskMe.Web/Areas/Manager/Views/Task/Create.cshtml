@@ -51,6 +51,19 @@
                 <span asp-validation-for="Description" class="text-danger"></span>
             </div>
 
+            <hr />
+            <div class="md-form mt-md-3">
+                <a class="btn btn-primary rounded-circle" width="160px" height="160px" data-target="#subtaskCreate" data-toggle="collapse">
+                    <i class="fa fa-plus"></i>
+                </a>
+                <label>Add Subtask</label>
+                <hr />
+                <div id="subtaskCreate" class="collapse border border-primary">
+                    <input class="form-control">
+                    <label>Subtask Description</label>
+                </div>
+            </div>
+
             <!-- Send button -->
             <button class="btn btn-outline-primary btn-rounded btn-block z-depth-0 my-4 waves-effect" type="submit">Create</button>
         </form>
