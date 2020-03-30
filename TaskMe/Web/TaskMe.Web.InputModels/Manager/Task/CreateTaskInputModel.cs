@@ -14,11 +14,11 @@
         }
 
         [Required]
-        [StringLength(DataValidationConstants.TaskNameLength)]
+        [StringLength(DataValidationConstants.TaskNameLength, ErrorMessage = "Task Name should be less than 40 symbols")]
         public string Name { get; set; }
 
         [Required]
-        [StringLength(DataValidationConstants.TaskDescriptionLength)]
+        [StringLength(DataValidationConstants.TaskDescriptionLength, ErrorMessage = "Task Name should be less than 10000 symbols")]
         public string Description { get; set; }
 
         [Required]
@@ -31,5 +31,8 @@
         public DateTime? EndDate { get; set; }
 
         public ICollection<int> Participants { get; set; }
+
+        [StringLength(DataValidationConstants.SubTaskShortDescLengt, ErrorMessage = "Subtask description shold be less than 100 symbols")]
+        public ICollection<string> Subtasks { get; set; }
     }
 }

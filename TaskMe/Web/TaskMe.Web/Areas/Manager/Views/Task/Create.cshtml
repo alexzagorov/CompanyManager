@@ -58,9 +58,17 @@
                 </a>
                 <label>Add Subtask</label>
                 <hr />
-                <div id="subtaskCreate" class="collapse border border-primary">
-                    <input class="form-control">
-                    <label>Subtask Description</label>
+                <div id="subtaskCreate" class="collapse">
+                    <div class="row">
+                        <div class="col-md-10">
+                            <input asp-for="Subtasks" placeholder="Type short subtask description..." class="form-control">
+                        </div>
+                        <div class="col-md-2">
+                            <button type="button" id="addSubtaskButton" class="btn btn-primary">Add</button>
+                        </div>
+                    </div>
+
+                    <span asp-validation-for="Subtasks" class="text-danger"></span>
                 </div>
             </div>
 
@@ -70,3 +78,7 @@
         <!-- Form -->
     </div>
 </div>
+
+@section Scripts {
+    <script src="~/js/createTask/subtaskAddDecoration.js"></script>
+}
