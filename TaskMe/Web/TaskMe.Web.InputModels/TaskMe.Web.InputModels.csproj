@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
+    <TargetFramework>netstandard2.1</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>
@@ -13,6 +13,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\Data\TaskMe.Data.Models\TaskMe.Data.Models.csproj" />
+    <ProjectReference Include="..\..\Services\TaskMe.Services.Mapping\TaskMe.Services.Mapping.csproj" />
     <ProjectReference Include="..\..\TaskMe.Common\TaskMe.Common.csproj" />
   </ItemGroup>
 </Project>

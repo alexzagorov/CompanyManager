@@ -1,7 +1,6 @@
 ﻿namespace TaskMe.Web.ViewModels.Manager.Company
 {
     using System;
-    using System.Collections.Generic;
 
     using TaskMe.Data.Models;
     using TaskMe.Services.Mapping;

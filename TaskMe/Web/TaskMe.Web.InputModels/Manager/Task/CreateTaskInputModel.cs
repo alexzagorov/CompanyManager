@@ -10,7 +10,7 @@
     {
         public CreateTaskInputModel()
         {
-            this.Participants = new HashSet<int>();
+            this.Participants = new HashSet<string>();
         }
 
         [Required]
@@ -30,9 +30,11 @@
         [DataType(DataType.Date)]
         public DateTime? EndDate { get; set; }
 
-        public ICollection<int> Participants { get; set; }
+        public ICollection<string> Participants { get; set; }
 
         [StringLength(DataValidationConstants.SubTaskShortDescLengt, ErrorMessage = "Subtask description shold be less than 100 symbols")]
-        public ICollection<string> Subtasks { get; set; }
+        public IEnumerable<string> Subtasks { get; set; }
+
+        public IEnumerable<EmployeesDropdownViewModel> Employees { get; set; }
     }
 }
