@@ -1,6 +1,5 @@
 ﻿namespace TaskMe.Services.Data.Company
 {
-    using Microsoft.AspNetCore.Identity;
     using System;
     using System.Collections.Generic;
     using System.Linq;
@@ -12,7 +11,6 @@
     using TaskMe.Services.Mapping;
     using TaskMe.Web.InputModels;
     using TaskMe.Web.ViewModels.Administration.Company;
-    using TaskMe.Web.ViewModels.Manager.Company;
 
     public class CompanyService : ICompanyService
     {

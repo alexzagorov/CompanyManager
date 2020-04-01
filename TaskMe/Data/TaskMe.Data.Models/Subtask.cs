@@ -21,11 +21,14 @@
 
         public bool IsReady { get; set; }
 
-        [Required]
         public string OwnerId { get; set; }
 
-        [Required]
         public ApplicationUser Owner { get; set; }
+
+        [Required]
+        public string TaskId { get; set; }
+
+        public virtual TaskModel Task { get; set; }
 
         public bool IsDeleted { get; set; }
 

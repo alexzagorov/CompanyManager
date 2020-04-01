@@ -13,6 +13,8 @@
         public TaskModel()
         {
             this.Id = Guid.NewGuid().ToString();
+            this.Participants = new List<UserTask>();
+            this.Subtasks = new List<Subtask>();
         }
 
         [Required]
@@ -32,14 +34,16 @@
         public string OwnerId { get; set; }
 
         [Required]
-        public ApplicationUser Owner { get; set; }
+        public virtual ApplicationUser Owner { get; set; }
 
-        public ICollection<UserTask> Participants { get; set; }
+        public virtual ICollection<UserTask> Participants { get; set; }
 
         [Required]
         public string CompanyId { get; set; }
 
-        public Company Company { get; set; }
+        public virtual Company Company { get; set; }
+
+        public virtual ICollection<Subtask> Subtasks { get; set; }
 
         public bool IsReady { get; set; }
 

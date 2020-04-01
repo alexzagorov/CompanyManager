@@ -8,11 +8,6 @@
 
     public class CreateTaskInputModel
     {
-        public CreateTaskInputModel()
-        {
-            this.Participants = new HashSet<string>();
-        }
-
         [Required]
         [StringLength(DataValidationConstants.TaskNameLength, ErrorMessage = "Task Name should be less than 40 symbols")]
         public string Name { get; set; }
@@ -32,7 +27,6 @@
 
         public ICollection<string> Participants { get; set; }
 
-        [StringLength(DataValidationConstants.SubTaskShortDescLengt, ErrorMessage = "Subtask description shold be less than 100 symbols")]
         public IEnumerable<string> Subtasks { get; set; }
 
         public IEnumerable<EmployeesDropdownViewModel> Employees { get; set; }

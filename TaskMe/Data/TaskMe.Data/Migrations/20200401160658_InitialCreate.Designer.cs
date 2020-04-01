@@ -10,8 +10,8 @@ using TaskMe.Data;
 namespace TaskMe.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20200328104755_AddSubtask")]
-    partial class AddSubtask
+    [Migration("20200401160658_InitialCreate")]
+    partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -350,7 +350,6 @@ namespace TaskMe.Data.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("OwnerId")
-                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("ShortDescription")
@@ -358,11 +357,17 @@ namespace TaskMe.Data.Migrations
                         .HasColumnType("nvarchar(100)")
                         .HasMaxLength(100);
 
+                    b.Property<string>("TaskId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
                     b.HasKey("Id");
 
                     b.HasIndex("IsDeleted");
 
                     b.HasIndex("OwnerId");
+
+                    b.HasIndex("TaskId");
 
                     b.ToTable("Subtasks");
                 });
@@ -512,7 +517,11 @@ namespace TaskMe.Data.Migrations
                 {
                     b.HasOne("TaskMe.Data.Models.ApplicationUser", "Owner")
                         .WithMany()
-                        .HasForeignKey("OwnerId")
+                        .HasForeignKey("OwnerId");
+
+                    b.HasOne("TaskMe.Data.Models.TaskModel", "Task")
+                        .WithMany("Subtasks")
+                        .HasForeignKey("TaskId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
                 });
