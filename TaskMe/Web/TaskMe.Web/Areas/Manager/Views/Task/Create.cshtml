@@ -49,11 +49,8 @@
                 <select asp-for="Participants" data-width="100%" class="selectpicker" data-live-search="true">
                     @foreach (var employee in Model.Employees)
                     {
-                        <option value="@employee.Id"> @($"{employee.FirstName} {employee.LastName}")</option>
-                    }
-                    <option value="1" data-tokens="ketchup mustard">Hot Dog, Fries and a Soda</option>
-                    <option value="2" data-tokens="mustard">Burger, Shake and a Smile</option>
-                    <option value="3" data-tokens="frosting">Sugar, Spice and all things nice</option>
+                        <option value="@employee.Id">@($"{employee.FirstName} {employee.LastName}")</option>
+                    }                 
                 </select>
                 <label asp-for="Participants"></label>
                 <span asp-validation-for="Participants" class="text-danger"></span>
