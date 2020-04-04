@@ -9,6 +9,8 @@
     {
         Task<string> CreateTaskAsync(CreateTaskInputModel inputModel, string ownerId, string companyId);
 
-        ICollection<T> GetAllForCompanyInViewModel<T>(string companyId);
+        ICollection<T> GetAllForCompanyInViewModel<T>(string companyId, int? take = null, int skip = 0);
+
+        int GetCountForCompany(string companyId);
     }
 }

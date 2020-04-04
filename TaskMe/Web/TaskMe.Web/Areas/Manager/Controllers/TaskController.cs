@@ -1,8 +1,10 @@
 ﻿namespace TaskMe.Web.Areas.Manager.Controllers
 {
+    using System;
+    using System.Threading.Tasks;
+
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
-    using System.Threading.Tasks;
     using TaskMe.Data.Models;
     using TaskMe.Services.Data;
     using TaskMe.Services.Data.Task;
@@ -12,6 +14,7 @@
 
     public class TaskController : ManagerController
     {
+        private const int ItemsPerPage = 5;
         private readonly ITaskService taskService;
         private readonly IUserService userService;
         private readonly ICompanyService companyService;
@@ -29,11 +32,14 @@
             this.userManager = userManager;
         }
 
-        public IActionResult Index()
+        public IActionResult Index(int page = 1)
         {
             var companyId = this.companyService.GetIdByUserName(this.User.Identity.Name);
-            var tasks = this.taskService.GetAllForCompanyInViewModel<TaskInnerViewModel>(companyId);
-            var viewModel = new AllTasksViewModel { Tasks = tasks };
+            var count = this.taskService.GetCountForCompany(companyId);
+            var tasks = this.taskService.GetAllForCompanyInViewModel<TaskInnerViewModel>(companyId, ItemsPerPage, (page - 1) * ItemsPerPage);
+
+            var viewModel = new AllTasksViewModel { Tasks = tasks, CurrentPage = page };
+            viewModel.PagesCount = (int)Math.Ceiling((double)count / ItemsPerPage);
             return this.View(viewModel);
         }
 

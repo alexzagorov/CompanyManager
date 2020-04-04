@@ -73,12 +73,24 @@
             }
         }
 
-        public ICollection<T> GetAllForCompanyInViewModel<T>(string companyId)
+        public ICollection<T> GetAllForCompanyInViewModel<T>(string companyId, int? take = null, int skip = 0)
         {
-            return this.tasks.All()
+            var query = this.tasks.All()
+                .OrderByDescending(x => x.EndDate)
                 .Where(x => x.CompanyId == companyId)
-                .To<T>()
-                .ToList();
+                .Skip(skip);
+
+            if (take.HasValue)
+            {
+                query = query.Take(take.Value);
+            }
+
+            return query.To<T>().ToList();
+        }
+
+        public int GetCountForCompany(string companyId)
+        {
+            return this.tasks.All().Where(x => x.CompanyId == companyId).Count();
         }
     }
 }

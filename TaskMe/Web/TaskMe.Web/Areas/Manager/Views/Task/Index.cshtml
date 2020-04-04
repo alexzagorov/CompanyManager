@@ -2,12 +2,14 @@
 
 @if (Model.Tasks.Any())
 {
+    <!--Create button-->
     <a asp-area="Manager" asp-controller="Task" asp-action="Create" class="btn btn-outline-primary btn-rounded btn-block z-depth-0 my-4 waves-effect">Create new Task</a>
     <hr />
     foreach (var task in Model.Tasks)
     {
         <div class="card border border-secondary">
             <div class="card-body row">
+                <!--Task info-->
                 <div class="col-md-8">
                     <h4 class="card-title">@task.Name</h4>
                     <p class="card-text">@task.Description</p>
@@ -15,11 +17,12 @@
                     <a asp-area="Manager" asp-controller="Task" asp-action="Details" asp-route-id="@task.Id" class="btn btn-secondary">View Details</a>
                     <a asp-area="Manager" asp-controller="Task" asp-action="Delete" asp-route-id="@task.Id" class="btn btn-danger">Delete this Task!</a>
                     <hr />
+                    <!--Progressbar-->
                     <div class="progress row-md-12">
                         <div class="progress-bar" role="progressbar" style="width: @($"{task.PercentageCompletion}%");" aria-valuenow="@task.PercentageCompletion" aria-valuemin="0" aria-valuemax="100">@task.PercentageCompletion% completed</div>
                     </div>
                 </div>
-
+                <!--Subtasks info-->
                 <div class="col-md-4">
                     <h4>Subtasks</h4>
                     <ul class="list-group">
@@ -40,9 +43,51 @@
         </div>
         <hr />
     }
+    <!--Pagination-->
+    <nav>
+        <ul class="pagination justify-content-center">
+            <!--Previous-->
+            @if (Model.CurrentPage == 1)
+            {
+                <li class="page-item disabled">
+                    <a asp-area="Manager" asp-controller="Task" asp-action="Index" asp-route-page="@(Model.CurrentPage - 1)" class="page-link" aria-disabled="true">Previous</a>
+                </li>
+            }
+            else
+            {
+                <li class="page-item">
+                    <a asp-area="Manager" asp-controller="Task" asp-action="Index" asp-route-page="@(Model.CurrentPage - 1)" class="page-link">Previous</a>
+                </li>
+            }
+            @for (int i = 1; i <= Model.PagesCount; i++)
+            {
+                var isActive = i == Model.CurrentPage ? "active" : string.Empty;
+
+                <li class="page-item @isActive">
+                    <a asp-area="Manager" asp-controller="Task" asp-action="Index" asp-route-page="@i" class="page-link">
+                        @i
+                    </a>
+                </li>
+            }
+            <!--Next-->
+            @if (Model.CurrentPage == Model.PagesCount)
+            {
+                <li class="page-item disabled">
+                    <a asp-area="Manager" asp-controller="Task" asp-action="Index" asp-route-page="@(Model.CurrentPage + 1)" class="page-link" aria-disabled="true">Next</a>
+                </li>
+            }
+            else
+            {
+                <li class="page-item">
+                    <a asp-area="Manager" asp-controller="Task" asp-action="Index" asp-route-page="@(Model.CurrentPage + 1)" class="page-link">Next</a>
+                </li>
+            }
+        </ul>
+    </nav>
 }
 else
 {
+    <!--No tasks message-->
     <div class="jumbotron jumbotron-fluid">
         <div class="container">
             <h1 class="display-4">No task :(</h1>
