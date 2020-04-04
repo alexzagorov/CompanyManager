@@ -1,12 +1,15 @@
-﻿using System;
-using System.Linq;
-using System.Threading.Tasks;
-using TaskMe.Data.Common.Repositories;
-using TaskMe.Data.Models;
-using TaskMe.Web.InputModels.Manager.Task;
-
-namespace TaskMe.Services.Data.Task
+﻿namespace TaskMe.Services.Data.Task
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Threading.Tasks;
+
+    using TaskMe.Data.Common.Repositories;
+    using TaskMe.Data.Models;
+    using TaskMe.Services.Mapping;
+    using TaskMe.Web.InputModels.Manager.Task;
+
     public class TaskService : ITaskService
     {
         private readonly IDeletableEntityRepository<TaskModel> tasks;
@@ -68,6 +71,14 @@ namespace TaskMe.Services.Data.Task
             {
                 return task.Id;
             }
+        }
+
+        public ICollection<T> GetAllForCompanyInViewModel<T>(string companyId)
+        {
+            return this.tasks.All()
+                .Where(x => x.CompanyId == companyId)
+                .To<T>()
+                .ToList();
         }
     }
 }

@@ -8,6 +8,7 @@
     using TaskMe.Services.Data.Task;
     using TaskMe.Services.Data.User;
     using TaskMe.Web.InputModels.Manager.Task;
+    using TaskMe.Web.ViewModels.Manager.Task;
 
     public class TaskController : ManagerController
     {
@@ -30,7 +31,10 @@
 
         public IActionResult Index()
         {
-            return this.View();
+            var companyId = this.companyService.GetIdByUserName(this.User.Identity.Name);
+            var tasks = this.taskService.GetAllForCompanyInViewModel<TaskInnerViewModel>(companyId);
+            var viewModel = new AllTasksViewModel { Tasks = tasks };
+            return this.View(viewModel);
         }
 
         public IActionResult Create()

@@ -83,7 +83,13 @@
                 {
                     <tr>
                         <td>
-                            <strong>@task.Name</strong> Start Date: @task.StartDate.ToShortDateString()  End Date: @task.EndDate?.ToShortDateString()<strong>From: @task.OwnerUserName</strong>
+                            <strong>@task.Name</strong>
+                        </td>
+                        <td>
+                            Start Date: @task.StartDate.ToShortDateString()  End Date: @task.EndDate?.ToShortDateString()
+                        </td>
+                        <td>
+                            <strong>From: @task.OwnerUserName</strong>
                         </td>
                     </tr>
                 }

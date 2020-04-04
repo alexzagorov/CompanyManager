@@ -1,30 +1,53 @@
-﻿<a asp-area="Manager" asp-controller="Task" asp-action="Create" class="btn btn-primary">Create new Task</a>
+﻿@model TaskMe.Web.ViewModels.Manager.Task.AllTasksViewModel
 
-@for (int i = 0; i < 10; i++)
+@if (Model.Tasks.Any())
 {
-    <div class="card border border-secondary">
-        <div class="card-body row">
-            <div class="col-md-8">
-                <h4 class="card-title">Card title</h4>
-                <p class="card-text">Some example text. Some example text.</p>
-                <a class="btn btn-secondary">View Details</a>
-                <a class="btn btn-danger">Delete this Task!</a>
-                <hr />
-                <div class="progress row-md-12">
-                    <div class="progress-bar" role="progressbar" style="width: 25%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">25%</div>
+    <a asp-area="Manager" asp-controller="Task" asp-action="Create" class="btn btn-outline-primary btn-rounded btn-block z-depth-0 my-4 waves-effect">Create new Task</a>
+    <hr />
+    foreach (var task in Model.Tasks)
+    {
+        <div class="card border border-secondary">
+            <div class="card-body row">
+                <div class="col-md-8">
+                    <h4 class="card-title">@task.Name</h4>
+                    <p class="card-text">@task.Description</p>
+                    <hr />
+                    <a asp-area="Manager" asp-controller="Task" asp-action="Details" asp-route-id="@task.Id" class="btn btn-secondary">View Details</a>
+                    <a asp-area="Manager" asp-controller="Task" asp-action="Delete" asp-route-id="@task.Id" class="btn btn-danger">Delete this Task!</a>
+                    <hr />
+                    <div class="progress row-md-12">
+                        <div class="progress-bar" role="progressbar" style="width: @($"{task.PercentageCompletion}%");" aria-valuenow="@task.PercentageCompletion" aria-valuemin="0" aria-valuemax="100">@task.PercentageCompletion% completed</div>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <h4>Subtasks</h4>
+                    <ul class="list-group">
+                        @foreach (var subtask in task.Subtasks)
+                        {
+                            @if (subtask.IsReady)
+                            {
+                                <li class="list-group-item">@subtask.ShortDescription <i class="fa fa-check"></i></li>
+                            }
+                            else
+                            {
+                                <li class="list-group-item">@subtask.ShortDescription</li>
+                            }
+                        }
+                    </ul>
                 </div>
             </div>
-
-            <div class="col-md-4">
-                <ul class="list-group">
-                    <li class="list-group-item">Cras justo odio</li>
-                    <li class="list-group-item">Dapibus ac facilisis in</li>
-                    <li class="list-group-item">Morbi leo risus</li>
-                    <li class="list-group-item">Porta ac consectetur ac</li>
-                    <li class="list-group-item">Vestibulum at eros</li>
-                </ul>
-            </div>
+        </div>
+        <hr />
+    }
+}
+else
+{
+    <div class="jumbotron jumbotron-fluid">
+        <div class="container">
+            <h1 class="display-4">No task :(</h1>
+            <p class="lead">You can create a new one now!</p>
+            <a asp-area="Manager" asp-controller="Task" asp-action="Create" class="btn btn-primary">Create new Task</a>
         </div>
     </div>
-    <hr />
 }
