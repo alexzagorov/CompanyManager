@@ -50,10 +50,10 @@
                                     {
                                         <tr>
                                             <td>
-                                                <img class="rounded-circle border-dark" src="@supervisor.PictureUrl" width="20" height="20" /> <strong>@($"{supervisor.FirstName} {supervisor.LastName}")</strong> 
+                                                <img class="rounded-circle border-dark" src="@supervisor.PictureUrl" width="20" height="20" /> <strong>@($"{supervisor.FirstName} {supervisor.LastName}")</strong>
                                             </td>
                                             <td>
-                                                <a id="fireButton" name="@supervisor.Id" data-toggle="modal" data-target="#confirm-delete" class="btn btn-danger">Fire!</a>
+                                                <a name="@supervisor.Id" data-toggle="modal" data-target="#confirm-delete" class="btn btn-danger fireButton">Fire!</a>
                                             </td>
                                         </tr>
                                     }
@@ -112,7 +112,7 @@
 <!--modal-->
 <div class="modal fade" id="confirm-delete" tabindex="1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
-        <div class="modal-content">           
+        <div class="modal-content">
             <div class="modal-body">
                 Are you shure you want to delete this user?
             </div>

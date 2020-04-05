@@ -64,5 +64,17 @@
             await this.taskService.CreateTaskAsync(inputModel, ownerId, companyId);
             return this.RedirectToAction(nameof(this.Index));
         }
+
+        public async Task<IActionResult> Delete(string id)
+        {
+            bool isSuceed = await this.taskService.DeleteTaskAsync(id);
+
+            if (!isSuceed)
+            {
+                return this.Redirect("/Home/Error");
+            }
+
+            return this.RedirectToAction(nameof(this.Index));
+        }
     }
 }

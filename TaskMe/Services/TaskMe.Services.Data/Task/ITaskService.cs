@@ -12,5 +12,7 @@
         ICollection<T> GetAllForCompanyInViewModel<T>(string companyId, int? take = null, int skip = 0);
 
         int GetCountForCompany(string companyId);
+
+        Task<bool> DeleteTaskAsync(string taskId);
     }
 }

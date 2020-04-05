@@ -73,6 +73,19 @@
             }
         }
 
+        public async Task<bool> DeleteTaskAsync(string taskId)
+        {
+            var task = this.tasks.All().FirstOrDefault(x => x.Id == taskId);
+            this.tasks.Delete(task);
+            int result = await this.tasks.SaveChangesAsync();
+            if (result < 0)
+            {
+                return false;
+            }
+
+            return true;
+        }
+
         public ICollection<T> GetAllForCompanyInViewModel<T>(string companyId, int? take = null, int skip = 0)
         {
             var query = this.tasks.All()

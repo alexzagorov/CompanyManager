@@ -1,6 +1,16 @@
-﻿let confirmBtn = document.getElementById("confirmButton");
-let fireBtn = document.getElementById("fireButton");
+﻿let fireBtns = document.getElementsByClassName("fireButton");
 
-let userId = fireBtn.getAttribute("name");
 
-confirmBtn.setAttribute("href", `/Manager/User/Delete?id=${userId}`);
+for (let i = 0; i < fireBtns.length; i++) {
+    addEventListeners(fireBtns[i])
+}
+
+function addEventListeners(item) {
+    item.addEventListener("click", function () {
+        let confirmBtn = document.getElementById("confirmButton");
+
+        let userId = item.getAttribute("name");
+
+        confirmBtn.setAttribute("href", `/Manager/User/Delete?id=${userId}`);
+    });
+};
