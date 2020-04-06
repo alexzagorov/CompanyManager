@@ -16,7 +16,8 @@
         [StringLength(DataValidationConstants.TaskDescriptionLength, ErrorMessage = "Task Name should be less than 10000 symbols")]
         public string Description { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "The date value is mandatory")]
+        [DateRange]
         [DisplayName("Start Date")]
         [DataType(DataType.Date)]
         public DateTime StartDate { get; set; }

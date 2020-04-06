@@ -105,5 +105,13 @@
         {
             return this.tasks.All().Where(x => x.CompanyId == companyId).Count();
         }
+
+        public T GetInViewModel<T>(string taskId)
+        {
+            return this.tasks.All()
+                .Where(x => x.Id == taskId)
+                .To<T>()
+                .FirstOrDefault();
+        }
     }
 }

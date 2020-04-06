@@ -53,13 +53,17 @@
         [HttpPost]
         public async Task<IActionResult> Create(CreateTaskInputModel inputModel)
         {
+            var companyId = this.companyService.GetIdByUserName(this.User.Identity.Name);
+
             if (!this.ModelState.IsValid)
             {
+                var employees = this.userService.GetUsersInCompanyInViewModel<EmployeesDropdownViewModel>(companyId);
+                inputModel.Employees = employees;
+
                 return this.View(inputModel);
             }
 
             var ownerId = this.userManager.GetUserId(this.User);
-            var companyId = this.companyService.GetIdByUserName(this.User.Identity.Name);
 
             await this.taskService.CreateTaskAsync(inputModel, ownerId, companyId);
             return this.RedirectToAction(nameof(this.Index));
@@ -79,7 +83,8 @@
 
         public IActionResult Details(string id)
         {
-            return this.View();
+            var viewModel = this.taskService.GetInViewModel<DetailsTaskViewModel>(id);
+            return this.View(viewModel);
         }
     }
 }
