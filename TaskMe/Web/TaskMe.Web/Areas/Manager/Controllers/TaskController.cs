@@ -76,5 +76,10 @@
 
             return this.RedirectToAction(nameof(this.Index));
         }
+
+        public IActionResult Details(string id)
+        {
+            return this.View();
+        }
     }
 }
