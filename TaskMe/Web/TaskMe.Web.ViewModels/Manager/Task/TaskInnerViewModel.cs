@@ -2,7 +2,8 @@
 {
     using System.Collections.Generic;
     using System.Linq;
-
+    using System.Net;
+    using System.Text.RegularExpressions;
     using TaskMe.Data.Models;
     using TaskMe.Services.Mapping;
 
@@ -19,14 +20,30 @@
 
         public string Description { get; set; }
 
+        public string ShortDescription
+        {
+            get
+            {
+                var content = WebUtility.HtmlDecode(Regex.Replace(this.Description, @"<[^>]+>", string.Empty));
+                return content.Length > 250
+                        ? content.Substring(0, 250) + "..."
+                        : content;
+            }
+        }
+
         public int PercentageCompletion
         {
             get
             {
-                int readySubtask = this.Subtasks.Where(x => x.IsReady == true).Count();
-                int allSubtasks = this.Subtasks.Count();
+                if (this.Subtasks.Any())
+                {
+                    int readySubtask = this.Subtasks.Where(x => x.IsReady == true).Count();
+                    int allSubtasks = this.Subtasks.Count();
 
-                return (readySubtask * 100) / allSubtasks;
+                    return (readySubtask * 100) / allSubtasks;
+                }
+
+                return 0;
             }
         }
 

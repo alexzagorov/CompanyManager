@@ -1,5 +1,6 @@
 ﻿namespace TaskMe.Web.ViewModels.Manager.Task
 {
+    using Ganss.XSS;
     using System;
     using System.Collections.Generic;
     using System.Linq;
@@ -21,14 +22,21 @@
 
         public string Description { get; set; }
 
+        public string SanitizedDescription => new HtmlSanitizer().Sanitize(this.Description);
+
         public int PercentageCompletion
         {
             get
             {
-                int readySubtask = this.Subtasks.Where(x => x.IsReady == true).Count();
-                int allSubtasks = this.Subtasks.Count();
+                if (this.Subtasks.Any())
+                {
+                    int readySubtask = this.Subtasks.Where(x => x.IsReady == true).Count();
+                    int allSubtasks = this.Subtasks.Count();
 
-                return (readySubtask * 100) / allSubtasks;
+                    return (readySubtask * 100) / allSubtasks;
+                }
+
+                return 0;
             }
         }
 

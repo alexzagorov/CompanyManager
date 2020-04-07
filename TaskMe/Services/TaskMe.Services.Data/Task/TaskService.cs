@@ -47,13 +47,16 @@
                 });
             }
 
-            foreach (var subtask in inputModel.Subtasks)
+            if (inputModel.Subtasks.Where(x => x != null).Any())
             {
-                await this.subtasks.AddAsync(new Subtask
+                foreach (var subtask in inputModel.Subtasks.Where(x => x != null))
                 {
-                    TaskId = task.Id,
-                    ShortDescription = subtask,
-                });
+                    await this.subtasks.AddAsync(new Subtask
+                    {
+                        TaskId = task.Id,
+                        ShortDescription = subtask,
+                    });
+                }
             }
 
             await this.tasks.AddAsync(task);
