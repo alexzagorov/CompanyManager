@@ -10,8 +10,8 @@
     <!-- Portfolio Item Row -->
     <div class="row justify-content-center">
         <div class="row">
-            <h3 class="my-3">Task Description</h3>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam viverra euismod odio, gravida pellentesque urna varius vitae. Sed dui lorem, adipiscing in adipiscing et, interdum nec metus. Mauris ultricies, justo eu convallis placerat, felis enim.</p>
+
+            <h6 class="my-4 text-center">@Model.Description</h6>
             <!--Subtasks-->
             <div class="col-md-6">
                 <h3 class="my-3">Subtasks</h3>
@@ -58,8 +58,8 @@
             <!--Dates-->
             <div class="col-md-2">
                 <h3 class="my-3">Dates</h3>
-                <p class="my-3"><strong>Start Date: @Model.StrartDate.ToShortDateString()</strong></p>
-                <p class="my-3"><strong>End Date: @(Model.EndDate == null ? "No End Date" : Model.EndDate.Value.ToShortDateString())</strong></p>
+                <p class="my-3"><strong>Start Date: @Model.StartDate.ToShortDateString()</strong></p>
+                <p class="my-3"><strong>End Date: @(Model.EndDate == null ? "No End Date" : Model.EndDate?.ToShortDateString())</strong></p>
             </div>
         </div>
     </div>

@@ -36,7 +36,7 @@
 
         public string OwnerLastName { get; set; }
 
-        public DateTime StrartDate { get; set; }
+        public DateTime StartDate { get; set; }
 
         public DateTime? EndDate { get; set; }
 

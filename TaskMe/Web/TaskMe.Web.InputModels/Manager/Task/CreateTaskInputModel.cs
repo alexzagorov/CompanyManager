@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using System.ComponentModel;
     using System.ComponentModel.DataAnnotations;
+
     using TaskMe.Common;
 
     public class CreateTaskInputModel
@@ -17,8 +18,8 @@
         public string Description { get; set; }
 
         [Required(ErrorMessage = "The date value is mandatory")]
-        [DateRange]
         [DisplayName("Start Date")]
+        [DateRange]
         [DataType(DataType.Date)]
         public DateTime StartDate { get; set; }
 
@@ -26,6 +27,7 @@
         [DataType(DataType.Date)]
         public DateTime? EndDate { get; set; }
 
+        [Required]
         public ICollection<string> Participants { get; set; }
 
         public IEnumerable<string> Subtasks { get; set; }

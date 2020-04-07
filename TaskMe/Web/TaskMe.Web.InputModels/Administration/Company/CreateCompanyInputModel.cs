@@ -6,10 +6,7 @@
 
     public class CreateCompanyInputModel
     {
-        [Required]
-        [Display(Name = "Name")]
-        [RegularExpression(@"[A-Z][a-z A-Z 0-9]+", ErrorMessage = "The name must start with upper letter!")]
-        [StringLength(50, ErrorMessage = "The name must be between 3 and 50 characters long!", MinimumLength = 3)]
+        [Required]        
         public string Name { get; set; }
 
         [Required]

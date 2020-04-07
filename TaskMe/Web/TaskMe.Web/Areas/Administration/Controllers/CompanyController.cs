@@ -26,7 +26,7 @@
         {
             if (!this.ModelState.IsValid)
             {
-                return this.Redirect("/Home/Error");
+                return this.View(inputModel);
             }
 
             var companyId = await this.companyService.CreateCompanyAsync(inputModel);
