@@ -1,10 +1,10 @@
 ﻿namespace TaskMe.Web.ViewModels.Manager.Task
 {
-    using Ganss.XSS;
     using System;
     using System.Collections.Generic;
     using System.Linq;
 
+    using Ganss.XSS;
     using TaskMe.Data.Models;
     using TaskMe.Services.Mapping;
 
@@ -13,7 +13,7 @@
         public DetailsTaskViewModel()
         {
             this.Subtasks = new List<SubtaskForDetailsInnerViewModel>();
-            this.Participants = new List<UsersForDetailsInnerViewModel>();
+            this.Participants = new List<ParticipantsForDetailsInnerViewModel>();
         }
 
         public string Id { get; set; }
@@ -50,7 +50,9 @@
 
         public ICollection<SubtaskForDetailsInnerViewModel> Subtasks { get; set; }
 
-        public ICollection<UsersForDetailsInnerViewModel> Participants { get; set; }
+        public ICollection<ParticipantsForDetailsInnerViewModel> Participants { get; set; }
 
+        // Chat needs this
+        public UserInnerViewModel CurrentUser { get; set; }
     }
 }

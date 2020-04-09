@@ -33,6 +33,8 @@
 
         public DbSet<Subtask> Subtasks { get; set; }
 
+        public DbSet<Message> Messages { get; set; }
+
         public DbSet<UserTask> UserTasks { get; set; }
 
         public override int SaveChanges() => this.SaveChanges(true);

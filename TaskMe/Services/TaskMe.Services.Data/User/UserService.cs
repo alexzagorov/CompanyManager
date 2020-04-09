@@ -133,5 +133,14 @@
 
             return true;
         }
+
+        public T GetUserInViewModel<T>(string name)
+        {
+            var currentUser = this.users.All().Where(x => x.UserName == name)
+                   .To<T>()
+                   .FirstOrDefault();
+
+            return currentUser;
+        }
     }
 }

@@ -84,6 +84,11 @@
         public IActionResult Details(string id)
         {
             var viewModel = this.taskService.GetInViewModel<DetailsTaskViewModel>(id);
+
+            // Chat needs this
+            var user = this.userService.GetUserInViewModel<UserInnerViewModel>(this.User.Identity.Name);
+            viewModel.CurrentUser = user;
+
             return this.View(viewModel);
         }
     }

@@ -17,5 +17,7 @@
         Task<IEnumerable<T>> GetSupervisorsInCompanyInViewModelAsync<T>(string companyId);
 
         Task<bool> DeleteUserAsync(string userId);
+
+        T GetUserInViewModel<T>(string name);
     }
 }

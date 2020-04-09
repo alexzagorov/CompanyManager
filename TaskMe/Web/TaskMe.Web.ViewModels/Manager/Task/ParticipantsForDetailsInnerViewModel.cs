@@ -3,7 +3,7 @@
     using TaskMe.Data.Models;
     using TaskMe.Services.Mapping;
 
-    public class UsersForDetailsInnerViewModel : IMapFrom<UserTask>
+    public class ParticipantsForDetailsInnerViewModel : IMapFrom<UserTask>
     {
         public string UserFirstName { get; set; }
 
