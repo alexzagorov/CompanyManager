@@ -9,22 +9,18 @@
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Hosting;
-
     using TaskMe.Data;
     using TaskMe.Data.Common;
     using TaskMe.Data.Common.Repositories;
     using TaskMe.Data.Models;
     using TaskMe.Data.Repositories;
     using TaskMe.Data.Seeding;
-    using TaskMe.Services.Data;
-    using TaskMe.Services.Data.Company;
     using TaskMe.Services.Mapping;
     using TaskMe.Services.Messaging;
-    using TaskMe.Web.ViewModels;
-
-    using CloudinaryDotNet;
     using TaskMe.Web.Extensions;
+    using TaskMe.Web.Hubs;
     using TaskMe.Web.InputModels.Manager.Task;
+    using TaskMe.Web.ViewModels;
 
     public class Startup
     {
@@ -53,6 +49,7 @@
 
             services.AddControllersWithViews();
             services.AddRazorPages();
+            services.AddSignalR();
 
             services.AddSingleton(this.configuration);
 
@@ -111,6 +108,7 @@
             app.UseEndpoints(
                 endpoints =>
                     {
+                        endpoints.MapHub<ChatHub>("/chat");
                         endpoints.MapControllerRoute("areaRoute", "{area:exists}/{controller=Home}/{action=Index}/{id?}");
                         endpoints.MapControllerRoute("default", "{controller=Home}/{action=Index}/{id?}");
                         endpoints.MapRazorPages();
