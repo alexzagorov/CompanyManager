@@ -9,13 +9,16 @@ var connection =
 
 connection.on("NewMessage",
     function (object) {
+        var today = new Date();
         var chatInfo = `<div class="card">
             <div class="card-body">
-                <h6 class="card-subtitle mb-2 text-muted text-left">${object.user} <img class="rounded-circle border-dark" src="${object.pictureUrl}" width="20" height="20" /></h6>
-                <p class="card-text float-left bg-secondary rounded-pill">${escapeHtml(object.text)}</p>
+                <time class="card-text float-right" datetime="${today.toUTCString()}"></time>  
+                <h6 class="card-subtitle mb-2 text-muted text-left">${object.user} <img class="rounded-circle border-dark" src="${object.pictureUrl}" width="25" height="25" /></h6>
+                <h5 class="card-text float-left bg-secondary rounded-pill"><strong>${escapeHtml(object.text)}</strong></h5>
             </div>
         </div>`
         $("#messagesList").append(chatInfo);
+        momentJs();
     });
 
 
@@ -36,13 +39,16 @@ connection.start()
 
 
 function appendMyMsg(message) {
+    var today = new Date();
     var chatInfo = `<div class="card">
             <div class="card-body">
-                <h6 class="card-subtitle mb-2 text-muted text-right">${userNames} <img class="rounded-circle border-dark" src="${userPictureUrl}" width="20" height="20" /></h6>
-                <p class="card-text float-right bg-primary rounded-pill">${escapeHtml(message)}</p>
+                <time class="card-text" datetime="${today.toUTCString()}"></time>                        
+                <h6 class="card-subtitle mb-2 text-muted text-right">${userNames} <img class="rounded-circle border-dark" src="${userPictureUrl}" width="25" height="25" /></h6>
+                <h5 class="card-text float-right bg-primary rounded-pill"><strong>${escapeHtml(message)}</strong><h5>
             </div>
         </div>`
     $("#messagesList").append(chatInfo);
+    momentJs();
 }
 
 

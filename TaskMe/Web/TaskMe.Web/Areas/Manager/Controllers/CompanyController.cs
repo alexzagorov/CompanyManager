@@ -31,6 +31,7 @@
             return this.View(viewModel);
         }
 
+        // Infinite scroll uses this (Needs to be refactored)
         public IActionResult LoadEmployees(int pageIndex, int pageSize)
         {
             string companyId = this.companyService.GetIdByUserName(this.User.Identity.Name);

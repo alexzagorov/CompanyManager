@@ -7,28 +7,34 @@
     using Microsoft.AspNetCore.Mvc;
     using TaskMe.Data.Models;
     using TaskMe.Services.Data;
+    using TaskMe.Services.Data.Message;
     using TaskMe.Services.Data.Task;
     using TaskMe.Services.Data.User;
     using TaskMe.Web.InputModels.Manager.Task;
+    using TaskMe.Web.ViewModels.Common;
     using TaskMe.Web.ViewModels.Manager.Task;
 
     public class TaskController : ManagerController
     {
         private const int ItemsPerPage = 5;
+
         private readonly ITaskService taskService;
         private readonly IUserService userService;
         private readonly ICompanyService companyService;
+        private readonly IMessageService messageService;
         private readonly UserManager<ApplicationUser> userManager;
 
         public TaskController(
             ITaskService taskService,
             IUserService userService,
             ICompanyService companyService,
+            IMessageService messageService,
             UserManager<ApplicationUser> userManager)
         {
             this.taskService = taskService;
             this.userService = userService;
             this.companyService = companyService;
+            this.messageService = messageService;
             this.userManager = userManager;
         }
 
@@ -90,6 +96,14 @@
             viewModel.CurrentUser = user;
 
             return this.View(viewModel);
+        }
+
+        // Infinite scroll uses this
+        public IActionResult LoadMessages(int pageIndex, string taskId)
+        {
+            var messages = this.messageService.LoadMessages<ChatMessageViewModel>(taskId, ItemsPerPage, (pageIndex - 1) * ItemsPerPage);
+
+            return this.Json(messages);
         }
     }
 }

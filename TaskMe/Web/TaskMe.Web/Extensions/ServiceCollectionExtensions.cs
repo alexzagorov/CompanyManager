@@ -5,6 +5,7 @@
     using Microsoft.Extensions.DependencyInjection;
     using TaskMe.Services.Data;
     using TaskMe.Services.Data.Company;
+    using TaskMe.Services.Data.Message;
     using TaskMe.Services.Data.Picture;
     using TaskMe.Services.Data.Task;
     using TaskMe.Services.Data.User;
@@ -18,6 +19,8 @@
             services.AddTransient<IPictureService, PictureService>();
             services.AddTransient<ICompanyService, CompanyService>();
             services.AddTransient<ITaskService, TaskService>();
+            services.AddTransient<IMessageService, MessageService>();
+
             return services;
         }
 

@@ -7,17 +7,18 @@
     using Microsoft.AspNetCore.SignalR;
     using TaskMe.Data.Common.Repositories;
     using TaskMe.Data.Models;
+    using TaskMe.Services.Data.Message;
 
     [Authorize]
     public class ChatHub : Hub
     {
         private readonly IDeletableEntityRepository<ApplicationUser> users;
-        private readonly IDeletableEntityRepository<Message> messages;
+        private readonly IMessageService messageService;
 
-        public ChatHub(IDeletableEntityRepository<ApplicationUser> users, IDeletableEntityRepository<Message> messages)
+        public ChatHub(IDeletableEntityRepository<ApplicationUser> users, IMessageService messageService)
         {
             this.users = users;
-            this.messages = messages;
+            this.messageService = messageService;
         }
 
         public async Task AddToRoom(string groupName)
@@ -48,12 +49,8 @@
                 });
 
             // Save message in db
-            await this.messages.AddAsync(new Message
-            {
-                Text = message,
-                TaskId = groupName, // The task id is used for name of group
-                WriterId = user.Id,
-            });
+            // The task id is used for name of group
+            await this.messageService.SaveMessageAsync(message, groupName, user.Id);
         }
     }
 }

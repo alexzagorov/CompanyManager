@@ -1,108 +1,109 @@
 ﻿@model TaskMe.Web.ViewModels.Manager.Task.DetailsTaskViewModel
 <!-- Page Content -->
-    <div class="container border border-secondary rounded">
+<div class="container border border-secondary rounded">
 
-        <!-- Portfolio Item Heading -->
-        <h1 class="my-4 text-center">
-            @Model.Name
-        </h1>
+    <!-- Portfolio Item Heading -->
+    <h1 class="my-4 text-center">
+        @Model.Name
+    </h1>
 
-        <!-- Portfolio Item Row -->
-        <div class="row">
-            <!--Subtasks-->
-            <div class="col-md-6">
-                <h3 class="my-3">Subtasks</h3>
-                <div class="list-group">
-                    @if (!Model.Subtasks.Any())
-                    {
+    <!-- Portfolio Item Row -->
+    <div class="row">
+        <!--Subtasks-->
+        <div class="col-md-6">
+            <h3 class="my-3">Subtasks</h3>
+            <div class="list-group">
+                @if (!Model.Subtasks.Any())
+                {
 
-                        <h6 class="text-danger">No subtasks added!</h6>
+                    <h6 class="text-danger">No subtasks added!</h6>
 
-                    }
-                    @foreach (var subtask in Model.Subtasks)
-                    {
-                        <a class="list-group-item list-group-item-action flex-column align-items-start">
-                            <div class="d-flex w-100 justify-content-between">
-                                <h5 class="mb-1">@subtask.ShortDescription</h5>
-                            </div>
-                            @if (subtask.IsTaken)
-                            {
-                                <p class="mb-1">Taken (By: @subtask.OwnerFirstName @subtask.OwnerLastName)<i class="fa fa-check" style="color: forestgreen"></i></p>
-                            }
-                            else
-                            {
-                                <p class="mb-1">Taken <i class="fa fa-times" style="color: red"></i></p>
+                }
+                @foreach (var subtask in Model.Subtasks)
+                {
+                    <a class="list-group-item list-group-item-action flex-column align-items-start">
+                        <div class="d-flex w-100 justify-content-between">
+                            <h5 class="mb-1">@subtask.ShortDescription</h5>
+                        </div>
+                        @if (subtask.IsTaken)
+                        {
+                            <p class="mb-1">Taken (By: @subtask.OwnerFirstName @subtask.OwnerLastName)<i class="fa fa-check" style="color: forestgreen"></i></p>
+                        }
+                        else
+                        {
+                            <p class="mb-1">Taken <i class="fa fa-times" style="color: red"></i></p>
 
-                            }
-                            @if (subtask.IsReady)
-                            {
-                                <p class="mb-1">Ready<i class="fa fa-check" style="color: forestgreen"></i></p>
-                            }
-                            else
-                            {
-                                <p class="mb-1">Ready <i class="fa fa-times" style="color: red"></i></p>
+                        }
+                        @if (subtask.IsReady)
+                        {
+                            <p class="mb-1">Ready<i class="fa fa-check" style="color: forestgreen"></i></p>
+                        }
+                        else
+                        {
+                            <p class="mb-1">Ready <i class="fa fa-times" style="color: red"></i></p>
 
-                            }
-                        </a>
-                    }
-                </div>
-            </div>
-            <!--Participants-->
-            <div class="col-md-4">
-                <h3 class="my-3">Participants</h3>
-                <ul class="list-group">
-                    @foreach (var participant in Model.Participants)
-                    {
-                        <li class="list-group-item">@($"{participant.UserFirstName} {participant.UserLastName}")  <img class="rounded-circle border-dark" src="@participant.UserPictureUrl" width="20" height="20" /></li>
-
-                    }
-                </ul>
-            </div>
-            <!--Dates-->
-            <div class="col-md-2">
-                <h3 class="my-3">Dates</h3>
-                <p class="my-3"><strong>Start Date: @Model.StartDate.ToShortDateString()</strong></p>
-                <p class="my-3"><strong>End Date: @(Model.EndDate == null ? "No End Date" : Model.EndDate?.ToShortDateString())</strong></p>
+                        }
+                    </a>
+                }
             </div>
         </div>
-        <!-- /.row -->
-        <hr />
-        <div class="progress row-md-12" style="height: 35px;">
-            <div class="progress-bar" role="progressbar" style="width: @($"{Model.PercentageCompletion}%");" aria-valuenow="@Model.PercentageCompletion" aria-valuemin="0" aria-valuemax="100"><strong>@Model.PercentageCompletion% completed</strong></div>
+        <!--Participants-->
+        <div class="col-md-4">
+            <h3 class="my-3">Participants</h3>
+            <ul class="list-group">
+                @foreach (var participant in Model.Participants)
+                {
+                    <li class="list-group-item">@($"{participant.UserFirstName} {participant.UserLastName}")  <img class="rounded-circle border-dark" src="@participant.UserPictureUrl" width="20" height="20" /></li>
+
+                }
+            </ul>
         </div>
-        <hr />
-
-        <!-- Description -->
-        <h1 class="my-4">Description</h1>
-
-        <div class="row-md-10">
-
-            <article>@Html.Raw(Model.SanitizedDescription)</article>
-
+        <!--Dates-->
+        <div class="col-md-2">
+            <h3 class="my-3">Dates</h3>
+            <p class="my-3"><strong>Start Date: @Model.StartDate.ToShortDateString()</strong></p>
+            <p class="my-3"><strong>End Date: @(Model.EndDate == null ? "No End Date" : Model.EndDate?.ToShortDateString())</strong></p>
         </div>
-        <hr />
-
-        <!--Chat-->
-        <h1>Chat</h1>
-        <div class="container-flude">
-            <div id="messagesList" class="msg-group center">
-                <!--Messages go here-->
-            </div>
-
-            <div class="input-group">
-                <input id="messageInput" class="form-control" placeholder="Say something..." />
-                <span class="input-group-btn">
-                    <button id="sendButton" class="btn btn-primary">send</button>
-                </span>
-            </div>
-            <p id="userNames" style="display: none">@($"{Model.CurrentUser.FirstName} {Model.CurrentUser.LastName}") </p>
-            <p id="userPictureUrl" style="display: none">@Model.CurrentUser.PictureUrl</p>
-            <p id="taskId" style="display: none">@Model.Id</p>
-        </div>
-        <hr />
     </div>
+    <!-- /.row -->
+    <hr />
+    <div class="progress row-md-12" style="height: 35px;">
+        <div class="progress-bar" role="progressbar" style="width: @($"{Model.PercentageCompletion}%");" aria-valuenow="@Model.PercentageCompletion" aria-valuemin="0" aria-valuemax="100"><strong>@Model.PercentageCompletion% completed</strong></div>
+    </div>
+    <hr />
+
+    <!-- Description -->
+    <h1 class="my-4">Description</h1>
+
+    <div class="row-md-10">
+
+        <article>@Html.Raw(Model.SanitizedDescription)</article>
+
+    </div>
+    <hr />
+
+    <!--Chat-->
+    <h1>Chat</h1>
+    <div class="container-flude">
+        <div id="messagesList" class="msg-group center scrollable">
+            <!--Messages go here-->
+        </div>
+
+        <div class="input-group">
+            <input id="messageInput" class="form-control" placeholder="Say something..." />
+            <span class="input-group-btn">
+                <button id="sendButton" class="btn btn-primary">send</button>
+            </span>
+        </div>
+        <p id="userNames" style="display: none">@($"{Model.CurrentUser.FirstName} {Model.CurrentUser.LastName}") </p>
+        <p id="userPictureUrl" style="display: none">@Model.CurrentUser.PictureUrl</p>
+        <p id="taskId" style="display: none">@Model.Id</p>
+    </div>
+    <hr />
+</div>
 <!-- /.container -->
 
 @section Scripts {
-<script src="~/js/taskDetails/signalRChatScript.js"></script>
+    <script src="~/js/taskDetails/signalRChatScript.js"></script>
+    <script src="~/js/taskDetails/infiniteScroll.js"></script>
 }
