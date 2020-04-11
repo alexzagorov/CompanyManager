@@ -10,7 +10,6 @@
     using TaskMe.Services.Data.Picture;
     using TaskMe.Services.Mapping;
     using TaskMe.Web.InputModels;
-    using TaskMe.Web.ViewModels.Administration.Company;
 
     public class CompanyService : ICompanyService
     {
@@ -56,10 +55,29 @@
             }
         }
 
-        public IEnumerable<EachCompanyViewModel> GetAllCompanies()
+        public void DeleteCompany(string id)
+        {
+            var company = this.companies.All().FirstOrDefault(x => x.Id == id);
+            var companyEmployees = this.companies.All()
+                .Where(x => x.Id == id)
+                .Select(x => x.Employees)
+                .FirstOrDefault();
+
+            foreach (var employee in companyEmployees)
+            {
+                this.users.Delete(employee);
+            }
+
+            this.companies.Delete(company);
+
+            this.companies.SaveChangesAsync();
+            this.users.SaveChangesAsync();
+        }
+
+        public IEnumerable<T> GetAllCompaniesInViewModel<T>()
         {
             return this.companies.All()
-                .To<EachCompanyViewModel>()
+                .To<T>()
                 .ToList();
         }
 

@@ -7,6 +7,8 @@
 
     public class EachCompanyViewModel : IMapFrom<Company>
     {
+        public string Id { get; set; }
+
         public string Name { get; set; }
 
         public string CompanyPictureUrl { get; set; }

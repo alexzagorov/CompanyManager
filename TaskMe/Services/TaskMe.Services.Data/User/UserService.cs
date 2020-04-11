@@ -39,7 +39,7 @@
             this.companies = companies;
         }
 
-        public async Task RegisterUserForCompanyAsync(RegisterUserInputModel inputModel, string roleName)
+        public async Task RegisterUserForCompanyAsync(RegisterUserInputModel inputModel, string roleName = null)
         {
             string profilePictureId = string.Empty;
 
@@ -80,30 +80,6 @@
             }
         }
 
-        public IndexViewModel GetHomePageInfo(string name)
-        {
-            if (name != null)
-            {
-                var currentUser = this.users.All().Where(x => x.UserName == name)
-                    .Select(x => new
-                    {
-                        UserNames = $"{x.FirstName} {x.LastName}",
-                        ProfilePictureUrl = x.Picture.Url,
-                    })
-                    .FirstOrDefault();
-
-                return new IndexViewModel()
-                {
-                    UserNames = currentUser.UserNames,
-                    ProfilePictureUrl = currentUser.ProfilePictureUrl,
-                };
-            }
-            else
-            {
-                return new IndexViewModel();
-            }
-        }
-
         public IEnumerable<T> GetUsersInCompanyInViewModel<T>(string companyId)
         {
             return this.users.All().Where(x => x.CompanyId == companyId)
@@ -137,8 +113,8 @@
         public T GetUserInViewModel<T>(string name)
         {
             var currentUser = this.users.All().Where(x => x.UserName == name)
-                   .To<T>()
-                   .FirstOrDefault();
+               .To<T>()
+               .FirstOrDefault();
 
             return currentUser;
         }

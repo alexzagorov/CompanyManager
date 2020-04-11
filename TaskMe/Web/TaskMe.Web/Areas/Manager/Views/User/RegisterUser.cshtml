@@ -1,11 +1,11 @@
 ﻿@using TaskMe.Web.InputModels
 @model RegisterUserInputModel
 
-<h1 class="text-center">Create a new Supervisor account for @Model.CompanyName</h1>
+<h1 class="text-center">Create a new @ViewData["Position"] account for @Model.CompanyName</h1>
 
 <div class="row justify-content-center">
-    <div class="col-md-6 text-center border border-primary">
-        <form enctype="multipart/form-data" asp-controller="User" asp-action="RegisterSupervisor">
+    <div class="col-md-6 text-center border border-primary rounded">
+        <form enctype="multipart/form-data" asp-controller="User" asp-action="Register@(ViewData["Position"])">
             <div class="form-group">
                 <label asp-for="FirstName"></label>
                 <input asp-for="FirstName" class="form-control" />

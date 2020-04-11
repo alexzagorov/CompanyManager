@@ -4,7 +4,6 @@
     using System.Threading.Tasks;
 
     using TaskMe.Web.InputModels;
-    using TaskMe.Web.ViewModels.Administration.Company;
 
     public interface ICompanyService
     {
@@ -12,10 +11,12 @@
 
         string GetCompanyNameById(string companyId);
 
-        IEnumerable<EachCompanyViewModel> GetAllCompanies();
+        IEnumerable<T> GetAllCompaniesInViewModel<T>();
 
         T GetCompanyInViewModel<T>(string companyId);
 
         string GetIdByUserName(string username);
+
+        void DeleteCompany(string id);
     }
 }

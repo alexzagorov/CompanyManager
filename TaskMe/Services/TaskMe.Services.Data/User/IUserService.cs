@@ -4,13 +4,10 @@
     using System.Threading.Tasks;
 
     using TaskMe.Web.InputModels;
-    using TaskMe.Web.ViewModels.Home;
 
     public interface IUserService
     {
-        Task RegisterUserForCompanyAsync(RegisterUserInputModel inputModel, string roleName);
-
-        IndexViewModel GetHomePageInfo(string name);
+        Task RegisterUserForCompanyAsync(RegisterUserInputModel inputModel, string roleName = null);
 
         IEnumerable<T> GetUsersInCompanyInViewModel<T>(string companyId);
 

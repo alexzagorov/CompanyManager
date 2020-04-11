@@ -36,16 +36,17 @@
         public IActionResult All()
         {
             var viewModel = new AllCompaniesViewModel();
-            var companies = this.companyService.GetAllCompanies();
+            var companies = this.companyService.GetAllCompaniesInViewModel<EachCompanyViewModel>();
 
             viewModel.Companies = companies;
 
             return this.View(viewModel);
         }
 
-        public IActionResult Details()
+        public IActionResult Delete(string id)
         {
-            return this.Redirect("/");
+            this.companyService.DeleteCompany(id);
+            return this.Redirect(nameof(this.All));
         }
     }
 }

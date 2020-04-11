@@ -25,15 +25,15 @@ else
         <div class="text-center">
             <div class="profile-header-container row text-center">
                 <div class="profile-header-img">
-                    <img id="picture" class="rounded-circle" src="@Model.ProfilePictureUrl" width="120" height="120" />
+                    <img id="picture" class="rounded-circle" src="@Model.PictureUrl" width="120" height="120" />
                     <!-- badge -->
                     <div class="rank-label-container">
-                        <span class="label label-default rank-label">@Model.UserNames (ADMINISTRATOR)</span>
+                        <span class="label label-default rank-label bg-primary">@Model.UserNames (ADMINISTRATOR)</span>
                     </div>
                 </div>
             </div>
 
-            <div class="text-center" id="sidebar-wrapper">
+            <div class="text-center rounded" id="sidebar-wrapper">
                 <div class="sidebar-heading font-weight-bold">Administrator actions</div>
                 <div class="list-group list-group-flush">
                     <a asp-area="Administration" asp-controller="Company" asp-action="Create" class="list-group-item list-group-item-action">Register new Company</a>
@@ -47,7 +47,7 @@ else
         <div class="text-center">
             <div class="profile-header-container row text-center">
                 <div class="profile-header-img">
-                    <img id="picture" class="rounded-circle" src="@Model.ProfilePictureUrl" width="120" height="120" />
+                    <img id="picture" class="rounded-circle" src="@Model.PictureUrl" width="120" height="120" />
                     <!-- badge -->
                     <div class="rank-label-container">
                         <span class="label label-default rank-label bg-primary">@Model.UserNames (Manager)</span>
@@ -55,35 +55,34 @@ else
                 </div>
             </div>
 
-            <div class="text-center" id="sidebar-wrapper">
+            <div class="text-center rounded" id="sidebar-wrapper">
                 <div class="sidebar-heading font-weight-bold">Administrator actions</div>
                 <div class="list-group list-group-flush">
                     <a asp-area="Manager" asp-controller="Company" asp-action="Details" class="list-group-item list-group-item-action">My Company</a>
                     <a asp-area="Manager" asp-controller="Task" asp-action="Index" class="list-group-item list-group-item-action">Tasks</a>
-                    <a asp-area="Manager" asp-controller="Task" asp-action="All" class="list-group-item list-group-item-action">Live Chat</a>
-                    <a asp-area="Manager" asp-controller="User" asp-action="Register" class="list-group-item list-group-item-action">Register new employee</a>
+                    <a asp-area="Manager" asp-controller="User" asp-action="RegisterEmployee" class="list-group-item list-group-item-action">Register new employee</a>
 
                 </div>
             </div>
         </div>
     }
-    else
+    else if(this.User.IsInRole(GlobalConstants.SupervisorRoleName))
     {
         <div class="text-center">
             <div class="profile-header-container row text-center">
                 <div class="profile-header-img">
-                    <img id="picture" class="rounded-circle" src="@Model.ProfilePictureUrl" width="120" height="120" />
+                    <img id="picture" class="rounded-circle" src="@Model.PictureUrl" width="120" height="120" />
                     <!-- badge -->
                     <div class="rank-label-container">
-                        <span class="label label-default rank-label">@Model.UserNames</span>
+                        <span class="label label-default rank-label bg-primary">@Model.UserNames (Supervisor)</span>
                     </div>
                 </div>
             </div>
 
-            <div class="text-center" id="sidebar-wrapper">
+            <div class="text-center rounded" id="sidebar-wrapper">
                 <div class="sidebar-heading">Navigation</div>
                 <div class="list-group list-group-flush">
-                    <a href="#" class="list-group-item list-group-item-action">Promotions</a>
+                    <a href="#" class="list-group-item list-group-item-action">My Tasks</a>
                     <a href="#" class="list-group-item list-group-item-action">Chat</a>
                     <a href="#" class="list-group-item list-group-item-action">Tasks</a>
                     <a href="#" class="list-group-item list-group-item-action">Events</a>

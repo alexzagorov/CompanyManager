@@ -5,6 +5,7 @@
     using Microsoft.AspNetCore.Mvc;
     using TaskMe.Services.Data.User;
     using TaskMe.Web.ViewModels;
+    using TaskMe.Web.ViewModels.Home;
 
     public class HomeController : BaseController
     {
@@ -17,8 +18,13 @@
 
         public IActionResult Index()
         {
-            var viewModel = this.userService.GetHomePageInfo(this.User.Identity.Name);
-            return this.View(viewModel);
+            if (this.User != null)
+            {
+                var viewModel = this.userService.GetUserInViewModel<IndexViewModel>(this.User.Identity.Name);
+                return this.View(viewModel);
+            }
+
+            return this.View(new IndexViewModel());
         }
 
         public IActionResult Privacy()

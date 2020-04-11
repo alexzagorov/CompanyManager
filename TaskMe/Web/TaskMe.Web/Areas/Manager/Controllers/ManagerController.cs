@@ -5,7 +5,7 @@
     using TaskMe.Common;
     using TaskMe.Web.Controllers;
 
-    /*[Authorize(Roles = GlobalConstants.ManagerRoleName)]*/
+    [Authorize(Roles = GlobalConstants.ManagerRoleName)]
     [Area("Manager")]
     public class ManagerController : BaseController
     {

@@ -21,8 +21,9 @@
 
         public IActionResult RegisterSupervisor()
         {
+            this.ViewData.Add("Position", "Supervisor");
             string companyId = this.companyService.GetIdByUserName(this.User.Identity.Name);
-            return this.View(new RegisterUserInputModel { CompanyName = this.companyService.GetCompanyNameById(companyId) });
+            return this.View("RegisterUser", new RegisterUserInputModel { CompanyName = this.companyService.GetCompanyNameById(companyId) });
         }
 
         [HttpPost]
@@ -30,12 +31,35 @@
         {
             if (!this.ModelState.IsValid)
             {
-                return this.View(inputModel);
+                this.ViewData.Add("Position", "Supervisor");
+                return this.View("RegisterUser", inputModel);
             }
 
             inputModel.CompanyId = this.companyService.GetIdByUserName(this.User.Identity.Name);
 
             await this.userService.RegisterUserForCompanyAsync(inputModel, GlobalConstants.SupervisorRoleName);
+            return this.RedirectToAction("Details", "Company");
+        }
+
+        public IActionResult RegisterEmployee()
+        {
+            this.ViewData.Add("Position", "Employee");
+            string companyId = this.companyService.GetIdByUserName(this.User.Identity.Name);
+            return this.View("RegisterUser", new RegisterUserInputModel { CompanyName = this.companyService.GetCompanyNameById(companyId) });
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> RegisterEmployee(RegisterUserInputModel inputModel)
+        {
+            if (!this.ModelState.IsValid)
+            {
+                this.ViewData.Add("Position", "Supervisor");
+                return this.View("RegisterUser", inputModel);
+            }
+
+            inputModel.CompanyId = this.companyService.GetIdByUserName(this.User.Identity.Name);
+
+            await this.userService.RegisterUserForCompanyAsync(inputModel);
             return this.RedirectToAction("Details", "Company");
         }
 

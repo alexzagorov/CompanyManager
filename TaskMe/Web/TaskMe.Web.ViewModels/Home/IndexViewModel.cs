@@ -1,9 +1,16 @@
 ﻿namespace TaskMe.Web.ViewModels.Home
 {
-    public class IndexViewModel
-    {
-        public string UserNames { get; set; }
+    using TaskMe.Data.Models;
+    using TaskMe.Services.Mapping;
 
-        public string ProfilePictureUrl { get; set; }
+    public class IndexViewModel : IMapFrom<ApplicationUser>
+    {
+        public string FirstName { get; set; }
+
+        public string LastName { get; set; }
+
+        public string UserNames { get => $"{this.FirstName} {this.LastName}"; }
+
+        public string PictureUrl { get; set; }
     }
 }
