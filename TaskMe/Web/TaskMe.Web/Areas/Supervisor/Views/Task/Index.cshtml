@@ -4,8 +4,15 @@
 {
     <!--Create button-->
     <a asp-area="Supervisor" asp-controller="Task" asp-action="Create" class="btn btn-outline-primary btn-rounded btn-block z-depth-0 my-4 waves-effect">Create new Task</a>
-    <hr />
-    foreach (var task in Model.Tasks)
+
+    <!--My tasks-->
+    @if (Model.Tasks.Where(x => x.OwnerUserName == this.User.Identity.Name).Count() > 0)
+    {
+        <hr />
+        <h4 class="text-muted text-center">---My Tasks---</h4>
+        <hr />
+    }
+    foreach (var task in Model.Tasks.Where(x => x.OwnerUserName == this.User.Identity.Name))
     {
         <div class="card border border-secondary rounded">
             <div class="card-body row">
@@ -25,66 +32,82 @@
                 <!--Subtasks info-->
                 <div class="col-md-4">
                     <h4>Subtasks</h4>
-                    <ul class="list-group">
-                        @foreach (var subtask in task.Subtasks)
-                        {
-                            @if (subtask.IsReady)
+                    @if (task.Subtasks.Any())
+                    {
+                        <ul class="list-group">
+                            @foreach (var subtask in task.Subtasks)
                             {
-                                <li class="list-group-item">@subtask.ShortDescription <i class="fa fa-check"></i></li>
+                                @if (subtask.IsReady)
+                                {
+                                    <li class="list-group-item">@subtask.ShortDescription <i class="fa fa-check"></i></li>
+                                }
+                                else
+                                {
+                                    <li class="list-group-item">@subtask.ShortDescription</li>
+                                }
                             }
-                            else
-                            {
-                                <li class="list-group-item">@subtask.ShortDescription</li>
-                            }
-                        }
-                    </ul>
+                        </ul>
+                    }
+                    else
+                    {
+                        <h6 class="text-danger">No subtasks added!</h6>
+                    }
                 </div>
             </div>
         </div>
         <hr />
     }
-    <!--Pagination-->
-    <nav>
-        <ul class="pagination justify-content-center">
-            <!--Previous-->
-            @if (Model.CurrentPage == 1)
-            {
-                <li class="page-item disabled">
-                    <a asp-area="Manager" asp-controller="Task" asp-action="Index" asp-route-page="@(Model.CurrentPage - 1)" class="page-link" aria-disabled="true">Previous</a>
-                </li>
-            }
-            else
-            {
-                <li class="page-item">
-                    <a asp-area="Manager" asp-controller="Task" asp-action="Index" asp-route-page="@(Model.CurrentPage - 1)" class="page-link">Previous</a>
-                </li>
-            }
-            @for (int i = 1; i <= Model.PagesCount; i++)
-            {
-                var isActive = i == Model.CurrentPage ? "active" : string.Empty;
-
-                <li class="page-item @isActive">
-                    <a asp-area="Manager" asp-controller="Task" asp-action="Index" asp-route-page="@i" class="page-link">
-                        @i
-                    </a>
-                </li>
-            }
-            <!--Next-->
-            @if (Model.CurrentPage == Model.PagesCount)
-            {
-                <li class="page-item disabled">
-                    <a asp-area="Manager" asp-controller="Task" asp-action="Index" asp-route-page="@(Model.CurrentPage + 1)" class="page-link" aria-disabled="true">Next</a>
-                </li>
-            }
-            else
-            {
-                <li class="page-item">
-                    <a asp-area="Manager" asp-controller="Task" asp-action="Index" asp-route-page="@(Model.CurrentPage + 1)" class="page-link">Next</a>
-                </li>
-            }
-        </ul>
-    </nav>
-
+    <!--Tasks in which I articipate-->
+    @if (Model.Tasks.Where(x => x.OwnerUserName == this.User.Identity.Name).Count() > 0)
+    {
+        <hr />
+        <h4 class="text-muted text-center">---Tasks in which I participate---</h4>
+        <hr />
+    }
+    foreach (var task in Model.Tasks.Where(x => x.OwnerUserName != this.User.Identity.Name))
+    {
+        <div class="card border border-secondary rounded">
+            <div class="card-body row">
+                <!--Task info-->
+                <div class="col-md-8">
+                    <h4 class="card-title">@task.Name</h4>
+                    <p class="card-text">@task.ShortDescription</p>
+                    <hr />
+                    <a asp-area="Supervisor" asp-controller="Task" asp-action="Details" asp-route-id="@task.Id" class="btn btn-secondary">View Details</a>
+                    <hr />
+                    <!--Progressbar-->
+                    <div class="progress row-md-12">
+                        <div class="progress-bar" role="progressbar" style="width: @($"{task.PercentageCompletion}%");" aria-valuenow="@task.PercentageCompletion" aria-valuemin="0" aria-valuemax="100">@task.PercentageCompletion% completed</div>
+                    </div>
+                </div>
+                <!--Subtasks info-->
+                <div class="col-md-4">
+                    <h4>Subtasks</h4>
+                    @if (task.Subtasks.Any())
+                    {
+                        <ul class="list-group">
+                            @foreach (var subtask in task.Subtasks)
+                            {
+                                @if (subtask.IsReady)
+                                {
+                                    <li class="list-group-item">@subtask.ShortDescription <i class="fa fa-check"></i></li>
+                                }
+                                else
+                                {
+                                    <li class="list-group-item">@subtask.ShortDescription</li>
+                                }
+                            }
+                        </ul>
+                    }
+                    else
+                    {
+                        <h6 class="text-danger">No subtasks added!</h6>
+                    }
+                </div>
+            </div>
+        </div>
+        <hr />
+    }
     <!--modal-->
     <div class="modal fade" id="confirm-delete" tabindex="1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
@@ -107,7 +130,7 @@ else
         <div class="container">
             <h1 class="display-4">No task :(</h1>
             <p class="lead">You can create a new one now!</p>
-            <a asp-area="Manager" asp-controller="Task" asp-action="Create" class="btn btn-primary">Create new Task</a>
+            <a asp-area="Supervisor" asp-controller="Task" asp-action="Create" class="btn btn-primary">Create new Task</a>
         </div>
     </div>
 }

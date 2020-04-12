@@ -14,7 +14,7 @@ $(document).ready(function () {
 function GetData() {
     $.ajax({
         type: 'GET',
-        url: '/Manager/Task/LoadMessages',
+        url: '/Message/LoadMessages',
         data: { "pageindex": pageIndex, "taskid": taskId },
         dataType: 'json',
         success: function (data) {

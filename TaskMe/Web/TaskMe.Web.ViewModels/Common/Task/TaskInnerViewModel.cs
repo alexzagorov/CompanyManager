@@ -48,9 +48,7 @@
             }
         }
 
-        public string OwnerFirstName { get; set; }
-
-        public string OwnerLastName { get; set; }
+        public string OwnerUserName { get; set; }
 
         public ICollection<SubtaskInnerViewModel> Subtasks { get; set; }
     }

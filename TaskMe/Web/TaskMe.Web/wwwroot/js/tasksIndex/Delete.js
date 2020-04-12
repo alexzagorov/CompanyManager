@@ -1,5 +1,8 @@
 ﻿let deleteBtns = document.getElementsByClassName("deleteButton");
 
+let aHref = document.getElementsByTagName("a")[0].getAttribute("href");
+let aspArea = aHref.split("/")[1];
+
 
 for (let i = 0; i < deleteBtns.length; i++) {
     addEventListeners(deleteBtns[i])
@@ -12,6 +15,6 @@ function addEventListeners(item) {
         let confirmBtn = document.getElementById("confirmButton");
         let taskId = item.getAttribute("name");
 
-        confirmBtn.setAttribute("href", `/Manager/Task/Delete?id=${taskId}`);
+        confirmBtn.setAttribute("href", `/${aspArea}/Task/Delete?id=${taskId}`);
     });
 };

@@ -104,6 +104,14 @@
             return query.To<T>().ToList();
         }
 
+        public ICollection<T> GetAllForUserInViewModel<T>(string userId)
+        {
+            return this.tasks.All()
+                .Where(x => x.Participants.Any(y => y.UserId == userId) || x.OwnerId == userId)
+                .To<T>()
+                .ToList();
+        }
+
         public int GetCountForCompany(string companyId)
         {
             return this.tasks.All().Where(x => x.CompanyId == companyId).Count();

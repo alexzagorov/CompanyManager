@@ -97,13 +97,5 @@
 
             return this.View(viewModel);
         }
-
-        // Infinite scroll uses this
-        public IActionResult LoadMessages(int pageIndex, string taskId)
-        {
-            var messages = this.messageService.LoadMessages<ChatMessageViewModel>(taskId, ItemsPerPage, (pageIndex - 1) * ItemsPerPage);
-
-            return this.Json(messages);
-        }
     }
 }
