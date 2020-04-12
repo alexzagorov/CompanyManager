@@ -6,7 +6,7 @@
     using TaskMe.Common;
     using TaskMe.Services.Data;
     using TaskMe.Services.Data.User;
-    using TaskMe.Web.InputModels;
+    using TaskMe.Web.InputModels.Common.User;
 
     public class UserController : AdministrationController
     {

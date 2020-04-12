@@ -56,7 +56,7 @@ else
             </div>
 
             <div class="text-center rounded" id="sidebar-wrapper">
-                <div class="sidebar-heading font-weight-bold">Administrator actions</div>
+                <div class="sidebar-heading font-weight-bold">Manager actions</div>
                 <div class="list-group list-group-flush">
                     <a asp-area="Manager" asp-controller="Company" asp-action="Details" class="list-group-item list-group-item-action">My Company</a>
                     <a asp-area="Manager" asp-controller="Task" asp-action="Index" class="list-group-item list-group-item-action">Tasks</a>
@@ -80,12 +80,10 @@ else
             </div>
 
             <div class="text-center rounded" id="sidebar-wrapper">
-                <div class="sidebar-heading">Navigation</div>
+                <div class="sidebar-heading">Actions</div>
                 <div class="list-group list-group-flush">
-                    <a href="#" class="list-group-item list-group-item-action">My Tasks</a>
-                    <a href="#" class="list-group-item list-group-item-action">Chat</a>
-                    <a href="#" class="list-group-item list-group-item-action">Tasks</a>
-                    <a href="#" class="list-group-item list-group-item-action">Events</a>
+                    <a asp-area="Supervisor" asp-controller="Task" asp-action="Index" class="list-group-item list-group-item-action">My Tasks</a>
+                    <a asp-area="Supervisor" asp-controller="Task" asp-action="Create" class="list-group-item list-group-item-action">Create Task</a>
                 </div>
             </div>
         </div>

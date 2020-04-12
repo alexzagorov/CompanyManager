@@ -1,4 +1,4 @@
-﻿namespace TaskMe.Web.ViewModels.Common
+﻿namespace TaskMe.Web.ViewModels.Common.Chat
 {
     using System;
 

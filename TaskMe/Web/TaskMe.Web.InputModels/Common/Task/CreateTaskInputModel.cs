@@ -1,4 +1,4 @@
-﻿namespace TaskMe.Web.InputModels.Manager.Task
+﻿namespace TaskMe.Web.InputModels.Common.Task
 {
     using System;
     using System.Collections.Generic;

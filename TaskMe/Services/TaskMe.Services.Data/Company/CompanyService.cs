@@ -58,20 +58,22 @@
         public void DeleteCompany(string id)
         {
             var company = this.companies.All().FirstOrDefault(x => x.Id == id);
-            var companyEmployees = this.companies.All()
-                .Where(x => x.Id == id)
-                .Select(x => x.Employees)
-                .FirstOrDefault();
-
-            foreach (var employee in companyEmployees)
+            if (company != null)
             {
-                this.users.Delete(employee);
+                var companyEmployees = this.users.All()
+                .Where(x => x.CompanyId == id)
+                .ToList();
+
+                foreach (var employee in companyEmployees)
+                {
+                    this.users.Delete(employee);
+                }
+
+                this.companies.Delete(company);
+
+                this.companies.SaveChangesAsync();
+                this.users.SaveChangesAsync();
             }
-
-            this.companies.Delete(company);
-
-            this.companies.SaveChangesAsync();
-            this.users.SaveChangesAsync();
         }
 
         public IEnumerable<T> GetAllCompaniesInViewModel<T>()

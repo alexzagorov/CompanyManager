@@ -10,9 +10,9 @@
     using TaskMe.Services.Data.Message;
     using TaskMe.Services.Data.Task;
     using TaskMe.Services.Data.User;
-    using TaskMe.Web.InputModels.Manager.Task;
-    using TaskMe.Web.ViewModels.Common;
-    using TaskMe.Web.ViewModels.Manager.Task;
+    using TaskMe.Web.InputModels.Common.Task;
+    using TaskMe.Web.ViewModels.Common.Chat;
+    using TaskMe.Web.ViewModels.Common.Task;
 
     public class TaskController : ManagerController
     {

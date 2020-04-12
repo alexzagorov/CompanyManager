@@ -13,7 +13,7 @@
                         <div class="card-body">
                             <p class="card-text"><strong>@company.Name</strong></p>
                             <div class="d-flex justify-content-between">
-                                <button asp-area="Administration" asp-controller="Company" asp-action="Delete" asp-route-id="@company.Id" class="btn btn-sm btn-outline-secondary bg-danger float-left">Delete</button>
+                                <a asp-area="Administration" asp-controller="Company" asp-action="Delete" asp-route-id="@company.Id" class="btn btn-sm btn-outline-secondary bg-danger float-left">Delete</a>
                                 <small class="text-muted float-right">Createt: @company.CreatedOn.ToShortDateString()</small>
                             </div>
                         </div>

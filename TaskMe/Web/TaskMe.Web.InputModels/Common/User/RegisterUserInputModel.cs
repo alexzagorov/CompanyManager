@@ -1,4 +1,4 @@
-﻿namespace TaskMe.Web.InputModels
+﻿namespace TaskMe.Web.InputModels.Common.User
 {
     using System.ComponentModel.DataAnnotations;
     using Microsoft.AspNetCore.Http;

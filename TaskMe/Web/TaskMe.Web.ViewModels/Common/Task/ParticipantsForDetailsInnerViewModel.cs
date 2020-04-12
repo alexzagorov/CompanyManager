@@ -1,4 +1,4 @@
-﻿namespace TaskMe.Web.ViewModels.Manager.Task
+﻿namespace TaskMe.Web.ViewModels.Common.Task
 {
     using TaskMe.Data.Models;
     using TaskMe.Services.Mapping;

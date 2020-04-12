@@ -8,7 +8,7 @@
     using TaskMe.Data.Common.Repositories;
     using TaskMe.Data.Models;
     using TaskMe.Services.Mapping;
-    using TaskMe.Web.InputModels.Manager.Task;
+    using TaskMe.Web.InputModels.Common.Task;
 
     public class TaskService : ITaskService
     {

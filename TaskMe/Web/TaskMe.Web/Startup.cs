@@ -19,7 +19,7 @@
     using TaskMe.Services.Messaging;
     using TaskMe.Web.Extensions;
     using TaskMe.Web.Hubs;
-    using TaskMe.Web.InputModels.Manager.Task;
+    using TaskMe.Web.InputModels.Common.Task;
     using TaskMe.Web.ViewModels;
 
     public class Startup

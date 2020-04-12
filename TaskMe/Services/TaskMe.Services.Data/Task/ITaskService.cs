@@ -3,7 +3,7 @@
     using System.Collections.Generic;
     using System.Threading.Tasks;
 
-    using TaskMe.Web.InputModels.Manager.Task;
+    using TaskMe.Web.InputModels.Common.Task;
 
     public interface ITaskService
     {

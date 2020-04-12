@@ -11,8 +11,7 @@
     using TaskMe.Data.Models;
     using TaskMe.Services.Data.Picture;
     using TaskMe.Services.Mapping;
-    using TaskMe.Web.InputModels;
-    using TaskMe.Web.ViewModels.Home;
+    using TaskMe.Web.InputModels.Common.User;
 
     public class UserService : IUserService
     {

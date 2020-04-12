@@ -3,7 +3,7 @@
 @if (Model.Tasks.Any())
 {
     <!--Create button-->
-    <a asp-area="Manager" asp-controller="Task" asp-action="Create" class="btn btn-outline-primary btn-rounded btn-block z-depth-0 my-4 waves-effect">Create new Task</a>
+    <a asp-area="Supervisor" asp-controller="Task" asp-action="Create" class="btn btn-outline-primary btn-rounded btn-block z-depth-0 my-4 waves-effect">Create new Task</a>
     <hr />
     foreach (var task in Model.Tasks)
     {
@@ -14,7 +14,7 @@
                     <h4 class="card-title">@task.Name</h4>
                     <p class="card-text">@task.ShortDescription</p>
                     <hr />
-                    <a asp-area="Manager" asp-controller="Task" asp-action="Details" asp-route-id="@task.Id" class="btn btn-secondary">View Details</a>
+                    <a asp-area="Supervisor" asp-controller="Task" asp-action="Details" asp-route-id="@task.Id" class="btn btn-secondary">View Details</a>
                     <a name="@task.Id" data-toggle="modal" data-target="#confirm-delete" class="btn btn-danger deleteButton">Delete this Task!</a>
                     <hr />
                     <!--Progressbar-->
@@ -113,5 +113,5 @@ else
 }
 
 @section Scripts {
-<script src="~/js/tasksIndex/Delete.js"></script>
+    <script src="~/js/tasksIndex/Delete.js"></script>
 }
