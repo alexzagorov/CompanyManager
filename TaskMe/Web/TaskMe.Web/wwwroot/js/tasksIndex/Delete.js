@@ -1,6 +1,6 @@
 ﻿let deleteBtns = document.getElementsByClassName("deleteButton");
 
-let aHref = document.getElementsByTagName("a")[0].getAttribute("href");
+let aHref = document.getElementById("checkArea").getAttribute("href");
 let aspArea = aHref.split("/")[1];
 
 

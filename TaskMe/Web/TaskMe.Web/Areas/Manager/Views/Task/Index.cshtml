@@ -3,7 +3,7 @@
 @if (Model.Tasks.Any())
 {
     <!--Create button-->
-    <a asp-area="Manager" asp-controller="Task" asp-action="Create" class="btn btn-outline-primary btn-rounded btn-block z-depth-0 my-4 waves-effect">Create new Task</a>
+    <a asp-area="Manager" asp-controller="Task" asp-action="Create" id="checkArea" class="btn btn-outline-primary btn-rounded btn-block z-depth-0 my-4 waves-effect">Create new Task</a>
     <hr />
     foreach (var task in Model.Tasks)
     {

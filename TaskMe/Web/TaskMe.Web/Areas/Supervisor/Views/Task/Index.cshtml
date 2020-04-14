@@ -3,7 +3,7 @@
 @if (Model.Tasks.Any())
 {
     <!--Create button-->
-    <a asp-area="Supervisor" asp-controller="Task" asp-action="Create" class="btn btn-outline-primary btn-rounded btn-block z-depth-0 my-4 waves-effect">Create new Task</a>
+    <a asp-area="Supervisor" asp-controller="Task" asp-action="Create" id="checkArea" class="btn btn-outline-primary btn-rounded btn-block z-depth-0 my-4 waves-effect">Create new Task</a>
 
     <!--My tasks-->
     @if (Model.Tasks.Where(x => x.OwnerUserName == this.User.Identity.Name).Count() > 0)
@@ -58,7 +58,7 @@
         <hr />
     }
     <!--Tasks in which I articipate-->
-    @if (Model.Tasks.Where(x => x.OwnerUserName == this.User.Identity.Name).Count() > 0)
+    @if (Model.Tasks.Where(x => x.OwnerUserName != this.User.Identity.Name).Count() > 0)
     {
         <hr />
         <h4 class="text-muted text-center">---Tasks in which I participate---</h4>
