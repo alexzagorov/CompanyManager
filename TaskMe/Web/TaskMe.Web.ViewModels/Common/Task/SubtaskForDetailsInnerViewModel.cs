@@ -5,6 +5,8 @@
 
     public class SubtaskForDetailsInnerViewModel : IMapFrom<Subtask>
     {
+        public string Id { get; set; }
+
         public string ShortDescription { get; set; }
 
         public bool IsReady { get; set; }
@@ -14,5 +16,7 @@
         public string OwnerFirstName { get; set; }
 
         public string OwnerLastName { get; set; }
+
+        public string OwnerUserName { get; set; }
     }
 }

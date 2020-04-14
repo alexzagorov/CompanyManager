@@ -6,7 +6,7 @@
 
     using Microsoft.AspNetCore.Mvc;
 
-    using TaskMe.Services.Data;
+    using TaskMe.Services.Data.Company;
     using TaskMe.Services.Data.User;
     using TaskMe.Web.ViewModels.Manager.Company;
 

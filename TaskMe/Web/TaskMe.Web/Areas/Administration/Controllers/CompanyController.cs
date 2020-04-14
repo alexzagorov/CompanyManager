@@ -3,7 +3,7 @@
     using System.Threading.Tasks;
 
     using Microsoft.AspNetCore.Mvc;
-    using TaskMe.Services.Data;
+    using TaskMe.Services.Data.Company;
     using TaskMe.Web.InputModels;
     using TaskMe.Web.ViewModels.Administration.Company;
 

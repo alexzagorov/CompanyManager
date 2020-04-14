@@ -1,0 +1,102 @@
+﻿@model TaskMe.Web.InputModels.Common.Task.CreateTaskInputModel
+
+<div class="card border-dark rounded">
+
+    <h5 class="card-header bg-primary text-center py-4">
+        <strong>Task</strong>
+    </h5>
+
+    <!--Card content-->
+    <div class="card-body px-lg-5 pt-0">
+
+        <!--tinymce-->
+        <script src="/lib/tinymce/tinymce.min.js" type="text/javascript"></script>
+        <script type="text/javascript">
+            tinymce.init({
+                selector: "textarea",
+                plugins: [
+                    "image paste table link code media"
+                ]
+            });
+        </script>
+
+        <!-- Form -->
+        <form asp-area="Manager" asp-controller="Task" asp-action="Create" class="text-center">
+
+            <!-- Name -->
+            <div class="md-form mt-md-4">
+                <input asp-for="Name" type="text" class="form-control">
+                <label asp-for="Name">Name</label>
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+
+            <!-- Start date -->
+            <div class="md-form mt-md-3">
+                <input asp-for="StartDate" class="form-control">
+                <label asp-for="StartDate"></label>
+                <span asp-validation-for="StartDate" class="text-danger"></span>
+            </div>
+
+            <!-- End date -->
+            <div class="md-form mt-md-3">
+                <input asp-for="EndDate" class="form-control">
+                <label asp-for="EndDate"></label>
+                <span asp-validation-for="EndDate" class="text-danger"></span>
+            </div>
+
+            <!-- Partisipants -->
+            <div class="md-form mt-md-3">
+                <select asp-for="Participants" data-width="100%" class="selectpicker" data-live-search="true">
+                    @foreach (var employee in Model.Employees)
+                    {
+                        <option value="@employee.Id">@($"{employee.FirstName} {employee.LastName}")</option>
+                    }
+                </select>
+                <label asp-for="Participants"></label>
+                <span asp-validation-for="Participants" class="text-danger"></span>
+            </div>
+
+            <!--Description-->
+            <div class="md-form mt-md-3">
+                <textarea asp-for="Description" class="form-control md-textarea"></textarea>
+                <label asp-for="Description"></label>
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+
+            <!--Subtasks-->
+            <hr />
+            <div class="md-form mt-md-3">
+                <a class="btn btn-primary rounded-circle" width="160px" height="160px" data-target="#subtaskCreate" data-toggle="collapse">
+                    <i class="fa fa-plus"></i>
+                </a>
+                <label>Add Subtask</label>
+                <hr />
+                <div id="subtaskCreate" class="collapse">
+                    <div class="row">
+                        <div class="col-md-10">
+                            <input asp-for="Subtasks" placeholder="Type short subtask description..." class="form-control">
+                        </div>
+                        <div class="col-md-2">
+                            <button type="button" id="addSubtaskButton" class="btn btn-primary">Add</button>
+                        </div>
+                    </div>
+
+                    <span asp-validation-for="Subtasks" class="text-danger"></span>
+                </div>
+            </div>
+
+            <!-- Send button -->
+            <button id="mySubmitButton" class="btn btn-outline-primary btn-rounded btn-block z-depth-0 my-4 waves-effect" type="submit">Create</button>
+        </form>
+        <!-- Form -->
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/js/createTask/subtaskAddDecoration.js"></script>
+    <script>
+        $('#mySubmitButton').click(function () {
+            tinyMCE.triggerSave();
+        });
+    </script>
+}

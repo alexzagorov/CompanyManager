@@ -4,7 +4,7 @@
 
     using Microsoft.AspNetCore.Mvc;
     using TaskMe.Common;
-    using TaskMe.Services.Data;
+    using TaskMe.Services.Data.Company;
     using TaskMe.Services.Data.User;
     using TaskMe.Web.InputModels.Common.User;
 

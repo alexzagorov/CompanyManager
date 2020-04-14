@@ -7,6 +7,7 @@
     using TaskMe.Services.Data.Company;
     using TaskMe.Services.Data.Message;
     using TaskMe.Services.Data.Picture;
+    using TaskMe.Services.Data.Subtask;
     using TaskMe.Services.Data.Task;
     using TaskMe.Services.Data.User;
 
@@ -20,6 +21,7 @@
             services.AddTransient<ICompanyService, CompanyService>();
             services.AddTransient<ITaskService, TaskService>();
             services.AddTransient<IMessageService, MessageService>();
+            services.AddTransient<ISubtaskService, SubtaskService>();
 
             return services;
         }

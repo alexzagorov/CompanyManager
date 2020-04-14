@@ -6,12 +6,11 @@
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
     using TaskMe.Data.Models;
-    using TaskMe.Services.Data;
+    using TaskMe.Services.Data.Company;
     using TaskMe.Services.Data.Message;
     using TaskMe.Services.Data.Task;
     using TaskMe.Services.Data.User;
     using TaskMe.Web.InputModels.Common.Task;
-    using TaskMe.Web.ViewModels.Common.Chat;
     using TaskMe.Web.ViewModels.Common.Task;
 
     public class TaskController : ManagerController

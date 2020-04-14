@@ -21,8 +21,8 @@
                 }
                 @foreach (var subtask in Model.Subtasks)
                 {
-                    <a class="list-group-item list-group-item-action flex-column align-items-start">
-                        <div class="d-flex w-100 justify-content-between">
+                    <div class="list-group-item list-group-item-action flex-column align-items-start">
+                        <div class="d-flex w-100 justify-content-between subtaskDesc">
                             <h5 class="mb-1">@subtask.ShortDescription</h5>
                         </div>
                         @if (subtask.IsTaken)
@@ -31,8 +31,14 @@
                         }
                         else
                         {
-                            <p class="mb-1">Taken <i class="fa fa-times" style="color: red"></i></p>
-
+                            @if (this.User.Identity.Name == Model.OwnerUserName)
+                            {
+                                <p class="mb-1">Taken <i class="fa fa-times" style="color: red"></i></p>
+                            }
+                            else
+                            {
+                                <p class="mb-1">Taken <i class="fa fa-times" style="color: red"></i> <button name="@($"{subtask.Id},{Model.CurrentUser.Id}")" class="btn btn-outline-success takeButton">Take this Subtask</button> </p>
+                            }
                         }
                         @if (subtask.IsReady)
                         {
@@ -40,10 +46,16 @@
                         }
                         else
                         {
+                            @if (this.User.Identity.Name == subtask.OwnerUserName)
+                            {
+                                <p class="mb-1">Ready <i class="fa fa-times" style="color: red"></i> <a asp-area="@null" asp-controller="Subtask" asp-action="FinishSubtask" asp-route-subtaskId="@subtask.Id" class="btn btn-success">Mark as finished</a> </p>
+                            }
+                            else
+                            {
                             <p class="mb-1">Ready <i class="fa fa-times" style="color: red"></i></p>
-
+                            }
                         }
-                    </a>
+                    </div>
                 }
             </div>
         </div>
@@ -106,4 +118,5 @@
 @section Scripts {
     <script src="~/js/taskDetails/signalRChatScript.js"></script>
     <script src="~/js/taskDetails/infiniteScroll.js"></script>
+    <script src="~/js/taskDetails/subtasksManipulations.js"></script>
 }

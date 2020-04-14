@@ -55,7 +55,7 @@
             }
         }
 
-        public void DeleteCompany(string id)
+        public async Task DeleteCompany(string id)
         {
             var company = this.companies.All().FirstOrDefault(x => x.Id == id);
             if (company != null)
@@ -71,8 +71,8 @@
 
                 this.companies.Delete(company);
 
-                this.companies.SaveChangesAsync();
-                this.users.SaveChangesAsync();
+                await this.companies.SaveChangesAsync();
+                await this.users.SaveChangesAsync();
             }
         }
 

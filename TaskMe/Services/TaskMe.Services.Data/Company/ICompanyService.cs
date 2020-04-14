@@ -1,4 +1,4 @@
-﻿namespace TaskMe.Services.Data
+﻿namespace TaskMe.Services.Data.Company
 {
     using System.Collections.Generic;
     using System.Threading.Tasks;
@@ -17,6 +17,6 @@
 
         string GetIdByUserName(string username);
 
-        void DeleteCompany(string id);
+        Task DeleteCompany(string id);
     }
 }
