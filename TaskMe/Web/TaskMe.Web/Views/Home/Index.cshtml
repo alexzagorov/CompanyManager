@@ -25,10 +25,10 @@ else
         <div class="text-center">
             <div class="profile-header-container row text-center">
                 <div class="profile-header-img">
-                    <img id="picture" class="rounded-circle" src="@Model.PictureUrl" width="120" height="120" />
+                    <img id="picture" class="rounded-circle" src="@Model.User.PictureUrl" width="120" height="120" />
                     <!-- badge -->
                     <div class="rank-label-container">
-                        <span class="label label-default rank-label bg-primary">@Model.UserNames (ADMINISTRATOR)</span>
+                        <span class="label label-default rank-label bg-primary">@Model.User.UserNames (ADMINISTRATOR)</span>
                     </div>
                 </div>
             </div>
@@ -47,10 +47,10 @@ else
         <div class="text-center">
             <div class="profile-header-container row text-center">
                 <div class="profile-header-img">
-                    <img id="picture" class="rounded-circle" src="@Model.PictureUrl" width="120" height="120" />
+                    <img id="picture" class="rounded-circle" src="@Model.User.PictureUrl" width="120" height="120" />
                     <!-- badge -->
                     <div class="rank-label-container">
-                        <span class="label label-default rank-label bg-primary">@Model.UserNames (Manager)</span>
+                        <span class="label label-default rank-label bg-primary">@Model.User.UserNames (Manager)</span>
                     </div>
                 </div>
             </div>
@@ -66,15 +66,15 @@ else
             </div>
         </div>
     }
-    else if(this.User.IsInRole(GlobalConstants.SupervisorRoleName))
+    else if (this.User.IsInRole(GlobalConstants.SupervisorRoleName))
     {
         <div class="text-center">
             <div class="profile-header-container row text-center">
                 <div class="profile-header-img">
-                    <img id="picture" class="rounded-circle" src="@Model.PictureUrl" width="120" height="120" />
+                    <img id="picture" class="rounded-circle" src="@Model.User.PictureUrl" width="120" height="120" />
                     <!-- badge -->
                     <div class="rank-label-container">
-                        <span class="label label-default rank-label bg-primary">@Model.UserNames (Supervisor)</span>
+                        <span class="label label-default rank-label bg-primary">@Model.User.UserNames (Supervisor)</span>
                     </div>
                 </div>
             </div>
@@ -88,5 +88,104 @@ else
             </div>
         </div>
     }
-}
+    else
+    {
+        <!--Profile-->
+        <div class="profile-header-container row text-center">
+            <div class="profile-header-img">
+                <img id="picture" class="rounded-circle" src="@Model.User.PictureUrl" width="120" height="120" />
+                <!-- badge -->
+                <div class="rank-label-container">
+                    <span class="label label-default rank-label bg-primary">@Model.User.UserNames</span>
+                </div>
+            </div>
+        </div>
+        <!--Taken Subtasks-->
+        <h5 class="text-secondary">My subtasks in progress...</h5>
+        <hr />
+        @if (!Model.Subtasks.Any())
+        {
+            <h5 class="justify-content-center" style="color: green">Currently you have nothing in action!</h5>
+        }
+        else
+        {
+            <div class="row border border-light">
 
+
+                @foreach (var subtask in Model.Subtasks)
+                {
+                    <div class="col-md-4">
+                        <div class="card mb-4">
+                            <div class="card-body">
+                                <p class="card-text"><strong>@subtask.ShortDescription</strong></p>
+                                <div class="d-flex justify-content-between">
+                                    <a asp-controller="Subtask" asp-action="FinishSubtask" asp-route-subtaskId="@subtask.Id" class="btn btn-outline-success">Mark as finished</a>
+                                    <a asp-controller="Task" asp-action="Details" asp-route-id="@subtask.TaskId" class="btn btn-outline-secondary">See Task details</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+
+            </div>
+        }
+        <hr />
+        <!--Waiting Tasks-->
+        <h5 class="text-secondary">Take action on those Tasks...</h5>
+        <hr />
+        @if (!Model.WaitingTasks.Any())
+        {
+            <h5 class="justify-content-center" style="color: green">No Tasks are waiting for you!</h5>
+        }
+        else
+        {
+            <div class="row border border-light">
+                @foreach (var task in Model.WaitingTasks)
+                {
+
+                    <div class="card border border-secondary rounded">
+                        <div class="card-body row">
+                            <!--Task info-->
+                            <div class="col-md-8">
+                                <h4 class="card-title">@task.Name</h4>
+                                <p class="card-text">@task.ShortDescription</p>
+                                <hr />
+                                <a asp-controller="Task" asp-action="Details" asp-route-id="@task.Id" class="btn btn-secondary">View Details</a>
+                                <hr />
+                                <!--Progressbar-->
+                                <div class="progress row-md-12">
+                                    <div class="progress-bar" role="progressbar" style="width: @($"{task.PercentageCompletion}%");" aria-valuenow="@task.PercentageCompletion" aria-valuemin="0" aria-valuemax="100">@task.PercentageCompletion% completed</div>
+                                </div>
+                            </div>
+                            <!--Subtasks info-->
+                            <div class="col-md-4">
+                                <h4>Subtasks</h4>
+                                @if (task.Subtasks.Any())
+                                {
+                                    <ul class="list-group">
+                                        @foreach (var subtask in task.Subtasks)
+                                        {
+                                            @if (subtask.IsReady)
+                                            {
+                                                <li class="list-group-item">@subtask.ShortDescription <i class="fa fa-check"></i></li>
+                                            }
+                                            else
+                                            {
+                                                <li class="list-group-item">@subtask.ShortDescription</li>
+                                            }
+                                        }
+                                    </ul>
+                                }
+                                else
+                                {
+                                    <h6 class="text-danger">No subtasks added!</h6>
+                                }
+                            </div>
+                        </div>
+                    </div>
+
+                }
+            </div>
+        }
+    }
+}

@@ -7,6 +7,12 @@ for (var i = 0; i < takeBtns.length; i++) {
         let requestInfo = currentBtn.getAttribute("name");
         let subtaskId = requestInfo.split(",")[0];
         let userId = requestInfo.split(",")[1];
+        let aspArea = requestInfo.split(",")[2]
+        if (aspArea != undefined) {
+            aspArea = `&aspArea=${aspArea}`;
+        } else {
+            aspArea = "";
+        }
 
         $.ajax({
             type: 'GET',
@@ -21,7 +27,7 @@ for (var i = 0; i < takeBtns.length; i++) {
                     ElementToAddTo.innerHTML = `
                      ${subtaskDescHtml}
                     <p class="mb-1">Taken (By: ${data})<i class="fa fa-check" style="color: forestgreen"></i></p>
-                    <p class="mb-1">Ready <i class="fa fa-times" style="color: red"></i> <a class="btn btn-success" href="/Subtask/FinishSubtask?subtaskId=${subtaskId}">Mark as finished</a> </p>`;
+                    <p class="mb-1">Ready <i class="fa fa-times" style="color: red"></i> <a class="btn btn-success" href="/Subtask/FinishSubtask?subtaskId=${subtaskId}${aspArea}">Mark as finished</a> </p>`;
                 }
             },           
             error: function () {

@@ -1,6 +1,7 @@
 ﻿namespace TaskMe.Web.Controllers
 {
     using System.Threading.Tasks;
+
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
     using TaskMe.Data.Models;
@@ -27,11 +28,13 @@
             return this.Json(subtaskOwnerNames);
         }
 
-        public async Task<IActionResult> FinishSubtask(string subtaskId)
+        public async Task<IActionResult> FinishSubtask(string subtaskId, string aspArea = null)
         {
             await this.subtaskService.FinishSubtaskAsync(subtaskId);
             var parentTaskId = this.subtaskService.GetParentTaskId(subtaskId);
-            return this.Redirect($"/Supervisor/Task/Details/{parentTaskId}");
+
+            aspArea = aspArea == null ? string.Empty : $"/{aspArea}";
+            return this.Redirect($"{aspArea}/Task/Details/{parentTaskId}");
         }
     }
 }

@@ -1,10 +1,12 @@
 ﻿namespace TaskMe.Services.Data.Subtask
 {
+    using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
 
     using TaskMe.Data.Common.Repositories;
     using TaskMe.Data.Models;
+    using TaskMe.Services.Mapping;
 
     public class SubtaskService : ISubtaskService
     {
@@ -30,6 +32,14 @@
                 .Where(x => x.Id == subtaskId)
                 .Select(x => x.TaskId)
                 .FirstOrDefault();
+        }
+
+        public ICollection<T> GetSubtasksForUserInViewModel<T>(string userId, bool getOnlyReady = false)
+        {
+            return this.subtasks.All()
+                .Where(x => x.OwnerId == userId && x.IsReady == getOnlyReady)
+                .To<T>()
+                .ToList();
         }
 
         public async Task TakeSubtaskAsync(string subtaskId, string userId)

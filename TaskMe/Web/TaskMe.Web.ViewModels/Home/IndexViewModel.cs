@@ -1,16 +1,16 @@
 ﻿namespace TaskMe.Web.ViewModels.Home
 {
-    using TaskMe.Data.Models;
-    using TaskMe.Services.Mapping;
+    using System.Collections.Generic;
+    using System.Linq;
 
-    public class IndexViewModel : IMapFrom<ApplicationUser>
+    public class IndexViewModel
     {
-        public string FirstName { get; set; }
+        public HomeUserViewModel User { get; set; }
 
-        public string LastName { get; set; }
+        public ICollection<HomeSubtaskViewModel> Subtasks { get; set; }
 
-        public string UserNames { get => $"{this.FirstName} {this.LastName}"; }
+        public ICollection<HomeTaskViewModel> Tasks { get; set; }
 
-        public string PictureUrl { get; set; }
+        public ICollection<HomeTaskViewModel> WaitingTasks { get => this.Tasks.Where(x => x.Subtasks.Any(s => s.IsTaken == false)).ToList(); }
     }
 }

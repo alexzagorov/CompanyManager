@@ -31,15 +31,9 @@
                         }
                         else
                         {
-                            @if (this.User.Identity.Name == Model.OwnerUserName)
-                            {
-                                <p class="mb-1">Taken <i class="fa fa-times" style="color: red"></i></p>
-                            }
-                            else
-                            {
-                                <!--We pass info for the js by the name attribute of this button-->
-                                <p class="mb-1">Taken <i class="fa fa-times" style="color: red"></i> <button name="@($"{subtask.Id},{Model.CurrentUser.Id},Supervisor")" class="btn btn-outline-success takeButton">Take this Subtask</button> </p>
-                            }
+                            <!--We pass info for the js by the name attribute of this button-->
+                            <p class="mb-1">Taken <i class="fa fa-times" style="color: red"></i><button name="@($"{subtask.Id},{Model.CurrentUser.Id}")" class="btn btn-outline-success takeButton">Take this Subtask</button></p>
+
                         }
                         @if (subtask.IsReady)
                         {
@@ -49,12 +43,13 @@
                         {
                             @if (this.User.Identity.Name == subtask.OwnerUserName)
                             {
-                                <p class="mb-1">Ready <i class="fa fa-times" style="color: red"></i> <a asp-area="@null" asp-controller="Subtask" asp-action="FinishSubtask" asp-all-route-data="@(new Dictionary<string, string> { {"subtaskId", subtask.Id }, {"aspArea", "Supervisor" } })" class="btn btn-success">Mark as finished</a> </p>
+                                <p class="mb-1">Ready <i class="fa fa-times" style="color: red"></i> <a asp-area="@null" asp-controller="Subtask" asp-action="FinishSubtask" asp-route-subtaskId="@subtask.Id" class="btn btn-success">Mark as finished</a> </p>
                             }
                             else
                             {
-                            <p class="mb-1">Ready <i class="fa fa-times" style="color: red"></i></p>
+                                <p class="mb-1">Ready <i class="fa fa-times" style="color: red"></i></p>
                             }
+
                         }
                     </div>
                 }
@@ -119,5 +114,5 @@
 @section Scripts {
     <script src="~/js/taskDetails/signalRChatScript.js"></script>
     <script src="~/js/taskDetails/infiniteScroll.js"></script>
-    <script src="~/js/taskDetails/subtasksManipulations.js"></script>
+    <script src="~/js/taskDetails/subtasksManipulations.js"></script></script>
 }

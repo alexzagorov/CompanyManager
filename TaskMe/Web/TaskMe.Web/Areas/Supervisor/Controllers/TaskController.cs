@@ -1,8 +1,9 @@
 ﻿namespace TaskMe.Web.Areas.Supervisor.Controllers
 {
+    using System.Threading.Tasks;
+
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
-    using System.Threading.Tasks;
     using TaskMe.Data.Models;
     using TaskMe.Services.Data.Company;
     using TaskMe.Services.Data.Task;
