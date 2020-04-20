@@ -10,9 +10,9 @@
 
     public class MessageService : IMessageService
     {
-        private readonly IDeletableEntityRepository<Message> messages;
+        private readonly IRepository<Message> messages;
 
-        public MessageService(IDeletableEntityRepository<Message> messages)
+        public MessageService(IRepository<Message> messages)
         {
             this.messages = messages;
         }
@@ -23,6 +23,8 @@
                .OrderByDescending(x => x.CreatedOn)
                .Where(x => x.TaskId == taskId)
                .Skip(skip);
+
+            var justTest = this.messages.All().FirstOrDefault();
 
             if (take.HasValue)
             {
