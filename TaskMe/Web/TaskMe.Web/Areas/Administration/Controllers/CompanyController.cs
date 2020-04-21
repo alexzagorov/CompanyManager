@@ -43,9 +43,9 @@
             return this.View(viewModel);
         }
 
-        public IActionResult Delete(string id)
+        public async Task<IActionResult> Delete(string id)
         {
-            this.companyService.DeleteCompany(id);
+            await this.companyService.DeleteCompanyAsync(id);
             return this.Redirect(nameof(this.All));
         }
     }

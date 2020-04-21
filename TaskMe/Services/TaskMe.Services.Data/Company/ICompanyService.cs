@@ -17,6 +17,6 @@
 
         string GetIdByUserName(string username);
 
-        Task DeleteCompany(string id);
+        Task DeleteCompanyAsync(string id);
     }
 }

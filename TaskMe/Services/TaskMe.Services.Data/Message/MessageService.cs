@@ -10,9 +10,9 @@
 
     public class MessageService : IMessageService
     {
-        private readonly IRepository<Message> messages;
+        private readonly IDeletableEntityRepository<Message> messages;
 
-        public MessageService(IRepository<Message> messages)
+        public MessageService(IDeletableEntityRepository<Message> messages)
         {
             this.messages = messages;
         }

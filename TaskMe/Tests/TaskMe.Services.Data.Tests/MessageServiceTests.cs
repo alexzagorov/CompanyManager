@@ -7,6 +7,7 @@
 
     using Microsoft.EntityFrameworkCore;
     using TaskMe.Data;
+    using TaskMe.Data.Common.Repositories;
     using TaskMe.Data.Models;
     using TaskMe.Data.Repositories;
     using TaskMe.Services.Data.Message;
@@ -16,27 +17,33 @@
 
     public class MessageServiceTests
     {
+        private DbContextOptionsBuilder<ApplicationDbContext> dbOptions;
+        private ApplicationDbContext dbContext;
+        private IDeletableEntityRepository<Message> messagesRepository;
+
+        private IMessageService service;
+
+        public MessageServiceTests()
+        {
+            this.dbOptions = new DbContextOptionsBuilder<ApplicationDbContext>().UseInMemoryDatabase(Guid.NewGuid().ToString());
+            this.dbContext = new ApplicationDbContext(this.dbOptions.Options);
+            this.messagesRepository = new EfDeletableEntityRepository<Message>(this.dbContext);
+            this.service = new MessageService(this.messagesRepository);
+        }
+
         [Fact]
         public async Task SaveMessageAsyncShouldAddToDbOnce()
         {
-            var dbOptions = new DbContextOptionsBuilder<ApplicationDbContext>().UseInMemoryDatabase(Guid.NewGuid().ToString());
-            var messagesRepository = new EfRepository<Message>(new ApplicationDbContext(dbOptions.Options));
-            var service = new MessageService(messagesRepository);
+            await this.service.SaveMessageAsync("text", "taskId", "writerId");
 
-            await service.SaveMessageAsync("text", "taskId", "writerId");
-
-            Assert.Equal(1, await messagesRepository.All().CountAsync());
+            Assert.Equal(1, await this.messagesRepository.All().CountAsync());
         }
 
         [Fact]
         public async Task SaveMessageAsyncShouldAddToDbCorrectly()
         {
-            var dbOptions = new DbContextOptionsBuilder<ApplicationDbContext>().UseInMemoryDatabase(Guid.NewGuid().ToString());
-            var messagesRepository = new EfRepository<Message>(new ApplicationDbContext(dbOptions.Options));
-            var service = new MessageService(messagesRepository);
-
-            await service.SaveMessageAsync("text", "taskId", "writerId");
-            var message = await messagesRepository.All().FirstAsync();
+            await this.service.SaveMessageAsync("text", "taskId", "writerId");
+            var message = await this.messagesRepository.All().FirstAsync();
 
             Assert.Equal("text", message.Text);
             Assert.Equal("taskId", message.TaskId);
@@ -47,10 +54,6 @@
         public void LoadMessagesShouldReturnAllIfTakeNotPassed()
         {
             AutoMapperConfig.RegisterMappings(typeof(ChatMessageViewModel).GetTypeInfo().Assembly);
-            var dbOptions = new DbContextOptionsBuilder<ApplicationDbContext>().UseInMemoryDatabase(Guid.NewGuid().ToString());
-            var dbContext = new ApplicationDbContext(dbOptions.Options);
-            var messagesRepository = new EfRepository<Message>(dbContext);
-            var service = new MessageService(messagesRepository);
 
             var messagesToAdd = new List<Message>
             {
@@ -62,9 +65,9 @@
                 new Message { TaskId = "taskId", Text = "text", WriterId = "writerId", CreatedOn = DateTime.UtcNow.AddSeconds(6) },
                 new Message { TaskId = "taskId", Text = "text", WriterId = "writerId", CreatedOn = DateTime.UtcNow.AddSeconds(7) },
             };
-            dbContext.AddRange(messagesToAdd);
-            dbContext.SaveChanges();
-            var messages = service.LoadMessages<ChatMessageViewModel>("taskId");
+            this.dbContext.AddRange(messagesToAdd);
+            this.dbContext.SaveChanges();
+            var messages = this.service.LoadMessages<ChatMessageViewModel>("taskId");
 
             Assert.Equal(messagesToAdd.Count, messages.Count);
         }
@@ -73,10 +76,6 @@
         public void LoadMessagesShouldReturnCorrectCountIfPassedTakeAndSkip()
         {
             AutoMapperConfig.RegisterMappings(typeof(ChatMessageViewModel).GetTypeInfo().Assembly);
-            var dbOptions = new DbContextOptionsBuilder<ApplicationDbContext>().UseInMemoryDatabase(Guid.NewGuid().ToString());
-            var dbContext = new ApplicationDbContext(dbOptions.Options);
-            var messagesRepository = new EfRepository<Message>(dbContext);
-            var service = new MessageService(messagesRepository);
 
             var messagesToAdd = new List<Message>
             {
@@ -88,9 +87,9 @@
                 new Message { TaskId = "taskId", Text = "text", WriterId = "writerId", CreatedOn = DateTime.UtcNow.AddSeconds(6) },
                 new Message { TaskId = "taskId", Text = "text", WriterId = "writerId", CreatedOn = DateTime.UtcNow.AddSeconds(7) },
             };
-            dbContext.AddRange(messagesToAdd);
-            dbContext.SaveChanges();
-            var messages = service.LoadMessages<ChatMessageViewModel>("taskId", 3, 1);
+            this.dbContext.AddRange(messagesToAdd);
+            this.dbContext.SaveChanges();
+            var messages = this.service.LoadMessages<ChatMessageViewModel>("taskId", 3, 1);
 
             Assert.Equal(3, messages.Count);
         }
@@ -99,10 +98,6 @@
         public void LoadMessagesShouldReturnCorrectlyIfSkipPlusTakeIsMoreThanActualCount()
         {
             AutoMapperConfig.RegisterMappings(typeof(ChatMessageViewModel).GetTypeInfo().Assembly);
-            var dbOptions = new DbContextOptionsBuilder<ApplicationDbContext>().UseInMemoryDatabase(Guid.NewGuid().ToString());
-            var dbContext = new ApplicationDbContext(dbOptions.Options);
-            var messagesRepository = new EfRepository<Message>(dbContext);
-            var service = new MessageService(messagesRepository);
 
             var messagesToAdd = new List<Message>
             {
@@ -114,10 +109,10 @@
                 new Message { TaskId = "taskId", Text = "text", WriterId = "writerId", CreatedOn = DateTime.UtcNow.AddSeconds(6) },
                 new Message { TaskId = "taskId", Text = "text", WriterId = "writerId", CreatedOn = DateTime.UtcNow.AddSeconds(7) },
             };
-            dbContext.AddRange(messagesToAdd);
-            dbContext.SaveChanges();
+            this.dbContext.AddRange(messagesToAdd);
+            this.dbContext.SaveChanges();
 
-            var messages = service.LoadMessages<ChatMessageViewModel>("taskId", 3, 6);
+            var messages = this.service.LoadMessages<ChatMessageViewModel>("taskId", 3, 6);
 
             Assert.Equal(1, messages.Count);
         }

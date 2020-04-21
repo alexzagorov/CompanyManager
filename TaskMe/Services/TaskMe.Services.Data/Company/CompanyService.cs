@@ -55,7 +55,7 @@
             }
         }
 
-        public async Task DeleteCompany(string id)
+        public async Task DeleteCompanyAsync(string id)
         {
             var company = this.companies.All().FirstOrDefault(x => x.Id == id);
             if (company != null)
