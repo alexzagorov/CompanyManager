@@ -17,6 +17,11 @@
 
         public async Task<string> AddPictureAsync(string url)
         {
+            if (string.IsNullOrEmpty(url))
+            {
+                throw new InvalidOperationException("Exception happened in PictureService while saving the Picture in IDeletableEntityRepository<Picture> - Url is Required");
+            }
+
             var picture = new Picture() { Url = url };
 
             await this.pictures.AddAsync(picture);

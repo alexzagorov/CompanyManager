@@ -2,11 +2,13 @@
 {
     using System.Threading.Tasks;
 
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
     using TaskMe.Data.Models;
     using TaskMe.Services.Data.Subtask;
 
+    [Authorize]
     public class SubtaskController : BaseController
     {
         private readonly ISubtaskService subtaskService;

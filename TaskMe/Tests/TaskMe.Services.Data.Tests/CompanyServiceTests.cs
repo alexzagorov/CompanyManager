@@ -177,5 +177,31 @@
 
             Assert.Equal("nameToGet", name);
         }
+
+        [Fact]
+        public void GetIdByUserNameShouldReturnCompanyIdInWhichTheUserParticipates()
+        {
+            var usersForCompany = new List<ApplicationUser>
+            {
+                new ApplicationUser { FirstName = "Ivan", LastName = "Ivanov", Email = "van_van@abv.bg", UserName = "van_van@abv.bg", PasswordHash = "sjeigjsdfhsf" },
+                new ApplicationUser { FirstName = "Petur", LastName = "Ivanov", Email = "petur_van@abv.bg", UserName = "petur_van@abv.bg", PasswordHash = "sjeigjsdfhsf" },
+            };
+
+            var companiesToAdd = new List<Company>
+            {
+                new Company { Name = "nameToGet", CompanyPicture = new Picture { Url = "url" }, Employees = usersForCompany },
+                new Company { Name = "name", CompanyPicture = new Picture { Url = "url" } },
+                new Company { Name = "name", CompanyPicture = new Picture { Url = "url" } },
+                new Company { Name = "name", CompanyPicture = new Picture { Url = "url" } },
+            };
+
+            this.dbContext.Companies.AddRange(companiesToAdd);
+            this.dbContext.SaveChanges();
+
+            var expectedId = companiesToAdd.FirstOrDefault(x => x.Name == "nameToGet").Id;
+            var actualId = this.service.GetIdByUserName("petur_van@abv.bg");
+
+            Assert.Equal(expectedId, actualId);
+        }
     }
 }

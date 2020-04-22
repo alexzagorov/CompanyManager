@@ -20,7 +20,10 @@
         public async Task FinishSubtaskAsync(string subtaskId)
         {
             var subtask = this.subtasks.All().FirstOrDefault(x => x.Id == subtaskId);
-            subtask.IsReady = true;
+            if (subtask.IsTaken)
+            {
+                subtask.IsReady = true;
+            }
 
             this.subtasks.Update(subtask);
             await this.subtasks.SaveChangesAsync();
@@ -45,8 +48,11 @@
         public async Task TakeSubtaskAsync(string subtaskId, string userId)
         {
             var subtask = this.subtasks.All().FirstOrDefault(x => x.Id == subtaskId);
-            subtask.OwnerId = userId;
-            subtask.IsTaken = true;
+            if (!subtask.IsTaken)
+            {
+                subtask.OwnerId = userId;
+                subtask.IsTaken = true;
+            }
 
             this.subtasks.Update(subtask);
             await this.subtasks.SaveChangesAsync();
