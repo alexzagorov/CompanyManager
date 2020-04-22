@@ -22,6 +22,7 @@
     using TaskMe.Web.ViewModels.Administration.Company;
     using Xunit;
 
+    [Collection(nameof(MapperFixture))]
     public class CompanyServiceTests
     {
         private DbContextOptionsBuilder<ApplicationDbContext> dbOptions;
@@ -120,7 +121,6 @@
         [Fact]
         public async Task GetAllCompaniesInViewModelShouldGetAllInSpecifiedViewModel()
         {
-            AutoMapperConfig.RegisterMappings(typeof(EachCompanyViewModel).GetTypeInfo().Assembly);
             var companiesToAdd = new List<Company>
             {
                 new Company { Name = "name", CompanyPicture = new Picture { Url = "url" } },
@@ -136,6 +136,46 @@
 
             Assert.IsType<EachCompanyViewModel>(result.FirstOrDefault());
             Assert.Equal(await this.dbContext.Companies.CountAsync(), result.Count());
+        }
+
+        [Fact]
+        public void GetCompanyInViewModelShouldGetCompanyInSpecifiedViewModel()
+        {
+            var companiesToAdd = new List<Company>
+            {
+                new Company { Name = "name", CompanyPicture = new Picture { Url = "url" } },
+                new Company { Name = "name", CompanyPicture = new Picture { Url = "url" } },
+                new Company { Name = "name", CompanyPicture = new Picture { Url = "url" } },
+                new Company { Name = "name", CompanyPicture = new Picture { Url = "url" } },
+            };
+
+            this.dbContext.Companies.AddRange(companiesToAdd);
+            this.dbContext.SaveChanges();
+
+            var companyId = companiesToAdd.FirstOrDefault().Id;
+            var result = this.service.GetCompanyInViewModel<EachCompanyViewModel>(companyId);
+
+            Assert.IsType<EachCompanyViewModel>(result);
+        }
+
+        [Fact]
+        public void GetCompanyNameByIdShouldGetTheNameCorrectly()
+        {
+            var companiesToAdd = new List<Company>
+            {
+                new Company { Name = "nameToGet", CompanyPicture = new Picture { Url = "url" } },
+                new Company { Name = "name", CompanyPicture = new Picture { Url = "url" } },
+                new Company { Name = "name", CompanyPicture = new Picture { Url = "url" } },
+                new Company { Name = "name", CompanyPicture = new Picture { Url = "url" } },
+            };
+
+            this.dbContext.Companies.AddRange(companiesToAdd);
+            this.dbContext.SaveChanges();
+
+            var companyId = companiesToAdd.FirstOrDefault(x => x.Name == "nameToGet").Id;
+            var name = this.service.GetCompanyNameById(companyId);
+
+            Assert.Equal("nameToGet", name);
         }
     }
 }

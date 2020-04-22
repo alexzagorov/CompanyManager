@@ -15,6 +15,7 @@
     using TaskMe.Web.ViewModels.Common.Chat;
     using Xunit;
 
+    [Collection(nameof(MapperFixture))]
     public class MessageServiceTests
     {
         private DbContextOptionsBuilder<ApplicationDbContext> dbOptions;
@@ -51,10 +52,8 @@
         }
 
         [Fact]
-        public void LoadMessagesShouldReturnAllIfTakeNotPassed()
+        public async Task LoadMessagesShouldReturnAllIfTakeNotPassed()
         {
-            AutoMapperConfig.RegisterMappings(typeof(ChatMessageViewModel).GetTypeInfo().Assembly);
-
             var messagesToAdd = new List<Message>
             {
                 new Message { TaskId = "taskId", Text = "text", WriterId = "writerId", CreatedOn = DateTime.UtcNow.AddSeconds(1) },
@@ -65,18 +64,16 @@
                 new Message { TaskId = "taskId", Text = "text", WriterId = "writerId", CreatedOn = DateTime.UtcNow.AddSeconds(6) },
                 new Message { TaskId = "taskId", Text = "text", WriterId = "writerId", CreatedOn = DateTime.UtcNow.AddSeconds(7) },
             };
-            this.dbContext.AddRange(messagesToAdd);
-            this.dbContext.SaveChanges();
+            await this.dbContext.AddRangeAsync(messagesToAdd);
+            await this.dbContext.SaveChangesAsync();
             var messages = this.service.LoadMessages<ChatMessageViewModel>("taskId");
 
             Assert.Equal(messagesToAdd.Count, messages.Count);
         }
 
         [Fact]
-        public void LoadMessagesShouldReturnCorrectCountIfPassedTakeAndSkip()
+        public async Task LoadMessagesShouldReturnCorrectCountIfPassedTakeAndSkip()
         {
-            AutoMapperConfig.RegisterMappings(typeof(ChatMessageViewModel).GetTypeInfo().Assembly);
-
             var messagesToAdd = new List<Message>
             {
                 new Message { TaskId = "taskId", Text = "text", WriterId = "writerId", CreatedOn = DateTime.UtcNow.AddSeconds(1) },
@@ -87,18 +84,16 @@
                 new Message { TaskId = "taskId", Text = "text", WriterId = "writerId", CreatedOn = DateTime.UtcNow.AddSeconds(6) },
                 new Message { TaskId = "taskId", Text = "text", WriterId = "writerId", CreatedOn = DateTime.UtcNow.AddSeconds(7) },
             };
-            this.dbContext.AddRange(messagesToAdd);
-            this.dbContext.SaveChanges();
+            await this.dbContext.AddRangeAsync(messagesToAdd);
+            await this.dbContext.SaveChangesAsync();
             var messages = this.service.LoadMessages<ChatMessageViewModel>("taskId", 3, 1);
 
             Assert.Equal(3, messages.Count);
         }
 
         [Fact]
-        public void LoadMessagesShouldReturnCorrectlyIfSkipPlusTakeIsMoreThanActualCount()
+        public async Task LoadMessagesShouldReturnCorrectlyIfSkipPlusTakeIsMoreThanActualCount()
         {
-            AutoMapperConfig.RegisterMappings(typeof(ChatMessageViewModel).GetTypeInfo().Assembly);
-
             var messagesToAdd = new List<Message>
             {
                 new Message { TaskId = "taskId", Text = "text", WriterId = "writerId", CreatedOn = DateTime.UtcNow.AddSeconds(1) },
@@ -109,8 +104,8 @@
                 new Message { TaskId = "taskId", Text = "text", WriterId = "writerId", CreatedOn = DateTime.UtcNow.AddSeconds(6) },
                 new Message { TaskId = "taskId", Text = "text", WriterId = "writerId", CreatedOn = DateTime.UtcNow.AddSeconds(7) },
             };
-            this.dbContext.AddRange(messagesToAdd);
-            this.dbContext.SaveChanges();
+            await this.dbContext.AddRangeAsync(messagesToAdd);
+            await this.dbContext.SaveChangesAsync();
 
             var messages = this.service.LoadMessages<ChatMessageViewModel>("taskId", 3, 6);
 
