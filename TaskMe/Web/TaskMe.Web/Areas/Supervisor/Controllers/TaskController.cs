@@ -1,5 +1,6 @@
 ﻿namespace TaskMe.Web.Areas.Supervisor.Controllers
 {
+    using System.Linq;
     using System.Threading.Tasks;
 
     using Microsoft.AspNetCore.Identity;
@@ -52,8 +53,12 @@
 
         public IActionResult Create()
         {
+            var currentUserId = this.userManager.GetUserId(this.User);
             var companyId = this.companyService.GetIdByUserName(this.User.Identity.Name);
-            var employees = this.userService.GetUsersInCompanyInViewModel<EmployeesDropdownViewModel>(companyId);
+            var employees = this.userService
+                .GetUsersInCompanyInViewModelAsync<EmployeesDropdownViewModel>(companyId)
+                .Result
+                .Where(x => x.Id != currentUserId);
             return this.View(new CreateTaskInputModel { Employees = employees });
         }
 
@@ -64,7 +69,7 @@
 
             if (!this.ModelState.IsValid)
             {
-                var employees = this.userService.GetUsersInCompanyInViewModel<EmployeesDropdownViewModel>(companyId);
+                var employees = await this.userService.GetUsersInCompanyInViewModelAsync<EmployeesDropdownViewModel>(companyId);
                 inputModel.Employees = employees;
 
                 return this.View(inputModel);

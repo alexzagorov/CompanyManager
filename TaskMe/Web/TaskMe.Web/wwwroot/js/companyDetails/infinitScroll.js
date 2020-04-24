@@ -18,22 +18,27 @@
             data: { "pageindex": pageIndex, "pagesize": pageSize },
             dataType: 'json',
             success: function (data) {
-                if (data != null) {
+                if (data != null && data.length > 0) {
                     for (var i = 0; i < data.length; i++) {
                         $("#employees").append(` 
-<tr> 
-<td>
-<img class=\"rounded-circle border-dark\" src=\"${data[i].pictureUrl}" width=\"20\" height=\"20\" /> <strong>${data[i].firstName} ${data[i].lastName}</strong>
-</td>
-<td>
-<strong>Email: ${data[i].email} </strong>
-</td>
-<td>
-<strong>Form: ${data[i].createdOnShort} </strong>
-</td>
-</tr>`);
+                            <tr> 
+                                <td>
+                                    <img class=\"rounded-circle border-dark\" src=\"${data[i].pictureUrl}" width=\"20\" height=\"20\" /> <strong>${data[i].firstName} ${data[i].lastName}</strong>
+                                </td>
+                                <td>
+                                    <strong>Email: ${data[i].email} </strong>
+                                </td>
+                                <td>
+                                    <strong>Form: ${data[i].createdOnShort} </strong>
+                                </td>
+                            </tr>`);
                     }
                     pageIndex++;
+                } else {
+                    $("#employees").append(`
+                        <tr>
+                            <td class="text-danger">There are no emoloyees at this moment!</td>
+                        </tr>`);                        
                 }
             },
             beforeSend: function () {

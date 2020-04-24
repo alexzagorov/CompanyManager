@@ -23,7 +23,7 @@
                         <div class="col-md-6">
                             <h6>Count of Employees</h6>
                             <p>
-                                @Model.EmployeesCount
+                                @(Model.EmployeesCount - 1)
                             </p>
                             <h6>Registered</h6>
                             <p>
@@ -44,21 +44,28 @@
                     <div class="row">
                         <div class="col-md-9">
                             <h4 class="mt-2"><span class="fa fa-clock-o ion-clock float-right"></span>All supervisors</h4>
-                            <table class="table table-sm table-hover table-striped">
-                                <tbody>
-                                    @foreach (var supervisor in this.Model.Supervisors)
-                                    {
-                                        <tr>
-                                            <td>
-                                                <img class="rounded-circle border-dark" src="@supervisor.PictureUrl" width="20" height="20" /> <strong>@($"{supervisor.FirstName} {supervisor.LastName}")</strong>
-                                            </td>
-                                            <td>
-                                                <a name="@supervisor.Id" data-toggle="modal" data-target="#confirm-delete" class="btn btn-danger fireButton">Fire!</a>
-                                            </td>
-                                        </tr>
-                                    }
-                                </tbody>
-                            </table>
+                            @if (!this.Model.Supervisors.Any())
+                            {
+                                <p class="text-danger align-self-center mx-auto">No supervisors!</p>
+                            }
+                            else
+                            {
+                                <table class="table table-sm table-hover table-striped">
+                                    <tbody>
+                                        @foreach (var supervisor in this.Model.Supervisors)
+                                        {
+                                            <tr>
+                                                <td>
+                                                    <img class="rounded-circle border-dark" src="@supervisor.PictureUrl" width="20" height="20" /> <strong>@($"{supervisor.FirstName} {supervisor.LastName}")</strong>
+                                                </td>
+                                                <td>
+                                                    <a name="@supervisor.Id" data-toggle="modal" data-target="#confirm-delete" class="btn btn-danger fireButton">Fire!</a>
+                                                </td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            }
                         </div>
                         <div class="col-md-3 align-self-center mx-auto">
                             <a class="btn btn-primary" asp-area="Manager" asp-controller="User" asp-action="RegisterSupervisor">Register new Supervisor</a>
@@ -79,19 +86,28 @@
         <h5 class="mt-2"><span class="fa fa-clock-o ion-clock float-right"></span>Recent Tasks</h5>
         <table class="table table-sm table-hover table-striped">
             <tbody>
-                @foreach (var task in Model.Tasks)
+                @if (!Model.Tasks.Any())
                 {
                     <tr>
-                        <td>
-                            <strong>@task.Name</strong>
-                        </td>
-                        <td>
-                            Start Date: @task.StartDate.ToShortDateString()  End Date: @task.EndDate?.ToShortDateString()
-                        </td>
-                        <td>
-                            <strong>From: @task.OwnerUserName</strong>
-                        </td>
+                        <td class="text-danger">There are no open tasks at this moment!</td>
                     </tr>
+                }
+                else
+                {
+                    @foreach (var task in Model.Tasks)
+                    {
+                        <tr>
+                            <td>
+                                <strong>@task.Name</strong>
+                            </td>
+                            <td>
+                                Start Date: @task.StartDate.ToShortDateString()  End Date: @task.EndDate?.ToShortDateString()
+                            </td>
+                            <td>
+                                <strong>From: @task.OwnerUserName</strong>
+                            </td>
+                        </tr>
+                    }
                 }
             </tbody>
         </table>

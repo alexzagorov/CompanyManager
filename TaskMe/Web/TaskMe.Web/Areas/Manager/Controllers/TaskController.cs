@@ -48,10 +48,10 @@
             return this.View(viewModel);
         }
 
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
             var companyId = this.companyService.GetIdByUserName(this.User.Identity.Name);
-            var employees = this.userService.GetUsersInCompanyInViewModel<EmployeesDropdownViewModel>(companyId);
+            var employees = await this.userService.GetUsersInCompanyInViewModelAsync<EmployeesDropdownViewModel>(companyId);
             return this.View(new CreateTaskInputModel { Employees = employees });
         }
 
@@ -62,7 +62,7 @@
 
             if (!this.ModelState.IsValid)
             {
-                var employees = this.userService.GetUsersInCompanyInViewModel<EmployeesDropdownViewModel>(companyId);
+                var employees = await this.userService.GetUsersInCompanyInViewModelAsync<EmployeesDropdownViewModel>(companyId);
                 inputModel.Employees = employees;
 
                 return this.View(inputModel);

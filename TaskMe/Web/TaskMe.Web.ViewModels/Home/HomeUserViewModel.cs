@@ -12,5 +12,7 @@
         public string UserNames { get => $"{this.FirstName} {this.LastName}"; }
 
         public string PictureUrl { get; set; }
+
+        public string UserName { get; set; }
     }
 }

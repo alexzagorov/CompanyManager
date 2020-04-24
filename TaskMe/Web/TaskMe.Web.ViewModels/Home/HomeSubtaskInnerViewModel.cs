@@ -10,5 +10,7 @@
         public bool IsReady { get; set; }
 
         public bool IsTaken { get; set; }
+
+        public string OwnerUserName { get; set; }
     }
 }

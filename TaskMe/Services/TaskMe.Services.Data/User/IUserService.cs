@@ -9,7 +9,7 @@
     {
         Task RegisterUserForCompanyAsync(RegisterUserInputModel inputModel, string roleName = null);
 
-        IEnumerable<T> GetUsersInCompanyInViewModel<T>(string companyId);
+        Task<IEnumerable<T>> GetUsersInCompanyInViewModelAsync<T>(string companyId);
 
         Task<IEnumerable<T>> GetSupervisorsInCompanyInViewModelAsync<T>(string companyId);
 

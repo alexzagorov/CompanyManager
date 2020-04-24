@@ -32,10 +32,11 @@
         }
 
         // Infinite scroll uses this (Needs to be refactored)
-        public IActionResult LoadEmployees(int pageIndex, int pageSize)
+        public async Task<IActionResult> LoadEmployees(int pageIndex, int pageSize)
         {
             string companyId = this.companyService.GetIdByUserName(this.User.Identity.Name);
-            var employees = this.userService.GetUsersInCompanyInViewModel<EmployeeInnerViewModel>(companyId)
+            var employees = this.userService.GetUsersInCompanyInViewModelAsync<EmployeeInnerViewModel>(companyId)
+                .Result
                 .Skip(pageIndex * pageSize)
                 .Take(pageSize);
 

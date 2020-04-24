@@ -46,7 +46,7 @@
         public async Task<IActionResult> Delete(string id)
         {
             await this.companyService.DeleteCompanyAsync(id);
-            return this.Redirect(nameof(this.All));
+            return this.RedirectToAction(nameof(this.All));
         }
     }
 }

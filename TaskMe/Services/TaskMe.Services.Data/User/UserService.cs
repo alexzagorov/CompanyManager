@@ -79,9 +79,10 @@
             }
         }
 
-        public IEnumerable<T> GetUsersInCompanyInViewModel<T>(string companyId)
+        public async Task<IEnumerable<T>> GetUsersInCompanyInViewModelAsync<T>(string companyId)
         {
-            return this.users.All().Where(x => x.CompanyId == companyId)
+            var managerRoleId = await this.roleManager.FindByNameAsync(GlobalConstants.ManagerRoleName);
+            return this.users.All().Where(x => x.CompanyId == companyId && !x.Roles.Any(ur => ur.RoleId == managerRoleId.Id))
                 .To<T>()
                 .ToList();
         }

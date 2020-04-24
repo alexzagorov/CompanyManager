@@ -11,6 +11,14 @@
 
         public ICollection<HomeTaskViewModel> Tasks { get; set; }
 
-        public ICollection<HomeTaskViewModel> WaitingTasks { get => this.Tasks.Where(x => x.Subtasks.Any(s => s.IsTaken == false)).ToList(); }
+        public ICollection<HomeTaskViewModel> WaitingTasks
+        {
+            get
+            {
+                return this.Tasks
+                    .Where(x => x.Subtasks.Any(s => s.IsTaken == false) && !x.Subtasks.Any(s => s.OwnerUserName == this.User.UserName))
+                    .ToList();
+            }
+        }
     }
 }
