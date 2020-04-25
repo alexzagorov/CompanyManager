@@ -11,9 +11,6 @@
                 <li class="nav-item">
                     <a id="supervisorButton" data-target="#supervisors" data-toggle="tab" class="nav-link">Supervisors</a>
                 </li>
-                <li class="nav-item">
-                    <a href="" data-target="#edit" data-toggle="tab" class="nav-link">Messages</a>
-                </li>
             </ul>
             <div class="tab-content py-4">
                 <!--Company part-->
@@ -43,7 +40,7 @@
                     <h4 class="mb-3">Supervisors Control</h4>
                     <div class="row">
                         <div class="col-md-9">
-                            <h4 class="mt-2"><span class="fa fa-clock-o ion-clock float-right"></span>All supervisors</h4>
+                            <h4 class="mt-2">All supervisors</h4>
                             @if (!this.Model.Supervisors.Any())
                             {
                                 <p class="text-danger align-self-center mx-auto">No supervisors!</p>
@@ -83,7 +80,7 @@
     <!--Tasks-->
 
     <div class="row-md-12">
-        <h5 class="mt-2"><span class="fa fa-clock-o ion-clock float-right"></span>Recent Tasks</h5>
+        <h5 class="mt-2">Recent Tasks</h5>
         <table class="table table-sm table-hover table-striped">
             <tbody>
                 @if (!Model.Tasks.Any())
@@ -115,7 +112,7 @@
 
     <!--Employees-->
     <div class="row-md-12 scrollable">
-        <h5 class="mt-2"><span class="fa fa-clock-o ion-clock float-right"></span>Employees</h5>
+        <h5 class="mt-2">Employees</h5>
         <table class="table table-sm table-hover table-striped">
             <tbody id="employees">
                 <!--Here works the js-->

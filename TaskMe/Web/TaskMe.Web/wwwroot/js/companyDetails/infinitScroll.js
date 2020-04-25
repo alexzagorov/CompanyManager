@@ -34,7 +34,7 @@
                             </tr>`);
                     }
                     pageIndex++;
-                } else {
+                } else if (data == null) {
                     $("#employees").append(`
                         <tr>
                             <td class="text-danger">There are no emoloyees at this moment!</td>
